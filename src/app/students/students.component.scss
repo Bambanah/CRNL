@@ -1,0 +1,58 @@
+$color_1: white;
+$color_2: #607D8B;
+$background_color_1: #CFD8DC;
+$background_color_2: #EEE;
+$background_color_3: #BBD8DC;
+$background_color_4: #DDD;
+$background_color_5: #607D8B;
+
+/* StudentsComponent's private CSS styles */
+.selected {
+	background-color: $background_color_1 !important;
+	color: $color_1;
+}
+.students {
+	margin: 0 0 2em 0;
+	list-style-type: none;
+	padding: 0;
+	width: 15em;
+	li {
+		cursor: pointer;
+		position: relative;
+		left: 0;
+		background-color: $background_color_2;
+		margin: .5em;
+		padding: .3em 0;
+		height: 1.6em;
+		border-radius: 4px;
+		&:hover {
+			color: $color_2;
+			background-color: $background_color_4;
+			left: .1em;
+		}
+	}
+	li.selected {
+		&:hover {
+			background-color: $background_color_3 !important;
+			color: $color_1;
+		}
+	}
+	.text {
+		position: relative;
+		top: -3px;
+	}
+	.badge {
+		display: inline-block;
+		font-size: small;
+		color: $color_1;
+		padding: 0.8em 0.7em 0 0.7em;
+		background-color: $background_color_5;
+		line-height: 1em;
+		position: relative;
+		left: -1px;
+		top: -4px;
+		height: 1.8em;
+		margin-right: .8em;
+		border-radius: 4px 0 0 4px;
+	}
+}

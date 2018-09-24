@@ -7,7 +7,7 @@ import { STUDENTS } from '../mock-students';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.css']
+  styleUrls: ['./students.component.scss']
 })
 export class StudentsComponent implements OnInit {
   students: Student[];
