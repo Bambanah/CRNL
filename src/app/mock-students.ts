@@ -8,5 +8,13 @@ export const STUDENTS: Student[] = [
   { id: 14, name: 'Samantha' },
   { id: 15, name: 'Sam' },
   { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
+  { id: 16, name: 'Chris' },
   { id: 17, name: 'Lauren' }
 ];

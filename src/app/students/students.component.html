@@ -1,9 +1,28 @@
-<h2>All Students</h2>
-<ul class="students">
-  <li *ngFor="let student of students">
-    <a routerLink="/student/{{student.id}}">
-      <span class="studentId">{{student.id}}</span> {{student.name}}
-    </a>
+<div class="content">
+  <div class="table-wrapper">
 
-  </li>
-</ul>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th width="5%" scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th width="10%" scope="col">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <th scope="row">{{student.id}}</th>
+          <td>{{student.name}}</td>
+          <td class="detail-td">
+            <a mdbBtn color="info" size="sm" routerLink="/student/{{student.id}}" class="detail-button">Details</a>
+          </td>
+        </tr>
+
+
+
+      </tbody>
+    </table>
+
+  </div>
+</div>
+

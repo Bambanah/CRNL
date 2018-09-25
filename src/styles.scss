@@ -1,36 +1,7 @@
-$color_1: #369;
-$color_2: #444;
-$color_3: #888;
-$font_family_1: Arial, Helvetica, sans-serif;
-$font_family_2: Cambria, Georgia;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
-h1 {
-	color: $color_1;
-	font-family: $font_family_1;
-	font-size: 250%;
-}
-h2 {
-	color: $color_2;
-	font-family: $font_family_1;
-	font-weight: lighter;
-}
-h3 {
-	color: $color_2;
-	font-family: $font_family_1;
-	font-weight: lighter;
-}
-body {
-	color: $color_3;
-	font-family: $font_family_2;
-}
-input[text] {
-	color: $color_3;
-	font-family: $font_family_2;
-}
-button {
-	color: $color_3;
-	font-family: $font_family_2;
-}
+$font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Roboto', sans-serif;
+
 * {
-	font-family: $font_family_1;
+  font-family: $font_family_1;
 }
