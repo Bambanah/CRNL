@@ -5,3 +5,6 @@ $font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
 * {
   font-family: $font_family_1;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }

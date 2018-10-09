@@ -2,9 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import {StudentService} from '../student.service';
-
-import { Student } from '../student';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-student-detail',
@@ -13,26 +11,25 @@ import { Student } from '../student';
 })
 export class StudentDetailComponent implements OnInit {
 
-  @Input() student: Student;
+
 
   constructor(
     private route: ActivatedRoute,
-    private studentService: StudentService,
-    private location: Location
+    private api: ApiService
   ) { }
 
+  student = {};
+
+  getStudentDetails(id) {
+    this.api.getStudent(id)
+      .subscribe(data => {
+        console.log(data);
+        this.student = data;
+      });
+  }
+
   ngOnInit() {
-    this.getStudent();
-  }
-
-  getStudent(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.studentService.getStudent(id)
-      .subscribe(student => this.student = student);
-  }
-
-  goBack(): void {
-    this.location.back();
+    this.getStudentDetails(this.route.snapshot.params['id']);
   }
 
 }

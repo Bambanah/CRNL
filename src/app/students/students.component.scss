@@ -1,27 +1,44 @@
-.content {
-  padding: 1em 3em;
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+  overflow: auto;
 }
 
-.table {
-  max-height: 5rem;
-
-  th {
-    padding: 0.5rem 0.2rem;
-  }
-  td {
-    padding: 0.5rem 0.2rem;
-  }
-
-  .detail-td {
-    text-align: center;
-    .detail-button {
-      font-size: 0.75rem;
-    }
-  }
+.isbn-col {
+  flex: 0 0 100px !important;
+  white-space: unset !important;
 }
 
-.table-wrapper {
-  height: 50rem;
-  width: 100%;
-  overflow:auto;
+.button-row {
+  margin: 10px 0;
 }
+
+// .content {
+//   padding: 1em 3em;
+// }
+
+// .table {
+//   max-height: 5rem;
+
+//   th {
+//     padding: 0.5rem 0.2rem;
+//   }
+//   td {
+//     padding: 0.5rem 0.2rem;
+//   }
+
+//   .detail-td {
+//     text-align: center;
+//     .detail-button {
+//       font-size: 0.75rem;
+//     }
+//   }
+// }
+
+// .table-wrapper {
+//   height: 50rem;
+//   width: 100%;
+//   overflow:auto;
+// }

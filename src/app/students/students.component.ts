@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { StudentService } from '../student.service';
-
-import { Student } from '../student';
+import { ApiService } from '../services/api.service';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-students',
@@ -9,16 +9,35 @@ import { Student } from '../student';
   styleUrls: ['./students.component.scss']
 })
 export class StudentsComponent implements OnInit {
-  students: Student[];
 
-  constructor(private studentService: StudentService) { }
+  constructor(private api: ApiService) { }
+
+  students: any;
+
+  displayedColumns = ['first_name', 'last_name', 'gpa'];
+  dataSource = new StudentDataSource(this.api);
 
   ngOnInit() {
-    this.getStudents();
+    this.api.getStudents()
+    .subscribe(res => {
+      console.log(res);
+      this.students = res;
+    }, err => {
+      console.log(err);
+    });
+  }
+}
+
+export class StudentDataSource extends DataSource<any> {
+  constructor(private api: ApiService) {
+    super();
   }
 
-  getStudents(): void {
-    this.studentService.getStudents()
-      .subscribe(students => this.students = students);
+  connect() {
+    return this.api.getStudents();
+  }
+
+  disconnect() {
+
   }
 }

@@ -4,11 +4,27 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { CreateStudentComponent } from './create-student/create-student.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'students', component: StudentsComponent},
-  {path: 'student/:id', component: StudentDetailComponent}
+  {
+    path: '',
+    component: HomeComponent,
+    data: {title: 'Home'}
+  },
+  {
+    path: 'students',
+    component: StudentsComponent,
+    data: {title: 'Students'}
+  },
+  {
+    path: 'students/:id',
+    component: StudentDetailComponent
+  },
+  {
+    path: 'create-student',
+    component: CreateStudentComponent
+  }
 ];
 
 @NgModule({
