@@ -12,7 +12,10 @@ import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
-  MatFormFieldModule } from '@angular/material';
+  MatFormFieldModule,
+  MatSelectModule,
+  MatOptionModule,
+  MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -63,7 +66,10 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
