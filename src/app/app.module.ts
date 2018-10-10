@@ -27,6 +27,8 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateStudentComponent } from './create-student/create-student.component';
+import { SideProfileComponent } from './side-profile/side-profile.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 
 
@@ -40,7 +42,9 @@ import { CreateStudentComponent } from './create-student/create-student.componen
     MainNavComponent,
     PostCreateComponent,
     PostListComponent,
-    CreateStudentComponent
+    CreateStudentComponent,
+    SideProfileComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,
