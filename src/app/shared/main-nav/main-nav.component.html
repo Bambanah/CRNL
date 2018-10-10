@@ -6,13 +6,13 @@
 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect routerLink="">Home</a>
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['/']" routerLinkActive="router-link-active" >Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect routerLink="students">Students</a>
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['students']" routerLinkActive="router-link-active" >Students</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect routerLink="teams">Teams</a>
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['teams']" routerLinkActive="router-link-active" >Teams</a>
             </li>
         </ul>
 
