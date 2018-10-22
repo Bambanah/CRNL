@@ -1,27 +1,12 @@
-# TestApp
+# QUT Compass
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+## Introduction
+QUT Compass aims to unify the current methods of team formation within the IFB398/IFB399 units provided by QUT into a cohesive, functional platform. The current tools available for this process are an official Facebook group, and official icebreaker sessions held in the first week of semester. Academics were then forced to keep track of ~350 students with spreadsheets, while gathering information from multiple sources. 
+The end result will be a platform akin to a small-scale social network, with students able to create personalised profiles, create posts describing their ideal group members, as well as create and manage teams, and communicate with other students and tutors. This report documents the intended process to be used by the CRNL team in the development of our proposed system to aid in the forming of teams for students enrolled in IFB398/IFB399. There also exists potential future expansion for use in other subjects.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Client Requirements
+The project in question was supplied to us as an academic project by QUT. Our point of contact has provided us with a list of requirements which must be met for the project to be of satisfactory completion. These requirements are being considered as a guideline to effectively structure our planned implementation and ensure our efforts are being appropriately directed.
+Should work as a restricted social network, in which students can post their requests/offers, but should be tailored to the task at hand, so that open requests don’t disappear down the list, and it is evident at a glance how many offers are out there, from who, what skills are available/needed, etc.
+Frontend must react appropriately to different sized viewing screens (eg. Mobiles, Tablets, Laptops etc.)
+Dashboard for the teaching staff to monitor the number of teams, communicate informally with the students, suggest possible matches, and offer feedback on team formation
+Optionally, explore an intelligent agent (similar to Amazon’s book recommendation system) to help students find a match based on skills, interests, availability etc.
