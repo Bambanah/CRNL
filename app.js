@@ -8,7 +8,7 @@ var logger = require('morgan');
 var app = express();
 
 //
-// API Handling for Angular Frontend
+// API HANDLING
 //
 
 // Routes for API URLs
@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 });
 
 //
-// Database Config
+// DATABASE CONFIG
 //
 
 // Initiate database
@@ -42,6 +42,11 @@ mongoose.connect('mongodb://localhost/crnl-app', {
 
 // Use new method to remove deprecation warning
 mongoose.set('useCreateIndex', true);
+
+//
+// EXPRESS
+//
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -60,7 +65,7 @@ app.use('/api', apiRouter);
 
 
 //
-// Error Handling
+// ERROR HANDLING
 //
 
 // Catch 404 and forward to error handler
