@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 var mongoose = require('mongoose');
 
 //Connect to database
-mongoose.connect('mongodb://localhost/crnl-app', {
+mongoose.connect('mongodb+srv://bambanah:CFTAWNUqSN8ar06o@crnl-dev-jzybg.mongodb.net/test?retryWrites=true', {
   promiseLibrary: require('bluebird'),
   useNewUrlParser: true
 })
