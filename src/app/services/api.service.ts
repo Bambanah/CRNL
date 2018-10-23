@@ -85,6 +85,7 @@ export class ApiService {
   }
 
   postPost(data): Observable<any> {
+    console.log(data);
     return this.http.post(postUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)

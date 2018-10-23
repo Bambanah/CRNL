@@ -67,7 +67,9 @@ router.get('/posts/:id', function(req, res, next) {
 
 /* CREATE POST */
 router.post('/posts/', function(req, res, next) {
-  // console.log(req.body);
+  console.log(req.body);
+  const post = new Post(req.body);
+  post.save();
   // Post.create(req.body, function (err, post) {
   //   if (err) return next(err);
   //   res.json(post);

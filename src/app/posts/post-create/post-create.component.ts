@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-create',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostCreateComponent implements OnInit {
 
-  constructor() { }
+  postCreateForm: FormGroup;
+  title: string;
+  content: string;
+
+  constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.postCreateForm = this.formBuilder.group({
+      'title' : [null, Validators.required],
+      'content' : [null, Validators.required],
+    });
+  }
+
+  onFormSubmit(form: NgForm) {
+
+    this.api.postPost(form)
+      .subscribe(res => {
+        this.router.navigate(['/']);
+      }, (err) => {
+          console.log(err);
+        });
   }
 
 }

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import 'variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 $font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 'Roboto', sans-serif;
 
@@ -7,4 +9,7 @@ $font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+body {
+  margin: 0;
+  font-family: $font_family_1;
+}

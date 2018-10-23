@@ -9,6 +9,11 @@ import { CreateStudentComponent } from './create-student/create-student.componen
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
     component: HomeComponent,
     data: {title: 'Home'}
   },

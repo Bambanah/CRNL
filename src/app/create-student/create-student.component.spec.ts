@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentComponent } from './create-student.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MatIconModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,7 +18,6 @@ describe('CreateStudentComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        MDBBootstrapModule,
         MatIconModule,
         MatFormFieldModule,
         MatInputModule,

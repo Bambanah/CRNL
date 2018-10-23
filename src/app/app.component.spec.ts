@@ -3,7 +3,6 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
@@ -16,8 +15,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        RouterModule,
-        MDBBootstrapModule
+        RouterModule
       ]
     }).compileComponents();
   }));

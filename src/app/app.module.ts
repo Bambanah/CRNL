@@ -17,8 +17,9 @@ import {
   MatOptionModule,
   MatToolbarModule } from '@angular/material';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -32,8 +33,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-
-
 
 @NgModule({
   declarations: [
@@ -55,9 +54,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
-    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
+    NgbModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
