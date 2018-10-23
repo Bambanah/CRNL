@@ -23,7 +23,6 @@ export class StudentDetailComponent implements OnInit {
   getStudentDetails(id) {
     this.api.getStudent(id)
       .subscribe(data => {
-        console.log(data);
         this.student = data;
       });
   }

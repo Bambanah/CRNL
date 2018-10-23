@@ -12,7 +12,7 @@ var app = express();
 //
 
 // Routes for API URLs
-var apiRouter = require('./routes/student');
+var apiRouter = require('./routes/api-routes');
 
 // Set headers for API requests
 app.use((req, res, next) => {
@@ -46,7 +46,6 @@ mongoose.set('useCreateIndex', true);
 //
 // EXPRESS
 //
-
 
 app.use(logger('dev'));
 app.use(express.json());

@@ -21,7 +21,7 @@ var StudentSchema = new mongoose.Schema({
     type: String,
     lowercase: true,
     unique: true,
-    required: [true, "can't be blank"],
+    required: [false, "can't be blank"],
     match: [/\S+@\S+\.\S+/, 'is invalid']
   },
   // Phone number, with validated format
@@ -33,7 +33,7 @@ var StudentSchema = new mongoose.Schema({
       },
       message: props => `${props.value} is not a valid phone number!`
     },
-    required: [true, 'User phone number required']
+    required: [false, 'User phone number required']
   },
   // GPA 1.0-7.0
   gpa: {

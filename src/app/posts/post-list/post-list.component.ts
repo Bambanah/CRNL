@@ -12,4 +12,9 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
   }
 
+<<<<<<< Updated upstream
+=======
+  disconnect() {}
+
+>>>>>>> Stashed changes
 }
