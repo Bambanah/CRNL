@@ -51,7 +51,7 @@ router.delete('/students/:id', function(req, res, next) {
 
 /* GET ALL POSTS */
 router.get('/posts/', function(req, res, next) {
-  Post.find(function (err, products) {
+  Post.find({}).sort('-updatedAt').exec(function (err, products) {
     if (err) return next(err);
     res.json(products);
   });

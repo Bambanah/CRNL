@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
@@ -24,13 +24,11 @@ export class PostCreateComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-
     this.api.postPost(form)
-      .subscribe(res => {
-        this.router.navigate(['/']);
-      }, (err) => {
+      .subscribe((err) => {
           console.log(err);
         });
+    this.router.navigate(['/']);
   }
 
 }

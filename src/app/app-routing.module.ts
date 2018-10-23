@@ -5,12 +5,17 @@ import { HomeComponent } from './home/home.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { CreateStudentComponent } from './create-student/create-student.component';
+import { BlankComponent } from './blank/blank.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'blank',
+    component: BlankComponent
   },
   {
     path: 'home',

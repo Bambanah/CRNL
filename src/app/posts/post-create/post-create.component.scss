@@ -11,22 +11,14 @@
 }
 
 .card {
-  width: 30rem;
+  width: 40rem;
 
   form {
     width: 100%;
 
-    input: {
-      font-weight: bold;
+    textarea {
+      resize: none;
     }
-    // textarea {
-    //   width: 100%;
-    //   resize: none;
-    //   border: none;
-    //   border-bottom: 1px solid #ddd;
-    //   padding: 1rem;
-    //   border-radius: 5px;
-    // }
   }
 }
 

@@ -33,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
+import { BlankComponent } from './blank/blank.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     PostListComponent,
     CreateStudentComponent,
     SideProfileComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    BlankComponent
   ],
   imports: [
     BrowserModule,
