@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-students',
@@ -20,7 +19,6 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
     this.api.getStudents()
     .subscribe(res => {
-      console.log(res);
       this.students = res;
     }, err => {
       console.log(err);

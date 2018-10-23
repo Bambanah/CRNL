@@ -34,5 +34,5 @@ export class PostDataSource extends DataSource<any> {
   }
 
   disconnect() {}
-  
+
 }

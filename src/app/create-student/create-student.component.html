@@ -15,19 +15,19 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="GPA" formControlName="gpa">
+    <input matInput placeholder="Major" formControlName="major">
     <mat-error>
-      <span *ngIf="!studentForm.get('gpa').valid && studentForm.get('gpa').touched">Please enter Book Author</span>
+      <span *ngIf="!studentForm.get('major').valid && studentForm.get('major').touched">Please enter major</span>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <textarea matInput placeholder="Email" formControlName="email"></textarea>
+    <textarea matInput placeholder="Minor" formControlName="minor"></textarea>
     <mat-error>
-      <span *ngIf="!studentForm.get('email').valid && studentForm.get('email').touched">Please enter Book Description</span>
+      <span *ngIf="!studentForm.get('minor').valid && studentForm.get('minor').touched">Please enter minor</span>
     </mat-error>
   </mat-form-field>
 
   <div class="button-row">
-    <button type="submit" [disabled]="!studentForm.valid" mat-raised-button color="primary"><mat-icon>Save</mat-icon></button>
+    <button type="submit" [disabled]="!studentForm.valid" mat-raised-button color="primary"><mat-icon>Tick</mat-icon></button>
   </div>
 </form>

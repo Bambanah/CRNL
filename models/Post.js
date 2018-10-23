@@ -1,8 +1,14 @@
 var mongoose = require('mongoose');
 
 var PostSchema = new mongoose.Schema({
-    message: String,
-    author: String
+  title: {
+    type: String,
+    required: true
+  },
+  content: {
+    type: String,
+    required: true
+  }
 }, {timestamps: true});
 
 module.exports = mongoose.model('Post', PostSchema);

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Student = require('../models/Student.js');
-var Post = require('../models/Post.js');
+var Student = require('../models/Student');
+var Post = require('../models/Post');
 
 router.get('/', function(req, res, next) {
   res.send('API Test');
@@ -26,9 +26,10 @@ router.get('/students/:id', function(req, res, next) {
 
 /* SAVE STUDENT */
 router.post('/students/', function(req, res, next) {
-  Student.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
+  const student = new Student(req.body);
+  student.save();
+  res.status(201).json({
+    id: student._id
   });
 });
 
@@ -64,12 +65,13 @@ router.get('/posts/:id', function(req, res, next) {
   });
 });
 
-/* SAVE POST */
+/* CREATE POST */
 router.post('/posts/', function(req, res, next) {
-  Post.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  // console.log(req.body);
+  // Post.create(req.body, function (err, post) {
+  //   if (err) return next(err);
+  //   res.json(post);
+  // });
 });
 
 /* UPDATE POST */
