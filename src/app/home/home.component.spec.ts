@@ -1,6 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
+import { SideProfileComponent } from '../side-profile/side-profile.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { StudentsComponent } from '../students/students.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatFormFieldModule, MatSelectModule, MatToolbarModule, MatTableModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -8,7 +16,23 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [
+        HomeComponent,
+        SideProfileComponent,
+        SearchBarComponent,
+        StudentsComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        FormsModule,
+        MatToolbarModule,
+        MatTableModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+      ]
     })
     .compileComponents();
   }));
