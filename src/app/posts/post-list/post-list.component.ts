@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-post-list',
@@ -7,14 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService) { }
+
+  posts: any;
 
   ngOnInit() {
+    this.api.getPosts()
+    .subscribe(res => {
+      console.log(res);
+      this.posts = res;
+    }, err => {
+      console.log(err);
+    });
+  }
+}
+
+export class PostDataSource extends DataSource<any> {
+  constructor(private api: ApiService) {
+    super();
   }
 
-<<<<<<< Updated upstream
-=======
+  connect() {
+    return this.api.getPosts();
+  }
+
   disconnect() {}
 
->>>>>>> Stashed changes
 }

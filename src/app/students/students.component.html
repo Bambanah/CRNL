@@ -25,32 +25,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/students/', row._id]"></tr>
   </table>
 </div>
-
-<!-- <div class="content">
-  <div class="table-wrapper">
-
-    <table class="table table-bordered table-striped">
-      <thead>
-        <tr>
-          <th width="5%" scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th width="10%" scope="col">Details</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let student of students">
-          <th scope="row">{{student.id}}</th>
-          <td>{{student.name}}</td>
-          <td class="detail-td">
-            <a mdbBtn color="info" size="sm" routerLink="/students/{{student.id}}" class="detail-button">Details</a>
-          </td>
-        </tr>
-
-
-
-      </tbody>
-    </table>
-
-  </div>
-</div>
- -->

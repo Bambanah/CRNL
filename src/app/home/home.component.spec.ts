@@ -9,6 +9,7 @@ import { MatFormFieldModule, MatSelectModule, MatToolbarModule, MatTableModule }
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostListComponent } from '../posts/post-list/post-list.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -20,7 +21,8 @@ describe('HomeComponent', () => {
         HomeComponent,
         SideProfileComponent,
         SearchBarComponent,
-        StudentsComponent
+        StudentsComponent,
+        PostListComponent
       ],
       imports: [
         RouterTestingModule,

@@ -35,7 +35,5 @@ export class StudentDataSource extends DataSource<any> {
     return this.api.getStudents();
   }
 
-  disconnect() {
-
-  }
+  disconnect() {}
 }
