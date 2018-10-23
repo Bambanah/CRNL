@@ -1,12 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-<<<<<<< Updated upstream:routes/student.js
-var Student = require('../models/Student.js');
-=======
 var Student = require('../models/Student');
 var Post = require('../models/Post');
->>>>>>> Stashed changes:routes/api-routes.js
 
 router.get('/', function(req, res, next) {
   res.send('API Test');
@@ -53,8 +49,6 @@ router.delete('/students/:id', function(req, res, next) {
   });
 });
 
-<<<<<<< Updated upstream:routes/student.js
-=======
 /* GET ALL POSTS */
 router.get('/posts/', function(req, res, next) {
   Post.find(function (err, products) {
@@ -96,5 +90,4 @@ router.delete('/posts/:id', function(req, res, next) {
   });
 });
 
->>>>>>> Stashed changes:routes/api-routes.js
 module.exports = router;
