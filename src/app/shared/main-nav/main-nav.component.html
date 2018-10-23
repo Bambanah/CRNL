@@ -1,0 +1,20 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark primary-color-dark">
+
+    <mdb-navbar-brand><a class="navbar-brand" routerLink=""><img src="assets/images/QUT_Logo.PNG" /> Compass</a></mdb-navbar-brand>
+
+    <links>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['']" routerLinkActive="router-link-active" >Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['students']" routerLinkActive="router-link-active" >Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect [routerLink]="['teams']" routerLinkActive="router-link-active" >Teams</a>
+            </li>
+        </ul>
+    </links>
+
+</mdb-navbar>
