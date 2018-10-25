@@ -28,11 +28,12 @@ export class CreateStudentComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     this.api.postStudent(form)
       .subscribe(res => {
-          const id = res['id'];
-          this.router.navigate(['/students', id]);
-        }, (err) => {
-          console.log(err);
-        });
+        console.log(res);
+        const id = res['id'];
+        this.router.navigate(['/students', id]);
+      }, (err) => {
+        console.log(err);
+      });
   }
 
 }

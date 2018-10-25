@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var Student = require('../models/Student');
 var Post = require('../models/Post');
 
-router.get('/', function(req, res, next) {
+// EXCLUSIVELY FOR TESTING
+router.get('/', function(res) {
   res.send('API Test');
 });
 
@@ -67,13 +68,10 @@ router.get('/posts/:id', function(req, res, next) {
 
 /* CREATE POST */
 router.post('/posts/', function(req, res, next) {
-  console.log(req.body);
-  const post = new Post(req.body);
-  post.save();
-  // Post.create(req.body, function (err, post) {
-  //   if (err) return next(err);
-  //   res.json(post);
-  // });
+  Post.create(req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 /* UPDATE POST */

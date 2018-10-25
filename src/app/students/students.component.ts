@@ -16,14 +16,7 @@ export class StudentsComponent implements OnInit {
   displayedColumns = ['name', 'major', 'minor'];
   dataSource = new StudentDataSource(this.api);
 
-  ngOnInit() {
-    this.api.getStudents()
-    .subscribe(res => {
-      this.students = res;
-    }, err => {
-      console.log(err);
-    });
-  }
+  ngOnInit() { }
 }
 
 export class StudentDataSource extends DataSource<any> {
