@@ -4,6 +4,7 @@ import { MainNavComponent } from './main-nav.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatToolbarModule } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('MainNavComponent', () => {
   let component: MainNavComponent;
@@ -16,7 +17,8 @@ describe('MainNavComponent', () => {
       ],
       imports: [
         MatToolbarModule,
-        RouterTestingModule
+        RouterTestingModule,
+        NgbModule
       ]
     })
     .compileComponents();
