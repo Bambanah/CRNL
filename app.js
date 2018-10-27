@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var config = require('./config/database');
+var passport = require('passport');
 
 // Initiate Express
 var app = express();
@@ -32,7 +34,7 @@ app.use((req, res, next) => {
 var mongoose = require('mongoose');
 
 //Connect to database
-mongoose.connect('mongodb+srv://bambanah:CFTAWNUqSN8ar06o@crnl-dev-jzybg.mongodb.net/test?retryWrites=true', {
+mongoose.connect(config.database, {
   promiseLibrary: require('bluebird'),
   useNewUrlParser: true
 })
@@ -47,6 +49,7 @@ mongoose.set('useCreateIndex', true);
 // EXPRESS
 //
 
+app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
