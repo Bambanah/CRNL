@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
@@ -19,9 +19,8 @@ export class CreateStudentComponent implements OnInit {
 
   ngOnInit() {
     this.studentForm = this.formBuilder.group({
-      'first_name' : [null, Validators.required],
-      'last_name' : [null, Validators.required],
       'email' : [null, Validators.required],
+      'password' : [null, Validators.required]
     });
   }
 

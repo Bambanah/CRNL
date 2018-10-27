@@ -24,12 +24,56 @@ router.get('/students/:id', function(req, res, next) {
   });
 });
 
-/* SAVE STUDENT */
-router.post('/students/', function(req, res, next) {
-  const student = new Student(req.body);
-  student.save();
-  res.status(201).json({
-    id: student._id
+// /* SAVE STUDENT */
+// router.post('/students/', function(req, res, next) {
+//   const student = new Student(req.body);
+//   student.save();
+//   res.status(201).json({
+//     id: student._id
+//   });
+// });
+
+// Create new student
+router.post('/students/', function(req, res) {
+  if (!req.body.username || !req.body.password) {
+    res.json({success: false, msg: 'Please pass username and password.'});
+  } else {
+    const newStudent = new Student({
+      username: req.body.username,
+      password: req.body.password
+    });
+    // save the student
+    newStudent.save(function(err) {
+      if (err) {
+        return res.json({success: false, msg: 'Username already exists.'});
+      }
+      res.json({success: true, msg: 'Successful created new user.'});
+    });
+  }
+});
+
+// Sign in user
+router.post('/signin', function(req, res) {
+  Student.findOne({
+    username: req.body.username
+  }, function(err, student) {
+    if (err) throw err;
+
+    if (!student) {
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    } else {
+      // check if password matches
+      student.comparePassword(req.body.password, function (err, isMatch) {
+        if (isMatch && !err) {
+          // if user is found and password is right create a token
+          var token = jwt.sign(student.toJSON(), config.secret);
+          // return the information including token as JSON
+          res.json({success: true, token: 'JWT ' + token});
+        } else {
+          res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+        }
+      });
+    }
   });
 });
 
@@ -87,6 +131,25 @@ router.delete('/posts/:id', function(req, res, next) {
     if (err) return next(err);
     res.json(post);
   });
+});
+
+// API Route for user signup
+router.post('/students', function(req, res) {
+  if (!req.body.username || !req.body.password) {
+    res.json({success: false, msg: 'Please pass username and password.'});
+  } else {
+    var newStudent = new Student({
+      username: req.body.username,
+      password: req.body.password
+    });
+    // save the student
+    newStudent.save(function(err) {
+      if (err) {
+        return res.json({success: false, msg: 'Username already exists.'});
+      }
+      res.json({success: true, msg: 'Successful created new user.'});
+    });
+  }
 });
 
 module.exports = router;

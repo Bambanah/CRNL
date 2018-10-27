@@ -24,23 +24,24 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
-import { StudentsComponent } from './students/students.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { StudentListComponent } from './students/student-list/student-list.component';
+import { StudentDetailComponent } from './students/student-detail/student-detail.component';
+import { CreateStudentComponent } from './students/create-student/create-student.component';
 import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateStudentComponent } from './create-student/create-student.component';
 import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { BlankComponent } from './blank/blank.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FooterComponent,
-    StudentsComponent,
+    StudentListComponent,
     StudentDetailComponent,
     MainNavComponent,
     PostCreateComponent,
@@ -48,7 +49,8 @@ import { BlankComponent } from './blank/blank.component';
     CreateStudentComponent,
     SideProfileComponent,
     SearchBarComponent,
-    BlankComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

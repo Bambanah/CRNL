@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { StudentsComponent } from './students/students.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
-import { CreateStudentComponent } from './create-student/create-student.component';
-import { BlankComponent } from './blank/blank.component';
+import { StudentListComponent } from './students/student-list/student-list.component';
+import { StudentDetailComponent } from './students/student-detail/student-detail.component';
+import { CreateStudentComponent } from './students/create-student/create-student.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
   {
@@ -14,17 +15,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'blank',
-    component: BlankComponent
-  },
-  {
     path: 'home',
     component: HomeComponent,
     data: {title: 'Home'}
   },
   {
     path: 'students',
-    component: StudentsComponent,
+    component: StudentListComponent,
     data: {title: 'Students'}
   },
   {
@@ -34,7 +31,15 @@ const routes: Routes = [
   {
     path: 'create-student',
     component: CreateStudentComponent
-  }
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
+  },
 ];
 
 @NgModule({

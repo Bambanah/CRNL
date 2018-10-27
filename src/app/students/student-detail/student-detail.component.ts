@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-student-detail',

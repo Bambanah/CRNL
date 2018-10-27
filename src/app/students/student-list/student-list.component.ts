@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../services/api.service';
+import { ApiService } from '../../services/api.service';
 import { DataSource } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'app-students',
-  templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  selector: 'app-student-list',
+  templateUrl: './student-list.component.html',
+  styleUrls: ['./student-list.component.scss']
 })
-export class StudentsComponent implements OnInit {
+export class StudentListComponent implements OnInit {
 
   constructor(private api: ApiService) { }
 
