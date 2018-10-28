@@ -48,7 +48,7 @@ mongoose.set('useCreateIndex', true);
 //
 // EXPRESS
 //
-
+require('./config/passport');
 app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from "@angular/router";
-import { tap, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -9,23 +9,28 @@ import { tap, catchError } from 'rxjs/operators';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  studentForm: FormGroup;
+  email: string;
+  password: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
-
-  signupData = { email:'', password:'' };
-  message = '';
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
-  }
-
-  signup() {
-    console.log(this.signupData);
-    this.http.post('/api/students/',this.signupData).subscribe(resp => {
-      console.log(resp);
-      this.router.navigate(['login']);
-    }, err => {
-      this.message = err.error.msg;
+    this.studentForm = this.formBuilder.group({
+      email: [null, Validators.required],
+      password: [null, Validators.required]
     });
   }
 
+  onFormSubmit(form: NgForm) {
+    console.log(form);
+    this.auth.signup(form).subscribe(err => {
+      console.log(err);
+    });
+    this.router.navigate(['login']);
+  }
 }

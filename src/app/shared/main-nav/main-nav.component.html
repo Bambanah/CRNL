@@ -1,27 +1,35 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top mat-elevation-z2 ">
-    <a class="navbar-brand" [routerLink]="['/home']"><img src="assets/images/QUT_Logo.PNG" /> Compass</a>
-    <button class="navbar-toggler hidden-sm-up" type="button" (click)="isCollapsed = !isCollapsed" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active" >Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/students']" routerLinkActive="router-link-active" >Students</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/teams']" routerLinkActive="router-link-active" >Teams</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav">
+  <a class="navbar-brand" [routerLink]="['/home']"><img src="assets/images/QUT_Logo.PNG" /> Compass</a>
+  <button class="navbar-toggler hidden-sm-up" type="button" (click)="isCollapsed = !isCollapsed" data-target="#navbarsDefault"
+    aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/students']" routerLinkActive="router-link-active">Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/teams']" routerLinkActive="router-link-active">Teams</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[ '/login' ]"><small>Log In</small></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[ '/signup' ]"><small>Sign Up</small></a>
         </li>
-      </ul>
-    </div>
-  </nav>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="[ '/login' ]"><small>Sign Out</small></a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>

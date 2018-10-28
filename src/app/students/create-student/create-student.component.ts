@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../../services/api.service';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-create-student',
@@ -9,29 +9,28 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
   styleUrls: ['./create-student.component.scss']
 })
 export class CreateStudentComponent implements OnInit {
-
   studentForm: FormGroup;
   email: string;
   password: string;
 
-  constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.studentForm = this.formBuilder.group({
-      'email' : [null, Validators.required],
-      'password' : [null, Validators.required]
+      email: [null, Validators.required],
+      password: [null, Validators.required]
     });
   }
 
   onFormSubmit(form: NgForm) {
     console.log(form);
-    this.api.postStudent(form)
-      .subscribe(res => {
-        const id = res['id'];
-        this.router.navigate(['/students/', id]);
-      }, (err) => {
-        console.log(err);
-      });
+    this.auth.signup(form).subscribe(err => {
+      console.log(err);
+    });
+    this.router.navigate(['login']);
   }
-
 }

@@ -7,6 +7,7 @@ import { StudentDetailComponent } from './students/student-detail/student-detail
 import { CreateStudentComponent } from './students/create-student/create-student.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,12 +18,12 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: {title: 'Home'}
+    data: { title: 'Home' }
   },
   {
     path: 'students',
     component: StudentListComponent,
-    data: {title: 'Students'}
+    data: { title: 'Students' }
   },
   {
     path: 'students/:id',
@@ -39,11 +40,11 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
-  },
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [ RouterModule ]
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
+  })
 };
-const signinUrl = 'http://localhost:3000/api/signin';
 const studentUrl = 'http://localhost:3000/api/students';
 const postUrl = 'http://localhost:3000/api/posts';
+const apiUrl = 'http://localhost:3000/api';
+
+import { User } from '../_models/User.js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -25,8 +33,8 @@ export class ApiService {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
@@ -34,85 +42,79 @@ export class ApiService {
 
   private extractData(res: Response) {
     const body = res;
-    return body || { };
+    return body || {};
+  }
+
+  getAll() {
+    return this.http.get<User[]>(apiUrl + '/users');
   }
 
   getStudents(): Observable<any> {
     return this.http.get(studentUrl, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError));
+      catchError(this.handleError)
+    );
   }
 
   getStudent(id: string): Observable<any> {
     const url = `${studentUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError));
+      catchError(this.handleError)
+    );
   }
 
   postStudent(data): Observable<any> {
-    return this.http.post(studentUrl, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .post(studentUrl, data, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   updateStudent(data): Observable<any> {
-    return this.http.put(studentUrl, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .put(studentUrl, data, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   deleteStudent(id: string): Observable<{}> {
     const url = `${studentUrl}/${id}`;
-    return this.http.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .delete(url, httpOptions)
+      .pipe(catchError(this.handleError));
   }
-  signin(data): Observable<{}> {
-    return this.http.post(signinUrl, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
-  
 
   getPosts(): Observable<any> {
     return this.http.get(postUrl, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError));
+      catchError(this.handleError)
+    );
   }
 
   getPost(id: string): Observable<any> {
     const url = `${postUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError));
+      catchError(this.handleError)
+    );
   }
 
   postPost(data): Observable<any> {
     console.log(data);
-    return this.http.post(postUrl, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .post(postUrl, data, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   updatePost(data): Observable<any> {
-    return this.http.put(postUrl, data, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .put(postUrl, data, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   deletePost(id: string): Observable<{}> {
     const url = `${postUrl}/${id}`;
-    return this.http.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http
+      .delete(url, httpOptions)
+      .pipe(catchError(this.handleError));
   }
-
 }

@@ -69,7 +69,7 @@ var StudentSchema = new mongoose.Schema({
   timestamps: true
 });
 
-StudentSchema.virtual('full_name').get(function() {
+StudentSchema.virtual('full_name').get(function () {
   return this.first_name + this.last_name;
 });
 
