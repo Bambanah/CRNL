@@ -6,6 +6,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
 };
+const signinUrl = 'http://localhost:3000/api/signin';
 const studentUrl = 'http://localhost:3000/api/students';
 const postUrl = 'http://localhost:3000/api/posts';
 
@@ -70,6 +71,13 @@ export class ApiService {
         catchError(this.handleError)
       );
   }
+  signin(data): Observable<{}> {
+    return this.http.post(signinUrl, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+  
 
   getPosts(): Observable<any> {
     return this.http.get(postUrl, httpOptions).pipe(

@@ -33,7 +33,7 @@ var StudentSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
     required: [true, "can't be blank"],
-    // match: [/\S+@\S+\.\S+/, 'is invalid']
+    match: [/\S+@\S+\.\S+/, 'is invalid']
   },
   // Phone number, with validated format
   phone_number: {
@@ -69,6 +69,10 @@ var StudentSchema = new mongoose.Schema({
   timestamps: true
 });
 
+StudentSchema.virtual('full_name').get(function() {
+  return this.first_name + this.last_name;
+});
+
 StudentSchema.pre('save', function (next) {
   const student = this;
   if (student.isModified('password') || student.isNew) {
@@ -76,9 +80,7 @@ StudentSchema.pre('save', function (next) {
       if (err) {
         return next(err);
       }
-      console.log(hash);
       student.password = hash;
-      student.save();
       next();
     });
   } else {
@@ -86,8 +88,8 @@ StudentSchema.pre('save', function (next) {
   }
 });
 
-StudentSchema.methods.comparePassword = function (passw, cb) {
-  bcrypt.compare(passw, this.password, function (err, isMatch) {
+StudentSchema.methods.comparePassword = function (password, cb) {
+  bcrypt.compare(password, this.password, function (err, isMatch) {
     if (err) {
       return cb(err);
     }
