@@ -1,5 +1,7 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 
 var StudentSchema = new mongoose.Schema({
   first_name: String,
@@ -13,7 +15,8 @@ var StudentSchema = new mongoose.Schema({
     enum: [
       'Computer Science',
       'Information Systems',
-      'Unspecified'],
+      'Unspecified'
+    ],
     default: 'Unspecified'
   },
   minor: {
@@ -21,7 +24,8 @@ var StudentSchema = new mongoose.Schema({
     enum: [
       'Intelligent Systems',
       'Information Security',
-      'Unspecified'],
+      'Unspecified'
+    ],
     default: 'Unspecified'
   },
   email: {
@@ -29,13 +33,13 @@ var StudentSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
     required: [true, "can't be blank"],
-    match: [/\S+@\S+\.\S+/, 'is invalid']
+    // match: [/\S+@\S+\.\S+/, 'is invalid']
   },
   // Phone number, with validated format
   phone_number: {
     type: String,
     validate: {
-      validator: function(v) {
+      validator: function (v) {
         return /\d{4}-\d{3}-\d{3}/.test(v);
       },
       message: props => `${props.value} is not a valid phone number!`
@@ -61,34 +65,33 @@ var StudentSchema = new mongoose.Schema({
     default: 'Unspecified'
   }],
   password: String
-}, {timestamps: true});
+}, {
+  timestamps: true
+});
 
 StudentSchema.pre('save', function (next) {
-  var user = this;
-  if (this.isModified('password') || this.isNew) {
-      bcrypt.genSalt(10, function (err, salt) {
-          if (err) {
-              return next(err);
-          }
-          bcrypt.hash(user.password, salt, null, function (err, hash) {
-              if (err) {
-                  return next(err);
-              }
-              user.password = hash;
-              next();
-          });
-      });
+  const student = this;
+  if (student.isModified('password') || student.isNew) {
+    bcrypt.hash(this.password, saltRounds, function (err, hash) {
+      if (err) {
+        return next(err);
+      }
+      console.log(hash);
+      student.password = hash;
+      student.save();
+      next();
+    });
   } else {
-      return next();
+    return next();
   }
 });
 
 StudentSchema.methods.comparePassword = function (passw, cb) {
   bcrypt.compare(passw, this.password, function (err, isMatch) {
-      if (err) {
-          return cb(err);
-      }
-      cb(null, isMatch);
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
   });
 };
 

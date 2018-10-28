@@ -11,9 +11,8 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 export class CreateStudentComponent implements OnInit {
 
   studentForm: FormGroup;
-  first_name: string;
-  last_name: string;
   email: string;
+  password: string;
 
   constructor(private router: Router, private api: ApiService, private formBuilder: FormBuilder) { }
 
@@ -25,11 +24,11 @@ export class CreateStudentComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
+    console.log(form);
     this.api.postStudent(form)
       .subscribe(res => {
-        console.log(res);
         const id = res['id'];
-        this.router.navigate(['/students', id]);
+        this.router.navigate(['/students/', id]);
       }, (err) => {
         console.log(err);
       });

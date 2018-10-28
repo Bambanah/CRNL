@@ -35,19 +35,21 @@ router.get('/students/:id', function(req, res, next) {
 
 // Create new student
 router.post('/students/', function(req, res) {
-  if (!req.body.username || !req.body.password) {
-    res.json({success: false, msg: 'Please pass username and password.'});
+  if (!req.body.email || !req.body.password) {
+    res.status(500).json({success: false, message: 'Please pass email and password.'});
   } else {
-    const newStudent = new Student({
-      username: req.body.username,
-      password: req.body.password
-    });
-    // save the student
-    newStudent.save(function(err) {
+    const student = new Student(req.body);
+
+    //Save student to database
+    student.save(function(err) {
       if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
+        return res.status(500).json({success: false, message: 'Email already exists.'});
       }
-      res.json({success: true, msg: 'Successful created new user.'});
+    });
+    res.status(201).json({
+      success: true,
+      message: 'Successful created new student.',
+      id: student._id
     });
   }
 });

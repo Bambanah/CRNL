@@ -4,21 +4,15 @@
   </div>
   <form [formGroup]="studentForm" (ngSubmit)="onFormSubmit(studentForm.value)">
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name" formControlName="first_name">
-      <mat-error>
-        <span *ngIf="!studentForm.get('first_name').valid && studentForm.get('first_name').touched">Please enter First Name</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Last Name" formControlName="last_name">
-      <mat-error>
-        <span *ngIf="!studentForm.get('last_name').valid && studentForm.get('last_name').touched">Please enter Last Name</span>
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
       <input matInput placeholder="Email" formControlName="email">
       <mat-error>
         <span *ngIf="!studentForm.get('email').valid && studentForm.get('email').touched">Please enter email</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Password" formControlName="password">
+      <mat-error>
+        <span *ngIf="!studentForm.get('password').valid && studentForm.get('password').touched">Please enter password</span>
       </mat-error>
     </mat-form-field>
 

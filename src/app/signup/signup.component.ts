@@ -12,13 +12,14 @@ export class SignupComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  signupData = { username:'', password:'' };
+  signupData = { email:'', password:'' };
   message = '';
 
   ngOnInit() {
   }
 
   signup() {
+    console.log(this.signupData);
     this.http.post('/api/students/',this.signupData).subscribe(resp => {
       console.log(resp);
       this.router.navigate(['login']);
