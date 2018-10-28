@@ -13,8 +13,7 @@ const httpOptions = {
     'Access-Control-Allow-Origin': '*'
   })
 };
-const studentUrl = 'http://localhost:3000/api/students';
-const postUrl = 'http://localhost:3000/api/posts';
+
 const apiUrl = 'http://localhost:3000/api';
 
 import { User } from '../_models/User.js';
@@ -45,53 +44,28 @@ export class ApiService {
     return body || {};
   }
 
-  getAll() {
-    return this.http.get<User[]>(apiUrl + '/users');
+  getUsers() {
+    return this.http.get<User[]>(apiUrl + '/users/');
   }
 
-  getStudents(): Observable<any> {
-    return this.http.get(studentUrl, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError)
-    );
-  }
-
-  getStudent(id: string): Observable<any> {
-    const url = `${studentUrl}/${id}`;
+  getUser(id: string): Observable<any> {
+    const url = `${apiUrl}/users/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
-  postStudent(data): Observable<any> {
-    return this.http
-      .post(studentUrl, data, httpOptions)
-      .pipe(catchError(this.handleError));
-  }
-
-  updateStudent(data): Observable<any> {
-    return this.http
-      .put(studentUrl, data, httpOptions)
-      .pipe(catchError(this.handleError));
-  }
-
-  deleteStudent(id: string): Observable<{}> {
-    const url = `${studentUrl}/${id}`;
-    return this.http
-      .delete(url, httpOptions)
-      .pipe(catchError(this.handleError));
-  }
-
   getPosts(): Observable<any> {
-    return this.http.get(postUrl, httpOptions).pipe(
+    const url = `${apiUrl}/posts/`;
+    return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
   getPost(id: string): Observable<any> {
-    const url = `${postUrl}/${id}`;
+    const url = `${apiUrl}/posts/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
@@ -99,20 +73,21 @@ export class ApiService {
   }
 
   postPost(data): Observable<any> {
-    console.log(data);
+    const url = `${apiUrl}/posts/`;
     return this.http
-      .post(postUrl, data, httpOptions)
+      .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   updatePost(data): Observable<any> {
+    const url = `${apiUrl}/posts/`;
     return this.http
-      .put(postUrl, data, httpOptions)
+      .put(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   deletePost(id: string): Observable<{}> {
-    const url = `${postUrl}/${id}`;
+    const url = `${apiUrl}/posts/${id}`;
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));

@@ -2,9 +2,6 @@ import {
   TestBed
 } from '@angular/core/testing';
 import {
-  Student
-} from '../../../models/Student.js';
-import {
   ApiService
 } from './api.service';
 import {
