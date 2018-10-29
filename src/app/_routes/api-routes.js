@@ -44,7 +44,7 @@ router.post("/users/authenticate/", function (req, res) {
       if (err) throw err;
 
       if (!user) {
-        res.status(404).send({
+        res.status(404).json({
           success: false,
           msg: "Authentication failed. User not found."
         });
