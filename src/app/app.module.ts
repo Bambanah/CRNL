@@ -35,6 +35,8 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthComponent } from './auth/auth/auth.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { AuthComponent } from './auth/auth/auth.component';
     SearchBarComponent,
     LoginComponent,
     SignupComponent,
-    AuthComponent
+    AuthComponent,
+    UserListComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
