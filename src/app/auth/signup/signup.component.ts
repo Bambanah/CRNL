@@ -10,8 +10,6 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  email: string;
-  password: string;
 
   constructor(
     private router: Router,
@@ -24,6 +22,8 @@ export class SignupComponent implements OnInit {
       email: [null, Validators.required],
       first_name: [null, Validators.required],
       last_name: [null, Validators.required],
+      major: [null, Validators.required],
+      minor: [null, Validators.required],
       password: [null, Validators.required]
     });
   }

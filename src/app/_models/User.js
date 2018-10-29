@@ -2,28 +2,16 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 var jwt = require('jsonwebtoken');
+var Schema = mongoose.Schema;
 
-var UserSchema = new mongoose.Schema({
+const options = {
+  discriminatorKey: 'itemtype',
+  collection: 'users'
+};
+
+var UserSchema = new Schema({
   first_name: String,
   last_name: String,
-  major: {
-    type: String,
-    enum: [
-      'Computer Science',
-      'Information Systems',
-      'Unspecified'
-    ],
-    default: 'Unspecified'
-  },
-  minor: {
-    type: String,
-    enum: [
-      'Intelligent Systems',
-      'User Experience',
-      'Unspecified'
-    ],
-    default: 'Unspecified'
-  },
   email: {
     type: String,
     lowercase: true,
@@ -40,7 +28,7 @@ var UserSchema = new mongoose.Schema({
   toJSON: {
     virtuals: true
   }
-});
+}, options);
 
 UserSchema.virtual('full_name').get(function () {
   return this.first_name + ' ' + this.last_name;

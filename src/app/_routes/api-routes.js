@@ -4,6 +4,7 @@ var jwt = require("jsonwebtoken");
 var config = require('../../../config/database');
 var Post = require("../_models/Post");
 var User = require("../_models/User");
+var Student = require("../_models/Student");
 
 // EXCLUSIVELY FOR TESTING
 router.get("/", function (res) {
@@ -71,26 +72,15 @@ router.post("/users/authenticate/", function (req, res) {
 });
 
 router.post("/users/", function (req, res, next) {
-  var newUser = new User(req.body);
-  newUser.save();
+  var newStudent = new Student(req.body);
+  newStudent.save();
   res.status(202);
 });
 
-/* UPDATE STUDENT */
-router.put("/students/:id", function (req, res, next) {
-  Student.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
 
-/* DELETE STUDENT */
-router.delete("/students/:id", function (req, res, next) {
-  Student.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
-});
+//
+// POSTS
+//
 
 /* GET ALL POSTS */
 router.get("/posts/", function (req, res, next) {
@@ -132,34 +122,6 @@ router.delete("/posts/:id", function (req, res, next) {
     if (err) return next(err);
     res.json(post);
   });
-});
-
-// API Route for user signup
-router.post("/students", function (req, res) {
-  if (!req.body.email || !req.body.password) {
-    res.json({
-      success: false,
-      msg: "Please pass email and password."
-    });
-  } else {
-    var newStudent = new Student({
-      email: req.body.email,
-      password: req.body.password
-    });
-    // save the student
-    newStudent.save(function (err) {
-      if (err) {
-        return res.json({
-          success: false,
-          msg: "Email already exists."
-        });
-      }
-      res.json({
-        success: true,
-        msg: "Successful created new user."
-      });
-    });
-  }
 });
 
 module.exports = router;
