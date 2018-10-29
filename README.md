@@ -8,12 +8,10 @@ The resulting platform will be akin to a small-scale social network, with studen
 
 ## Getting Started
 
-A step by step series of examples that tell you how to get a development env running
-
+Before running this sample, first:
 - Install Node.js
-
-Once installed, clone this repository.
-Run 'npm install' in project directory to install node modules
+- Clone this project repository
+- Run 'npm install' in project directory to install node modules
 
 Once installed, run 'npm start' to compile the angular frontend and start the node backend.
 
@@ -34,7 +32,7 @@ QUT Compass is a MEAN full stack app, built with:
 
 ## Authors
 
-- Nik Sirhan - _Project Lead_ - N10275363
-- Ranne Sanedrin - _SCRUM Master_ - N8817596
-- Lachlan Underhill - _Developer_ - N9692941
-- Cameron Short - _Developer_ - N9450106
+- Nik Sirhan - _Project Lead_ - n10275363
+- Ranne Sanedrin - _SCRUM Master_ - n8817596
+- Lachlan Underhill - _Developer_ - n9692941
+- Cameron Short - _Developer_ - n9450106
