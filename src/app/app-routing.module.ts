@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { AuthComponent } from './auth/auth/auth.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {
@@ -15,14 +16,15 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' }
+    data: { title: 'Home' },
+    canActivate: [AuthGuard]
   },
   {
-    path: 'login',
+    path: 'auth/login',
     component: LoginComponent
   },
   {
-    path: 'signup',
+    path: 'auth/signup',
     component: SignupComponent
   }
 ];

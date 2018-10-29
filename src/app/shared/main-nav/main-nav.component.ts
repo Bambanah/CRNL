@@ -29,10 +29,4 @@ export class MainNavComponent {
   isAuthenticated(): boolean {
     return this.auth.isAuthenticated();
   }
-
-  openAuthDialog(): void {
-    const dialog = this.dialog.open(AuthComponent, {
-      width: '368px'
-    });
-  }
 }

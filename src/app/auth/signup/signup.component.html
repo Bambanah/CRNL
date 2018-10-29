@@ -2,22 +2,22 @@
   <div class="button-row">
     <a mat-raised-button color="primary" [routerLink]="['/students']"><mat-icon>list</mat-icon></a>
   </div>
-  <form [formGroup]="studentForm" (ngSubmit)="onFormSubmit(studentForm.value)">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Email" formControlName="email">
       <mat-error>
-        <span *ngIf="!studentForm.get('email').valid && studentForm.get('email').touched">Please enter email</span>
+        <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter email</span>
       </mat-error>
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Password" formControlName="password">
       <mat-error>
-        <span *ngIf="!studentForm.get('password').valid && studentForm.get('password').touched">Please enter password</span>
+        <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter password</span>
       </mat-error>
     </mat-form-field>
 
     <div class="button-row">
-      <button type="submit" [disabled]="!studentForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+      <button type="submit" [disabled]="!signupForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
     </div>
   </form>
 </div>

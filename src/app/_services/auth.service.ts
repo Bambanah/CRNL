@@ -35,9 +35,10 @@ export class AuthService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  login(email: string, password: string) {
+  login(loginData) {
+    console.log(loginData);
     return this.http
-      .post<any>(apiUrl + '/users/authenticate', { email, password })
+      .post<any>(apiUrl + '/users/authenticate', loginData)
       .pipe(
         map(user => {
           // login successful if there's a jwt token in the response

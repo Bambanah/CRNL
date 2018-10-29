@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AuthService } from '../../_services/auth.service';
@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+  email: string;
+  password: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,8 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: [null, Validators.required],
+      password: [null, Validators.required]
     });
 
     // reset login status
@@ -37,12 +39,7 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.loginForm.controls;
-  }
-
-  onSubmit() {
+  onSubmit(form: NgForm) {
     this.submitted = true;
 
     // stop here if form is invalid
@@ -52,7 +49,7 @@ export class LoginComponent implements OnInit {
 
     this.loading = true;
     this.authService
-      .login(this.f.email.value, this.f.password.value)
+      .login(form)
       .pipe(first())
       .subscribe(
         data => {

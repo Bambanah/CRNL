@@ -19,12 +19,18 @@
     <ul class="navbar-nav">
       <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
         <li class="nav-item">
-          <button mat-raised-button (click)="openAuthDialog()">Log In</button>
+          <a class="nav-link" [routerLink]="[ '/auth/login' ]"><small>Log In</small></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="[ '/auth/signup' ]"><small>Sign Up</small></a>
         </li>
       </ng-container>
       <ng-template #elseTemplate>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="[ '/login' ]"><small>Sign Out</small></a>
+          <a class="nav-link" [routerLink]="[ '/users/profile' ]" routerLinkActive="router-link-active">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="[ '/auth/login' ]">Sign Out</a>
         </li>
       </ng-template>
     </ul>

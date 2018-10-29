@@ -9,7 +9,7 @@ import { AuthService } from '../../_services/auth.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-  studentForm: FormGroup;
+  signupForm: FormGroup;
   email: string;
   password: string;
 
@@ -20,17 +20,16 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.studentForm = this.formBuilder.group({
+    this.signupForm = this.formBuilder.group({
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
   }
 
-  onFormSubmit(form: NgForm) {
-    console.log(form);
+  onSubmit(form: NgForm) {
     this.auth.signup(form).subscribe(err => {
       console.log(err);
     });
-    this.router.navigate(['login']);
+    this.router.navigate(['auth/login']);
   }
 }
