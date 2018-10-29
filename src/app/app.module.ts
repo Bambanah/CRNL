@@ -15,7 +15,9 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatOptionModule,
-  MatToolbarModule } from '@angular/material';
+  MatToolbarModule,
+  MatDialogModule,
+  MatTabsModule} from '@angular/material';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -30,8 +32,9 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { AuthComponent } from './auth/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { SignupComponent } from './signup/signup.component';
     SideProfileComponent,
     SearchBarComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,12 @@ import { SignupComponent } from './signup/signup.component';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule,
+    MatTabsModule
+  ],
+  entryComponents: [
+    AuthComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

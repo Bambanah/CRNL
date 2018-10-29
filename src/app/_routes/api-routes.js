@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var jwt = require("jsonwebtoken");
-var config = require('../config/database');
-var Post = require("../src/app/_models/Post");
-var User = require("../src/app/_models/User");
+var config = require('../../../config/database');
+var Post = require("../_models/Post");
+var User = require("../_models/User");
 
 // EXCLUSIVELY FOR TESTING
 router.get("/", function (res) {
@@ -25,7 +25,7 @@ router.get("/users/", function (req, res, next) {
   });
 });
 
-/* GET SINGLE STUDENT BY ID */
+/* GET SINGLE USER BY ID */
 router.get("/users/:id", function (req, res, next) {
   User.findById(req.params.id, function (err, post) {
     if (err) return next(err);

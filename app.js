@@ -14,7 +14,7 @@ var app = express();
 //
 
 // Routes for API URLs
-var apiRouter = require('./routes/api-routes');
+var apiRouter = require('./src/app/_routes/api-routes');
 
 // Set headers for API requests
 app.use((req, res, next) => {
