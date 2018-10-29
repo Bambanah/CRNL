@@ -27,7 +27,7 @@
       </ng-container>
       <ng-template #elseTemplate>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="[ '/users/profile' ]" routerLinkActive="router-link-active">Profile</a>
+          <a class="nav-link" routerLinkActive="router-link-active" (click)="goProfile()">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="[ '/auth/login' ]">Sign Out</a>

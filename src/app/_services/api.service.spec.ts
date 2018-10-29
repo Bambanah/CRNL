@@ -30,12 +30,4 @@ describe('ApiService', () => {
     const service: ApiService = TestBed.get(ApiService);
     expect(service).toBeTruthy();
   });
-  // it('can create new students', () => {
-  //   const service: ApiService = TestBed.get(ApiService);
-
-  //   service.postStudent(testStudentData)
-  //     .subscribe(data =>
-  //       console.log(data)
-  //     );
-  // });
 });

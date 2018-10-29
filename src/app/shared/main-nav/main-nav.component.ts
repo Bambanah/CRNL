@@ -7,10 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth.service';
-import { MatDialog } from '@angular/material';
-import { LoginComponent } from '../../auth/login/login.component';
-import { SignupComponent } from '../../auth/signup/signup.component';
-import { AuthComponent } from '../../auth/auth/auth.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-nav',
@@ -18,7 +15,7 @@ import { AuthComponent } from '../../auth/auth/auth.component';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent {
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, public dialog: MatDialog) {}
+  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private router: Router) {}
 
   isCollapsed = true;
 
@@ -28,5 +25,11 @@ export class MainNavComponent {
 
   isAuthenticated(): boolean {
     return this.auth.isAuthenticated();
+  }
+
+  goProfile(): void {
+    const currentUserId = this.auth.getCurrentUserId();
+
+    this.router.navigate([`/users/${currentUserId}`]);
   }
 }

@@ -34,7 +34,6 @@ import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { AuthComponent } from './auth/auth/auth.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
@@ -50,7 +49,6 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     SearchBarComponent,
     LoginComponent,
     SignupComponent,
-    AuthComponent,
     UserListComponent,
     UserProfileComponent
   ],
@@ -77,9 +75,6 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     MatToolbarModule,
     MatDialogModule,
     MatTabsModule
-  ],
-  entryComponents: [
-    AuthComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { AuthComponent } from './auth/auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
@@ -34,7 +33,7 @@ const routes: Routes = [
     component: UserListComponent
   },
   {
-    path: 'users/profile',
+    path: 'users/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard]
   }

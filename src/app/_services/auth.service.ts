@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const apiUrl = 'http://localhost:3000/api';
 
@@ -15,6 +16,8 @@ const httpOptions = {
     'Access-Control-Allow-Origin': '*'
   })
 };
+
+const helper = new JwtHelperService();
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -36,20 +39,17 @@ export class AuthService {
   }
 
   login(loginData) {
-    console.log(loginData);
-    return this.http
-      .post<any>(apiUrl + '/users/authenticate', loginData)
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-          }
+    return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
+      map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
 
-          return user;
-        })
-      );
+        return user;
+      })
+    );
   }
 
   logout() {
@@ -65,10 +65,16 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem('currentUser') === null) {
-      return false;
-    } else {
-      return true;
-    }
+    return localStorage.getItem('currentUser') === null ? false : true;
+  }
+
+  getCurrentUserId(): string {
+    const decodedToken = helper.decodeToken(localStorage.getItem('currentUser'));
+
+    return decodedToken._id;
+  }
+
+  isSelf(id: string): boolean {
+    return this.getCurrentUserId() === id ? true : false;
   }
 }

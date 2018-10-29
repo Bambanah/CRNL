@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/_services/api.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) { }
 
-  ngOnInit() {
+  user = {};
+  isSelf = false;
+
+  getUserDetails(id) {
+    this.api.getUser(id).subscribe(data => {
+      this.user = data;
+    });
   }
 
+  ngOnInit() {
+    const id = this.route.snapshot.params['id'];
+    this.getUserDetails(id);
+    this.isSelf = this.auth.isSelf(id);
+  }
 }
