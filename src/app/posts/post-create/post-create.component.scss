@@ -1,0 +1,23 @@
+@import '../../../variables';
+
+.container {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  max-width: 100%;
+}
+
+.card {
+  width: 40rem;
+
+  form {
+    width: 100%;
+
+    textarea {
+      resize: none;
+    }
+  }
+}

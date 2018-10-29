@@ -3,22 +3,14 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        MainNavComponent,
-        FooterComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        RouterModule,
-        MDBBootstrapModule
-      ]
+      declarations: [AppComponent, MainNavComponent, FooterComponent],
+      imports: [RouterTestingModule, RouterModule, NgbModule]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

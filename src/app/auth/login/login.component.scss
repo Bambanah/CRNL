@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  h2 {
+    text-align: center;
+  }
+}
+
+.content {
+  padding: 5rem 0;
+  width: 25rem;
+  max-height: 100%;
+}
+
+input {
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+
+  &:hover {
+    box-shadow: none;
+    background-color: rgba($color: #4895b9, $alpha: 0.05);
+  }
+
+  &:focus {
+    box-shadow: none;
+    background-color: rgba($color: #4895b9, $alpha: 0.1);
+  }
+}

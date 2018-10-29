@@ -15,39 +15,43 @@ import {
   MatFormFieldModule,
   MatSelectModule,
   MatOptionModule,
-  MatToolbarModule } from '@angular/material';
+  MatToolbarModule,
+  MatDialogModule,
+  MatTabsModule
+} from '@angular/material';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
-import { StudentsComponent } from './students/students.component';
-import { StudentDetailComponent } from './student-detail/student-detail.component';
 import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateStudentComponent } from './create-student/create-student.component';
 import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-
-
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserProfileComponent } from './users/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FooterComponent,
-    StudentsComponent,
-    StudentDetailComponent,
     MainNavComponent,
     PostCreateComponent,
     PostListComponent,
-    CreateStudentComponent,
     SideProfileComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    LoginComponent,
+    SignupComponent,
+    UserListComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -55,9 +59,9 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
-    MDBBootstrapModule.forRoot(),
     HttpClientModule,
     BrowserAnimationsModule,
+    NgbModule,
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
@@ -69,9 +73,11 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

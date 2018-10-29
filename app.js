@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var config = require('./config/database');
+var passport = require('passport');
 
 // Initiate Express
 var app = express();
@@ -12,7 +14,7 @@ var app = express();
 //
 
 // Routes for API URLs
-var apiRouter = require('./routes/student');
+var apiRouter = require('./src/app/_routes/api-routes');
 
 // Set headers for API requests
 app.use((req, res, next) => {
@@ -32,13 +34,13 @@ app.use((req, res, next) => {
 var mongoose = require('mongoose');
 
 //Connect to database
-mongoose.connect('mongodb://localhost/crnl-app', {
-  promiseLibrary: require('bluebird'),
-  useNewUrlParser: true
-})
-// Log when connection successful (if in dev environment)
-.then(() => console.log('MongoDB connection successful.'))
-.catch((err) => console.error(err));
+mongoose.connect(config.database, {
+    promiseLibrary: require('bluebird'),
+    useNewUrlParser: true
+  })
+  // Log when connection successful (if in dev environment)
+  .then(() => console.log('MongoDB connection successful.'))
+  .catch((err) => console.error(err));
 
 // Use new method to remove deprecation warning
 mongoose.set('useCreateIndex', true);
@@ -46,8 +48,8 @@ mongoose.set('useCreateIndex', true);
 //
 // EXPRESS
 //
-
-
+require('./config/passport');
+app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
