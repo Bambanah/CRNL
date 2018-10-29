@@ -10,13 +10,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 const apiUrl = 'http://localhost:3000/api';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-  })
-};
-
 const helper = new JwtHelperService();
 
 @Injectable({ providedIn: 'root' })
@@ -39,17 +32,18 @@ export class AuthService {
   }
 
   login(loginData) {
-    return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
-      map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-
-        return user;
-      })
-    );
+    return this.http
+      .post<any>(apiUrl + '/users/authenticate', loginData)
+      .pipe(
+        map(user => {
+          // login successful if there's a jwt token in the response
+          if (user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+          }
+          return user;
+        })
+      );
   }
 
   logout() {
@@ -60,7 +54,7 @@ export class AuthService {
   signup(signupData) {
     const url = apiUrl + '/users/';
     return this.http
-      .post(url, signupData, httpOptions)
+      .post(url, signupData)
       .pipe(catchError(this.handleError));
   }
 
