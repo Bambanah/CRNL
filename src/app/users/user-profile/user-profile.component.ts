@@ -16,7 +16,6 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   user = {};
-  isSelf = false;
 
   getUserDetails(id) {
     this.api.getUser(id).subscribe(data => {
@@ -24,9 +23,12 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  isSelf(id): Boolean {
+    return this.auth.isSelf(id);
+  }
+
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.getUserDetails(id);
-    this.isSelf = this.auth.isSelf(id);
   }
 }

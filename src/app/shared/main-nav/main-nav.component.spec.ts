@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatToolbarModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MainNavComponent', () => {
   let component: MainNavComponent;
@@ -13,7 +14,12 @@ describe('MainNavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MainNavComponent],
-      imports: [MatToolbarModule, RouterTestingModule, NgbModule]
+      imports: [
+        MatToolbarModule,
+        RouterTestingModule,
+        NgbModule,
+        HttpClientModule
+      ]
     }).compileComponents();
   }));
 
