@@ -35,12 +35,12 @@ var mongoose = require('mongoose');
 
 //Connect to database
 mongoose.connect(config.database, {
-  promiseLibrary: require('bluebird'),
-  useNewUrlParser: true
-})
-// Log when connection successful (if in dev environment)
-.then(() => console.log('MongoDB connection successful.'))
-.catch((err) => console.error(err));
+    promiseLibrary: require('bluebird'),
+    useNewUrlParser: true
+  })
+  // Log when connection successful (if in dev environment)
+  .then(() => console.log('MongoDB connection successful.'))
+  .catch((err) => console.error(err));
 
 // Use new method to remove deprecation warning
 mongoose.set('useCreateIndex', true);

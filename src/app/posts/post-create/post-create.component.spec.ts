@@ -11,14 +11,9 @@ describe('PostCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostCreateComponent ],
-      imports: [
-        ReactiveFormsModule,
-        HttpClientModule,
-        RouterTestingModule
-      ]
-    })
-    .compileComponents();
+      declarations: [PostCreateComponent],
+      imports: [ReactiveFormsModule, HttpClientModule, RouterTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

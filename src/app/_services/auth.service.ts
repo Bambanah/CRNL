@@ -69,7 +69,9 @@ export class AuthService {
   }
 
   getCurrentUserId(): string {
-    const decodedToken = helper.decodeToken(localStorage.getItem('currentUser'));
+    const decodedToken = helper.decodeToken(
+      localStorage.getItem('currentUser')
+    );
 
     return decodedToken._id;
   }

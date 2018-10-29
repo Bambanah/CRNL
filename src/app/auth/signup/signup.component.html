@@ -3,13 +3,6 @@
     <h2>Login</h2>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control" placeholder="Email" />
-        <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="invalid-feedback">
-          <div>Please enter email</div>
-        </div>
-      </div>
-      <div class="form-group">
         <label for="first_name">First Name</label>
         <input type="text" formControlName="first_name" class="form-control" placeholder="First Name" />
         <div *ngIf="!signupForm.get('first_name').valid && signupForm.get('first_name').touched" class="invalid-feedback">
@@ -21,6 +14,13 @@
         <input type="text" formControlName="last_name" class="form-control" placeholder="Last Name" />
         <div *ngIf="!signupForm.get('last_name').valid && signupForm.get('last_name').touched" class="invalid-feedback">
           <div>Password is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+        <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="invalid-feedback">
+          <div>Please enter email</div>
         </div>
       </div>
       <div class="form-group">

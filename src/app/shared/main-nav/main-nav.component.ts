@@ -15,7 +15,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent {
-  constructor(private breakpointObserver: BreakpointObserver, private auth: AuthService, private router: Router) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   isCollapsed = true;
 

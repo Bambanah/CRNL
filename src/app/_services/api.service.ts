@@ -5,7 +5,7 @@ import {
   HttpHeaders,
   HttpErrorResponse
 } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({

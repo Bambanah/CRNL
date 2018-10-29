@@ -3,9 +3,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { SideProfileComponent } from '../side-profile/side-profile.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { StudentsComponent } from '../students/student-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MatFormFieldModule, MatSelectModule, MatToolbarModule, MatTableModule, MatIconModule } from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatSelectModule,
+  MatToolbarModule,
+  MatTableModule,
+  MatIconModule
+} from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +27,6 @@ describe('HomeComponent', () => {
         HomeComponent,
         SideProfileComponent,
         SearchBarComponent,
-        StudentsComponent,
         PostListComponent,
         PostCreateComponent
       ],
@@ -38,8 +42,7 @@ describe('HomeComponent', () => {
         BrowserAnimationsModule,
         MatIconModule
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -17,9 +17,10 @@ import {
   MatOptionModule,
   MatToolbarModule,
   MatDialogModule,
-  MatTabsModule} from '@angular/material';
+  MatTabsModule
+} from '@angular/material';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 
@@ -79,4 +80,4 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

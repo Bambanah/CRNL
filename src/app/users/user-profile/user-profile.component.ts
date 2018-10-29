@@ -9,8 +9,11 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private api: ApiService, private auth: AuthService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private api: ApiService,
+    private auth: AuthService
+  ) {}
 
   user = {};
   isSelf = false;

@@ -2,6 +2,7 @@
   display: flex;
   align-content: center;
   justify-content: center;
+
   h2 {
     text-align: center;
   }
@@ -23,6 +24,7 @@ input {
     box-shadow: none;
     background-color: rgba($color: #4895b9, $alpha: 0.05);
   }
+
   &:focus {
     box-shadow: none;
     background-color: rgba($color: #4895b9, $alpha: 0.1);

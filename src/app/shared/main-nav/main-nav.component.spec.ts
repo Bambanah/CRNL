@@ -12,16 +12,9 @@ describe('MainNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        MainNavComponent
-      ],
-      imports: [
-        MatToolbarModule,
-        RouterTestingModule,
-        NgbModule
-      ]
-    })
-    .compileComponents();
+      declarations: [MainNavComponent],
+      imports: [MatToolbarModule, RouterTestingModule, NgbModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

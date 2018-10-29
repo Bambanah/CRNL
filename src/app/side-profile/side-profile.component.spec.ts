@@ -9,12 +9,9 @@ describe('SideProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideProfileComponent ],
-      imports: [
-        RouterTestingModule
-      ]
-    })
-    .compileComponents();
+      declarations: [SideProfileComponent],
+      imports: [RouterTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

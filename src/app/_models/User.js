@@ -6,6 +6,24 @@ var jwt = require('jsonwebtoken');
 var UserSchema = new mongoose.Schema({
   first_name: String,
   last_name: String,
+  major: {
+    type: String,
+    enum: [
+      'Computer Science',
+      'Information Systems',
+      'Unspecified'
+    ],
+    default: 'Unspecified'
+  },
+  minor: {
+    type: String,
+    enum: [
+      'Intelligent Systems',
+      'User Experience',
+      'Unspecified'
+    ],
+    default: 'Unspecified'
+  },
   email: {
     type: String,
     lowercase: true,
@@ -52,7 +70,7 @@ UserSchema.methods.comparePassword = function (password, cb) {
   });
 };
 
-UserSchema.methods.generateJwt = function() {
+UserSchema.methods.generateJwt = function () {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 

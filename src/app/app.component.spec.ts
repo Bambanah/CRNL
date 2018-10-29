@@ -9,16 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        MainNavComponent,
-        FooterComponent,
-      ],
-      imports: [
-        RouterTestingModule,
-        RouterModule,
-        NgbModule
-      ]
+      declarations: [AppComponent, MainNavComponent, FooterComponent],
+      imports: [RouterTestingModule, RouterModule, NgbModule]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

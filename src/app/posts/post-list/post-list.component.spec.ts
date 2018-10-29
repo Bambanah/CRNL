@@ -9,12 +9,9 @@ describe('PostListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostListComponent ],
-      imports: [
-        HttpClientModule
-      ]
-    })
-    .compileComponents();
+      declarations: [PostListComponent],
+      imports: [HttpClientModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
