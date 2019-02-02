@@ -20,11 +20,11 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       email: [null, Validators.required],
-      first_name: [null, Validators.required],
-      last_name: [null, Validators.required],
+      full_name: [null, Validators.required],
       major: [null, Validators.required],
       minor: [null, Validators.required],
-      password: [null, Validators.required]
+      password: [null, Validators.required],
+      password_confirm: [null, Validators.required]
     });
   }
 

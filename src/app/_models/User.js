@@ -10,8 +10,7 @@ const options = {
 };
 
 var UserSchema = new Schema({
-  first_name: String,
-  last_name: String,
+  full_name: String,
   email: {
     type: String,
     lowercase: true,

@@ -4,6 +4,10 @@
   align-content: center;
   justify-content: center;
 
+  .invalid-feedback {
+    display: block;
+  }
+
   h2 {
     text-align: center;
   }
@@ -19,11 +23,19 @@
   width: 25rem;
 }
 
+.btn-signup {
+  width: 100%;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.p-login {
+  text-align: center;
+  font-weight: bold;
+}
+
 input {
   border-radius: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
 
   &:hover {
     box-shadow: none;
