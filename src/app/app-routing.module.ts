@@ -18,7 +18,6 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { title: 'Home' },
-    canActivate: [AuthGuard]
   },
   {
     path: 'auth/login',
@@ -30,7 +29,8 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserListComponent
+    component: UserListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'users/:id',
