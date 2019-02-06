@@ -37,6 +37,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { LoginModalComponent } from './auth/login-modal/login-modal.component';
+import { SignupModalComponent } from './auth/signup-modal/signup-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { UserProfileComponent } from './users/user-profile/user-profile.componen
     LoginComponent,
     SignupComponent,
     UserListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    LoginModalComponent,
+    SignupModalComponent
   ],
   imports: [
     BrowserModule,

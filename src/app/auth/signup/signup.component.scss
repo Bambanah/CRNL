@@ -1,21 +1,14 @@
-.container {
-  height: 100%;
-  display: flex;
-  align-content: center;
-  justify-content: center;
+.invalid-feedback {
+  display: block;
+}
 
-  .invalid-feedback {
-    display: block;
-  }
+h2 {
+  text-align: center;
+}
 
-  h2 {
-    text-align: center;
-  }
-
-  label {
-    font-size: 0.80rem;
-    text-align: center;
-  }
+label {
+  font-size: 0.80rem;
+  text-align: center;
 }
 
 .content {
@@ -27,6 +20,7 @@
   width: 100%;
   font-weight: bold;
   padding: 15px;
+  border-radius: 0;
 }
 
 .p-bottom {

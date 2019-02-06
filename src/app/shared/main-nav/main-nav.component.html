@@ -19,10 +19,10 @@
     <ul class="navbar-nav">
       <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="[ '/auth/login' ]"><small>Log In</small></a>
+          <app-login-modal></app-login-modal>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="[ '/auth/signup' ]"><small>Sign Up</small></a>
+          <app-signup-modal></app-signup-modal>
         </li>
       </ng-container>
       <ng-template #elseTemplate>
