@@ -1,13 +1,10 @@
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <div class="button-header">
+    <a class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
-    </button>
+    </a>
   </div>
-  <div class="modal-body">
-    <app-login></app-login>
-  </div>
-
+  <app-login></app-login>
 </ng-template>
 
 

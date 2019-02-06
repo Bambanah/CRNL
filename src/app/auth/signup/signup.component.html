@@ -1,65 +1,48 @@
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <!-- TODO Convert to cover window -->
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
-      <div class="form-group">
-        <!-- <label for="full_name">Full Name</label> -->
-        <input type="text" formControlName="full_name" class="form-control" placeholder="Full Name" autofocus />
-        <div *ngIf="!signupForm.get('full_name').valid && signupForm.get('full_name').touched" class="invalid-feedback">
-          <div>* Required *</div>
-        </div>
+<div class="container">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
+    <div class="form-group">
+      <input type="text" formControlName="full_name" class="form-control" placeholder="Full Name" />
+      <div *ngIf="!signupForm.get('full_name').valid && signupForm.get('full_name').touched" class="invalid-feedback">
+        <div>* Required *</div>
       </div>
-      <div class="form-group">
-        <!-- <label for="major">Major</label> -->
-        <input type="text" formControlName="major" class="form-control" placeholder="Major" />
-        <div *ngIf="!signupForm.get('major').valid && signupForm.get('major').touched" class="invalid-feedback">
-          <div>Please select a major</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="major" class="form-control" placeholder="Major" />
+      <div *ngIf="!signupForm.get('major').valid && signupForm.get('major').touched" class="invalid-feedback">
+        <div>Please select a major</div>
       </div>
-      <div class="form-group">
-        <!-- <label for="minor">Minor</label> -->
-        <input type="text" formControlName="minor" class="form-control" placeholder="Minor" />
-        <div *ngIf="!signupForm.get('minor').valid && signupForm.get('minor').touched" class="invalid-feedback">
-          <div>Please select a minor</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="minor" class="form-control" placeholder="Minor" />
+      <div *ngIf="!signupForm.get('minor').valid && signupForm.get('minor').touched" class="invalid-feedback">
+        <div>Please select a minor</div>
       </div>
-      <div class="form-group">
-        <!-- <label for="email">Email</label> -->
-        <input type="text" formControlName="email" class="form-control" placeholder="Email" />
-        <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="invalid-feedback">
-          <div>Please enter email</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+      <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="invalid-feedback">
+        <div>Please enter email</div>
       </div>
-      <div class="form-group">
-        <!-- <label for="password">Password</label> -->
-        <input type="password" formControlName="password" class="form-control" placeholder="Password" required />
-        <div *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="invalid-feedback">
-          <div>Password is required</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="password" class="form-control" placeholder="Password" required />
+      <div *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="invalid-feedback">
+        <div>Password is required</div>
       </div>
-      <div class="form-group">
-        <!-- <label for="password_confirm">Confirm Password</label> -->
-        <input type="password" formControlName="password_confirm" class="form-control" placeholder="Confirm Password"
-          required="true" />
-        <div *ngIf="signupForm.get('password') != signupForm.get('password_confirm')" class="invalid-feedback">
-          <div>Passwords don't match</div>
-        </div>
+    </div>
+    <div class="form-group">
+      <input type="password" formControlName="password_confirm" class="form-control" placeholder="Confirm Password"
+        required="true" />
+      <div *ngIf="signupForm.get('password') != signupForm.get('password_confirm')" class="invalid-feedback">
+        <div>Passwords don't match</div>
       </div>
-      <div class="form-group">
-        <button [disabled]="loading || !signupForm.valid" class="btn btn-primary btn-signup">Sign Up</button>
-        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      </div>
-      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <p class="p-bottom">Already have an account? <a [routerLink]="['/auth/login']">Log In</a></p>
-  </div>
-</ng-template>
-
-<a class="nav-link" (click)="open(content)"><small>Sign Up</small></a>
+    </div>
+    <div class="form-group">
+      <button [disabled]="loading || !signupForm.valid" class="btn btn-primary btn-signup">Sign Up</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+    </div>
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  </form>
+  <hr>
+  <p class="p-bottom">Already have an account? <a [routerLink]="['/auth/login']">Log In</a></p>
+</div>

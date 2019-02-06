@@ -1,1 +1,10 @@
-Sign Up
+<ng-template #content let-modal>
+  <div class="button-header">
+    <a class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </a>
+  </div>
+  <app-signup></app-signup>
+</ng-template>
+
+<a class="nav-link" href="javascript:void(0);" (click)="open(content)"><small>Sign Up</small></a>
