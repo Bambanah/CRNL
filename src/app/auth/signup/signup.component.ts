@@ -10,7 +10,7 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-
+  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

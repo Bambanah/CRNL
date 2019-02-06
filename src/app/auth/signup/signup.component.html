@@ -6,6 +6,7 @@
         <div>* Required *</div>
       </div>
     </div>
+    <!-- TODO Select major and minor from available list -->
     <div class="form-group">
       <input type="text" formControlName="major" class="form-control" placeholder="Major" />
       <div *ngIf="!signupForm.get('major').valid && signupForm.get('major').touched" class="invalid-feedback">
@@ -18,12 +19,14 @@
         <div>Please select a minor</div>
       </div>
     </div>
+    <!-- TODO Validate email format -->
     <div class="form-group">
       <input type="text" formControlName="email" class="form-control" placeholder="Email" />
       <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="invalid-feedback">
         <div>Please enter email</div>
       </div>
     </div>
+    <!-- TODO validate passwords are different -->
     <div class="form-group">
       <input type="password" formControlName="password" class="form-control" placeholder="Password" required />
       <div *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="invalid-feedback">
