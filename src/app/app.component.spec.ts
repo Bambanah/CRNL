@@ -5,12 +5,13 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, MainNavComponent, FooterComponent],
-      imports: [RouterTestingModule, RouterModule, NgbModule]
+      imports: [RouterTestingModule, RouterModule, NgbModule, HttpClientModule]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

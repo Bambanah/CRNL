@@ -16,7 +16,7 @@ export class PostCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   ngOnInit() {
@@ -30,6 +30,6 @@ export class PostCreateComponent implements OnInit {
     this.api.postPost(form).subscribe(err => {
       console.log(err);
     });
-    this.router.navigate(['/']);
+    this.router.navigate(['']);
   }
 }
