@@ -10,8 +10,7 @@ const options = {
 };
 
 var UserSchema = new Schema({
-  first_name: String,
-  last_name: String,
+  full_name: String,
   email: {
     type: String,
     lowercase: true,
@@ -29,10 +28,6 @@ var UserSchema = new Schema({
     virtuals: true
   }
 }, options);
-
-UserSchema.virtual('full_name').get(function () {
-  return this.first_name + ' ' + this.last_name;
-});
 
 UserSchema.pre('save', function (next) {
   var user = this;

@@ -10,21 +10,21 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-
+  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private auth: AuthService
   ) {}
-
+  
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
       email: [null, Validators.required],
-      first_name: [null, Validators.required],
-      last_name: [null, Validators.required],
+      full_name: [null, Validators.required],
       major: [null, Validators.required],
       minor: [null, Validators.required],
-      password: [null, Validators.required]
+      password: [null, Validators.required],
+      password_confirm: [null, Validators.required]
     });
   }
 
