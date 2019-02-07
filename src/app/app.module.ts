@@ -39,6 +39,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { LoginModalComponent } from './auth/login-modal/login-modal.component';
 import { SignupModalComponent } from './auth/signup-modal/signup-modal.component';
+import { SignupPageComponent } from './auth/signup-page/signup-page.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { SignupModalComponent } from './auth/signup-modal/signup-modal.component
     UserListComponent,
     UserProfileComponent,
     LoginModalComponent,
-    SignupModalComponent
+    SignupModalComponent,
+    SignupPageComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { LoginComponent } from './auth/login/login.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
+import { SignupPageComponent } from './auth/signup-page/signup-page.component';
+import { LoginPageComponent } from './auth/login-page/login-page.component';
 
 const routes: Routes = [
   {
@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'auth/login',
-    component: LoginComponent
+    component: LoginPageComponent
   },
   {
     path: 'auth/signup',
-    component: SignupComponent
+    component: SignupPageComponent
   },
   {
     path: 'users',

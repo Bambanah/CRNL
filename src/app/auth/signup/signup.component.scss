@@ -2,18 +2,15 @@
   display: block;
 }
 
-h2 {
-  text-align: center;
-}
-
 label {
   font-size: 0.80rem;
   text-align: center;
 }
 
 .content {
-  padding: 5rem 0;
+  position: relative;
   width: 25rem;
+  margin: auto;
 }
 
 .btn-primary {

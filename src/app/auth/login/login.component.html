@@ -1,5 +1,5 @@
-<div class="container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+<div class="content">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="loginForm">
     <div class="form-group">
       <input type="text" formControlName="email" class="form-control" placeholder="Email" />
       <div *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched" class="invalid-feedback">
