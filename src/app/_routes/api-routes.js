@@ -71,7 +71,7 @@ router.post('/users/authenticate/', function(req, res) {
   );
 });
 
-router.post('/users/', function(req, res, next) {
+router.post('/users/', function(req, res) {
   var newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
