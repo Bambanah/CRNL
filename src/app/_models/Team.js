@@ -1,22 +1,27 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var TeamSchema = new Schema({
-  team_name: {
-    type: String,
-    required: true
+var TeamSchema = new Schema(
+  {
+    team_name: {
+      type: String,
+      required: true
+    },
+    team_bio: String,
+    members: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Student'
+        }
+      ],
+      validate: [arrayLimit, '{PATH} exceeds the 4 limit']
+    }
   },
-  team_bio: String,
-  members: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Student'
-    }],
-    validate: [arrayLimit, '{PATH} exceeds the 4 limit']
+  {
+    timestamps: true
   }
-}, {
-  timestamps: true
-});
+);
 
 function arrayLimit(val) {
   return val.length <= 4;

@@ -18,7 +18,13 @@ describe('MainNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainNavComponent, LoginModalComponent, SignupModalComponent, LoginComponent, SignupComponent],
+      declarations: [
+        MainNavComponent,
+        LoginModalComponent,
+        SignupModalComponent,
+        LoginComponent,
+        SignupComponent
+      ],
       imports: [
         MatToolbarModule,
         RouterTestingModule,
