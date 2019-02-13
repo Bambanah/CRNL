@@ -1,0 +1,56 @@
+@import '../../variables';
+
+hr {
+  width: 80%;
+}
+
+.outer-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.side-content {
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+.main-content {
+  margin: 0;
+  padding: 0;
+  float: right;
+  width: 100%;
+}
+
+// @media(min-width: map-get($grid-breakpoints, xs)) {
+//   .side-content {
+//     display: none;
+//   }
+
+//   .main-content {
+//     width: 100%;
+//   }
+// }
+
+// @media(min-width: map-get($grid-breakpoints, md)) {
+//   .side-content {
+//     display: block;
+//     width: 100px;
+//   }
+
+//   .main-content {
+//     width: calc(100% - 100px);
+//   }
+// }
+
+// @media(min-width: map-get($grid-breakpoints, lg)) {
+//   .side-content {
+//     display: block;
+//     width: 250px;
+//   }
+
+//   .main-content {
+//     width: calc(100% - 250px);
+//   }
+// }

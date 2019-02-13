@@ -1,0 +1,14 @@
+.navbar-brand {
+  img {
+    width: 1.75em;
+  }
+}
+
+.router-link-active {
+  color: #fff !important;
+  background-color: rgba($color: #fff, $alpha: 0.1);
+}
+
+.nav-link {
+  cursor: pointer;
+}

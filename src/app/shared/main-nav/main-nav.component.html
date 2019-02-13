@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary sticky-top mat-elevation-z2 ">
+  <a class="navbar-brand" [routerLink]="['/home']"><img src="assets/images/QUT_Logo.PNG" /> Compass</a>
+  <button class="navbar-toggler hidden-sm-up" type="button" (click)="isCollapsed = !isCollapsed" data-target="#navbarsDefault"
+    aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarsDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="router-link-active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/teams']" routerLinkActive="router-link-active">Teams</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
+        <li class="nav-item">
+          <app-login-modal></app-login-modal>
+        </li>
+        <li class="nav-item">
+          <app-signup-modal></app-signup-modal>
+        </li>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="router-link-active" (click)="goProfile()">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="[ '/auth/login' ]">Sign Out</a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>
