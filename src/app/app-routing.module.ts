@@ -7,6 +7,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { SignupPageComponent } from './auth/signup-page/signup-page.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { TeamListComponent } from './teams/team-list/team-list.component';
+import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,15 @@ const routes: Routes = [
     path: 'users/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'teams',
+    component: TeamListComponent
+  },
+  {
+    path: 'teams/:id',
+    component: TeamProfileComponent,
+    // canActivate: [AuthGuard]
   }
 ];
 
