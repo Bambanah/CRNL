@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 var config = require('./config/database');
 var passport = require('passport');
@@ -82,7 +82,7 @@ app.use(function(req, res, next) {
 });
 
 // Error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // Set locals, and only send errors in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
