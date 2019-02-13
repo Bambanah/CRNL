@@ -59,7 +59,7 @@ import { TeamProfileComponent } from './teams/team-profile/team-profile.componen
     UserListComponent,
     UserProfileComponent,
     TeamListComponent,
-    TeamProfileComponent
+    TeamProfileComponent,
     LoginModalComponent,
     SignupModalComponent,
     SignupPageComponent,
