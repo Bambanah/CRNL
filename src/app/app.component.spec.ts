@@ -6,12 +6,31 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModalComponent } from './auth/login-modal/login-modal.component';
+import { SignupModalComponent } from './auth/signup-modal/signup-modal.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, MainNavComponent, FooterComponent],
-      imports: [RouterTestingModule, RouterModule, NgbModule, HttpClientModule]
+      declarations: [
+        AppComponent,
+        MainNavComponent,
+        FooterComponent,
+        LoginModalComponent,
+        SignupModalComponent,
+        LoginComponent,
+        SignupComponent
+      ],
+      imports: [
+        RouterTestingModule,
+        RouterModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule
+      ]
     }).compileComponents();
   }));
   it('should create the app', async(() => {
