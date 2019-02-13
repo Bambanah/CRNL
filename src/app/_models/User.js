@@ -69,7 +69,7 @@ UserSchema.methods.generateJwt = function() {
       exp: parseInt(expiry.getTime() / 1000)
     },
     'SECRET'
-  ); // TODO Move to environment variables
+  ); // TODO: Move to environment variables
 };
 
 module.exports = mongoose.model('User', UserSchema);

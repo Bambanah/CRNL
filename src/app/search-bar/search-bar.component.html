@@ -5,24 +5,30 @@
 
       <mat-form-field>
         <mat-select placeholder="Major" [formControl]="majors" multiple>
-          <mat-option *ngFor="let major of majorList" [value]="major">{{major}}</mat-option>
+          <mat-option *ngFor="let major of majorList" [value]="major">{{
+            major
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-select placeholder="Minor" [formControl]="minors" multiple>
-          <mat-option *ngFor="let minor of minorList" [value]="minor">{{minor}}</mat-option>
+          <mat-option *ngFor="let minor of minorList" [value]="minor">{{
+            minor
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field>
         <mat-select placeholder="Sort By">
-          <mat-option *ngFor="let sortOption of sortOptions" [value]="sortOption.value">
-            {{sortOption.viewValue}}
+          <mat-option
+            *ngFor="let sortOption of sortOptions"
+            [value]="sortOption.value"
+          >
+            {{ sortOption.viewValue }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </mat-toolbar-row>
   </mat-toolbar>
-
 </div>
