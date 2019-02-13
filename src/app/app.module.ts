@@ -41,6 +41,8 @@ import { LoginModalComponent } from './auth/login-modal/login-modal.component';
 import { SignupModalComponent } from './auth/signup-modal/signup-modal.component';
 import { SignupPageComponent } from './auth/signup-page/signup-page.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
+import { TeamListComponent } from './teams/team-list/team-list.component';
+import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { LoginPageComponent } from './auth/login-page/login-page.component';
     SignupComponent,
     UserListComponent,
     UserProfileComponent,
+    TeamListComponent,
+    TeamProfileComponent
     LoginModalComponent,
     SignupModalComponent,
     SignupPageComponent,
