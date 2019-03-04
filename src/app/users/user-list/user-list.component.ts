@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   users: Observable<User>;
 
   constructor(private api: ApiService) {
-    this.users = api.getUsers();
+    this.users = api.getStudents();
   }
 
   ngOnInit() {}

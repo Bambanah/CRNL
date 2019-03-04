@@ -71,9 +71,15 @@ router.post('/users/authenticate/', function(req, res) {
   );
 });
 
-router.post('/users/', function(req, res) {
+router.post('/students/', function(req, res) {
   var newStudent = new Student(req.body);
   newStudent.save();
+  res.status(202);
+});
+
+router.post('/users/', function(req, res) {
+  var newUser = new User(req.body);
+  newUser.save();
   res.status(202);
 });
 

@@ -49,8 +49,13 @@ export class AuthService {
     localStorage.removeItem('currentUser');
   }
 
-  signup(signupData) {
-    const url = apiUrl + '/users/';
+  signup(signupData, is_student) {
+    var url = '';
+    if (is_student) {
+      url = apiUrl + '/students/'
+    } else {
+      url = apiUrl + '/users/';
+    }
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 

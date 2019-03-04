@@ -17,6 +17,7 @@ const httpOptions = {
 const apiUrl = 'http://localhost:3000/api';
 
 import { User } from '../_models/User.js';
+import { Student } from '../_models/Student'
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +47,10 @@ export class ApiService {
 
   getUsers() {
     return this.http.get<User[]>(apiUrl + '/users/');
+  }
+
+  getStudents() {
+    return this.http.get<Student[]>(apiUrl + '/students/');
   }
 
   getUser(id: string): Observable<any> {
