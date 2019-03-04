@@ -10,6 +10,7 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
+  is_student: false;
 
   constructor(
     private router: Router,
@@ -29,9 +30,13 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.auth.signup(form).subscribe(err => {
+    this.auth.signup(form, this.is_student).subscribe(err => {
       console.log(err);
     });
     this.router.navigate(['auth/login']);
+  }
+
+  toggleChecked(event) {
+    this.is_student = event.target.checked;
   }
 }

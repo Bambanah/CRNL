@@ -19,6 +19,10 @@
     </div>
     <!-- TODO: Select major and minor from available list -->
     <div class="form-group">
+      <input type="checkbox" (change)="toggleChecked($event)">
+      <label>Student</label>
+    </div>
+    <div class="form-group" *ngIf="is_student">
       <input
         type="text"
         formControlName="major"
@@ -34,7 +38,7 @@
         <div>Please select a major</div>
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" *ngIf="is_student">
       <input
         type="text"
         formControlName="minor"
