@@ -96,16 +96,15 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  deletePost(id: string): Observable<{}> {
+  deletePost(id: string): Observable<any> {
     const url = `${apiUrl}/posts/${id}`;
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
-  createTeam(user1_id, user2_id) {
-    const url = `${apiUrl}/teams/`;
-    const data = [user1_id, user2_id];
+  createTeam(data): Observable<any> {
+    const url = apiUrl + '/teams';
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));

@@ -92,15 +92,13 @@ router.post('/users/', function(req, res) {
 });
 
 router.post('/teams/', function(req, res) {
-  var newTeam = new Team({team_name: "fuck"});
-  var user_id1 = req.body[0];
-  var user_id2 = req.body[1];
-  var user1 = User.findById(user_id1);
-  var user2 = User.findById(user_id2);
-
+  // var newTeam = new Team({team_name: "fuck"});
+  // var user_id1 = req.body[0];
+  // var user_id2 = req.body[1];
+  // console.log("sup");
   // newTeam.members.push(user1);
   // newTeam.members.push(user2);
-  newTeam.save();
+  // newTeam.save();
   res.status(202);
 });
 

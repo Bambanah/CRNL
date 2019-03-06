@@ -71,6 +71,7 @@ export class AuthService {
     return decodedToken._id;
   }
 
+  // Test if ID belongs to currently signed in user
   isSelf(id: string): boolean {
     return this.getCurrentUserId() === id ? true : false;
   }

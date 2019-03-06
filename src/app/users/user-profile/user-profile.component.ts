@@ -18,37 +18,51 @@ export class UserProfileComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  user = {};
+  isLoaded = false;
+  // Placeholder user object
+  // Overwritten with getUserDetails()
+  user = {
+    email: '',
+    full_name: ''
+  };
 
+  // Returns ID of currently visible user
   getUserId() {
     return this.route.snapshot.params['id'];
   }
 
+  // Retrieves data of visible user
   getUserDetails() {
     const id = this.getUserId();
     this.api.getUser(id).subscribe(data => {
       this.user = data;
+      this.isLoaded = true;
     });
   }
 
-  isSelf(): Boolean {
-    const id = this.getUserId();
-    return this.auth.isSelf(id);
-  }
-
   isInTeam(): Boolean {
+    // TODO: Implement - auth user is in a team
     return false;
   }
 
-  private extractData(res: Response) {
-    const body = res;
-    return body || {};
+  sameTeam(): Boolean {
+    // TODO: Implement - users are in same team
+    return false;
   }
 
-  addToTeam() {
+  createTeam() {
     const user_id = this.getUserId();
     const logged_id = this.auth.getCurrentUserId();
-    this.api.createTeam(user_id, logged_id);
+    const data = [user_id, logged_id];
+    this.api.createTeam(data).subscribe(err => {
+      console.log(err);
+    });
+  }
+
+  removeFromTeam() {
+    // TODO: Implement - remove user from team
+    // Warning if removing user will delete team
+    this.api.removeFromTeam();
   }
 
   ngOnInit() {
