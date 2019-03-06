@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    data: { title: 'Home' },
+    data: { title: 'Home' }
   },
   {
     path: 'auth/login',
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'teams/:id',
-    component: TeamProfileComponent,
+    component: TeamProfileComponent
     // canActivate: [AuthGuard]
   }
 ];

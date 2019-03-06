@@ -5,10 +5,10 @@
 QUT Compass aims to unify the current methods of team formation within the IFB398/IFB399 units provided by QUT into a cohesive, functional platform. The current tools available for this process are an official Facebook group and official icebreaker sessions held in the first week of semester. Teaching Staff were then forced to keep track of ~350 students with spreadsheets, while gathering information from multiple sources.
 The resulting platform will be akin to a small-scale social network, with students able to create personalised profiles, create posts describing their ideal team members, create and manage teams, as well as communicate with other students and tutors. This report documents the intended process to be implemented by the CRNL team in the development of our proposed system to aid in the forming of teams for students enrolled in IFB398/IFB399. There also exists potential future expansion for use in other subjects.
 
-
 ## Getting Started
 
 Before running this sample, first:
+
 - Install Node.js
 - Clone this project repository
 - Run 'npm install' in project directory to install node modules

@@ -16,7 +16,7 @@ export class PostCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {

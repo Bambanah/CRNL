@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../_services/api.service';
+import { Observable } from 'rxjs';
+import { Team } from '../../_models/Team';
 
 @Component({
   selector: 'app-team-list',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
+  displayedColumns: string[] = ['team_name', 'team_bio'];
+  teams: Observable<Team>;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private api: ApiService) {
+    this.teams = api.getTeams();
   }
 
+  ngOnInit() {}
 }

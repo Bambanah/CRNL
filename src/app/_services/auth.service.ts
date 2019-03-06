@@ -32,18 +32,16 @@ export class AuthService {
   }
 
   login(loginData) {
-    return this.http
-      .post<any>(apiUrl + '/users/authenticate', loginData)
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-          }
-          return user;
-        })
-      );
+    return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
+      map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      })
+    );
   }
 
   logout() {
@@ -51,11 +49,14 @@ export class AuthService {
     localStorage.removeItem('currentUser');
   }
 
-  signup(signupData) {
-    const url = apiUrl + '/users/';
-    return this.http
-      .post(url, signupData)
-      .pipe(catchError(this.handleError));
+  signup(signupData, is_student) {
+    let url = '';
+    if (is_student) {
+      url = apiUrl + '/students/';
+    } else {
+      url = apiUrl + '/users/';
+    }
+    return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 
   isAuthenticated(): boolean {
@@ -70,6 +71,7 @@ export class AuthService {
     return decodedToken._id;
   }
 
+  // Test if ID belongs to currently signed in user
   isSelf(id: string): boolean {
     return this.getCurrentUserId() === id ? true : false;
   }

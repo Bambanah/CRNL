@@ -17,7 +17,8 @@ describe('ApiService', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [HttpClientModule]
-    }));
+    })
+  );
 
   it('should be created', () => {
     const service: ApiService = TestBed.get(ApiService);

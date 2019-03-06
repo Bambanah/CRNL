@@ -9,30 +9,34 @@ const options = {
   collection: 'users'
 };
 
-var UserSchema = new Schema({
-  full_name: String,
-  email: {
-    type: String,
-    lowercase: true,
-    unique: true,
-    required: [true, "can't be blank"],
-    match: [/\S+@\S+\.\S+/, 'is invalid']
+var UserSchema = new Schema(
+  {
+    full_name: String,
+    email: {
+      type: String,
+      lowercase: true,
+      unique: true,
+      required: [true, "can't be blank"],
+      match: [/\S+@\S+\.\S+/, 'is invalid']
+    },
+    password: String
   },
-  password: String
-}, {
-  timestamps: true,
-  toObject: {
-    virtuals: true
+  {
+    timestamps: true,
+    toObject: {
+      virtuals: true
+    },
+    toJSON: {
+      virtuals: true
+    }
   },
-  toJSON: {
-    virtuals: true
-  }
-}, options);
+  options
+);
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   var user = this;
   if (user.isModified('password') || user.isNew) {
-    bcrypt.hash(this.password, saltRounds, function (err, hash) {
+    bcrypt.hash(this.password, saltRounds, function(err, hash) {
       if (err) {
         return next(err);
       }
@@ -44,8 +48,8 @@ UserSchema.pre('save', function (next) {
   }
 });
 
-UserSchema.methods.comparePassword = function (password, cb) {
-  bcrypt.compare(password, this.password, function (err, isMatch) {
+UserSchema.methods.comparePassword = function(password, cb) {
+  bcrypt.compare(password, this.password, function(err, isMatch) {
     if (err) {
       return cb(err);
     }
@@ -53,16 +57,19 @@ UserSchema.methods.comparePassword = function (password, cb) {
   });
 };
 
-UserSchema.methods.generateJwt = function () {
+UserSchema.methods.generateJwt = function() {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 
-  return jwt.sign({
-    _id: this._id,
-    email: this.email,
-    name: this.name,
-    exp: parseInt(expiry.getTime() / 1000),
-  }, "SECRET"); // TODO Move to environment variables
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      name: this.name,
+      exp: parseInt(expiry.getTime() / 1000)
+    },
+    'SECRET'
+  ); // TODO: Move to environment variables
 };
 
 module.exports = mongoose.model('User', UserSchema);
