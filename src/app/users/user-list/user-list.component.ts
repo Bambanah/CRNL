@@ -18,11 +18,5 @@ export class UserListComponent implements OnInit {
     this.users = api.getStudents();
   }
 
-  onClick(user) {
-    const student_id = user._id;
-
-    console.log(user);
-  }
-
   ngOnInit() {}
 }

@@ -92,13 +92,22 @@ router.post('/users/', function(req, res) {
 });
 
 router.post('/teams/', function(req, res) {
-  // var newTeam = new Team({team_name: "fuck"});
-  // var user_id1 = req.body[0];
-  // var user_id2 = req.body[1];
-  // console.log("sup");
-  // newTeam.members.push(user1);
-  // newTeam.members.push(user2);
+  // Create new team
+  var newTeam = new Team();
+
+  // Add student IDs to team document
+  var student_id1 = req.body[0];
+  var student_id2 = req.body[1];
+  newTeam.members.push(student_id1);
+  newTeam.members.push(student_id2);
+
+  var user1 = User.findById(req.body[0]);
+  var user2 = User.findById(req.body[1]);
+  user1.team = newTeam._id;
+  user2.team = newTeam._id;
   // newTeam.save();
+  // user1.save();
+  // user2.save();
   res.status(202);
 });
 

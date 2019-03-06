@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Team } from '../../_models/Team';
@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 export class UserProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private api: ApiService,
     private auth: AuthService
   ) {}
@@ -38,6 +39,7 @@ export class UserProfileComponent implements OnInit {
       this.user = data;
       this.isLoaded = true;
     });
+    // this.router.navigate();
   }
 
   isInTeam(): Boolean {
@@ -57,6 +59,7 @@ export class UserProfileComponent implements OnInit {
     this.api.createTeam(data).subscribe(err => {
       console.log(err);
     });
+
   }
 
   removeFromTeam() {
