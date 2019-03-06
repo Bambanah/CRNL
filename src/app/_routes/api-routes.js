@@ -5,6 +5,7 @@ var config = require('../../../config/database');
 var Post = require('../_models/Post');
 var User = require('../_models/User');
 var Student = require('../_models/Student');
+var Team = require('../_models/Team');
 
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
@@ -21,6 +22,13 @@ router.get('/students/', function(req, res, next) {
 
 router.get('/users/', function(req, res, next) {
   User.find(function(err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
+});
+
+router.get('/teams/', function(req, res, next) {
+  Team.find(function(err, products) {
     if (err) return next(err);
     res.json(products);
   });
@@ -80,6 +88,19 @@ router.post('/students/', function(req, res) {
 router.post('/users/', function(req, res) {
   var newUser = new User(req.body);
   newUser.save();
+  res.status(202);
+});
+
+router.post('/teams/', function(req, res) {
+  var newTeam = new Team({team_name: "fuck"});
+  var user_id1 = req.body[0];
+  var user_id2 = req.body[1];
+  var user1 = User.findById(user_id1);
+  var user2 = User.findById(user_id2);
+
+  // newTeam.members.push(user1);
+  // newTeam.members.push(user2);
+  newTeam.save();
   res.status(202);
 });
 

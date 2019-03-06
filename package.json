@@ -53,6 +53,7 @@
     "prettier": "^1.16.4",
     "rxjs": "~6.4.0",
     "serve-favicon": "^2.5.0",
+    "tslint": "^5.13.1",
     "typescript": "^3.2.4",
     "zone.js": "~0.8.26"
   },

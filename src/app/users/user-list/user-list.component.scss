@@ -6,3 +6,9 @@ td,
 th {
   width: 25%;
 }
+
+.mat-row {
+  cursor: pointer;
+
+  // TODO: Style whole row when hovering over td
+}

@@ -14,7 +14,8 @@ const Student = User.discriminator(
       type: String,
       enum: ['Intelligent Systems', 'User Experience', 'Unspecified'],
       default: 'Unspecified'
-    }
+    },
+    team: { type: Schema.Types.ObjectId, ref: 'Team' }
   })
 );
 

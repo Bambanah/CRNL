@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 var TeamSchema = new Schema(
   {
     team_name: {
-      type: String,
-      required: true
+      type: String
     },
     team_bio: String,
     members: {

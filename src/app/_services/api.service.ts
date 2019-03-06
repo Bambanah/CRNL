@@ -16,8 +16,9 @@ const httpOptions = {
 
 const apiUrl = 'http://localhost:3000/api';
 
-import { User } from '../_models/User.js';
-import { Student } from '../_models/Student'
+import { User } from '../_models/User';
+import { Student } from '../_models/Student';
+import { Team } from '../_models/Team';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,10 @@ export class ApiService {
 
   getStudents() {
     return this.http.get<Student[]>(apiUrl + '/students/');
+  }
+
+  getTeams() {
+    return this.http.get<Team[]>(apiUrl + '/teams/');
   }
 
   getUser(id: string): Observable<any> {
@@ -96,5 +101,21 @@ export class ApiService {
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  createTeam(user1_id, user2_id) {
+    const url = `${apiUrl}/teams/`;
+    const data = [user1_id, user2_id];
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addToTeam() {
+    // TODO: Implement addToTeam()
+  }
+
+  removeFromTeam() {
+    // TODO: Implement removeFromTeam()
   }
 }

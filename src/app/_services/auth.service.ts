@@ -50,9 +50,9 @@ export class AuthService {
   }
 
   signup(signupData, is_student) {
-    var url = '';
+    let url = '';
     if (is_student) {
-      url = apiUrl + '/students/'
+      url = apiUrl + '/students/';
     } else {
       url = apiUrl + '/users/';
     }
