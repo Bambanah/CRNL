@@ -8,9 +8,9 @@
         Create team with {{ user.full_name }}
       </a>
     </li>
-    <li *ngIf="!this.auth.isSelf(this.getUserId) && this.isInTeam()">
-        <a (click)="createTeam()" href="javascript:void(0);">
-          Create team with {{ user.full_name }}
+    <li *ngIf="!this.auth.isSelf(this.getUserId) && !this.isInTeam()">
+        <a (click)="addToTeam()" href="javascript:void(0);">
+          Invite {{ user.full_name }} to team
         </a>
       </li>
     <li *ngIf="!this.auth.isSelf(this.getUserId) && this.sameTeam()">

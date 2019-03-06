@@ -72,4 +72,21 @@ UserSchema.methods.generateJwt = function() {
   ); // TODO: Move to environment variables
 };
 
+UserSchema.methods.isInTeam = function() {
+  var user = this;
+
+  if (!user._t) throw new Error('User is not a student');
+
+  return user.team;
+};
+
+UserSchema.methods.getTeamId = function() {
+  var user = this;
+  if (!this.isInTeam(user)) {
+    throw new Error('User is not in a team');
+  } else if (this.isInTeam(user)) {
+    return this.team;
+  }
+};
+
 module.exports = mongoose.model('User', UserSchema);

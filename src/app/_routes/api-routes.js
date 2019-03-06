@@ -100,7 +100,6 @@ router.post('/teams/', function(req, res) {
   var student_id2 = req.body[1];
   newTeam.members.push(student_id1);
   newTeam.members.push(student_id2);
-
   var user1 = User.findById(req.body[0]);
   var user2 = User.findById(req.body[1]);
   user1.team = newTeam._id;
@@ -109,6 +108,32 @@ router.post('/teams/', function(req, res) {
   // user1.save();
   // user2.save();
   res.status(202);
+});
+
+router.get('/teams/:id', function(req, res, next) {
+  Team.findById(req.params.id, function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+router.post('/teams/add/', function(req, res, next) {
+  var team_id = User.findById(req.body.host_id).getTeamId();
+
+  var team = Team.findById(team_id, function(err) {
+    if (err) return next(err);
+  });
+
+  team.addMember(req.body.guest_id);
+
+  res.status(202);
+});
+
+router.delete('/teams/:id', function(req, res, next) {
+  Team.findByIdAndRemove(req.params.id, req.body, function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 //

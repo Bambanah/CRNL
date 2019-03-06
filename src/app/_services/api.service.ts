@@ -19,12 +19,14 @@ const apiUrl = 'http://localhost:3000/api';
 import { User } from '../_models/User';
 import { Student } from '../_models/Student';
 import { Team } from '../_models/Team';
+import { Post } from '../_models/Post';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -58,7 +60,7 @@ export class ApiService {
     return this.http.get<Team[]>(apiUrl + '/teams/');
   }
 
-  getUser(id: string): Observable<any> {
+  getUser(id: string): Observable<User> {
     const url = `${apiUrl}/users/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
@@ -66,7 +68,7 @@ export class ApiService {
     );
   }
 
-  getPosts(): Observable<any> {
+  getPosts(): Observable<Post> {
     const url = `${apiUrl}/posts/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
@@ -74,7 +76,7 @@ export class ApiService {
     );
   }
 
-  getPost(id: string): Observable<any> {
+  getPost(id: string): Observable<Post> {
     const url = `${apiUrl}/posts/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
@@ -82,14 +84,14 @@ export class ApiService {
     );
   }
 
-  postPost(data): Observable<any> {
+  postPost(data): Observable<Post> {
     const url = `${apiUrl}/posts/`;
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
-  updatePost(data): Observable<any> {
+  updatePost(data): Observable<Post> {
     const url = `${apiUrl}/posts/`;
     return this.http
       .put(url, data, httpOptions)
@@ -110,11 +112,30 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  addToTeam() {
-    // TODO: Implement addToTeam()
+  deleteTeam(id: string) {
+    const url = `${apiUrl}/teams/${id}`;
+    return this.http
+      .delete(url, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
-  removeFromTeam() {
+  addToTeam(id: string) {
+    console.log('here');
+    // TODO: Implement addToTeam()
+    const data = {
+      host_id: this.auth.getCurrentUserId(),
+      guest_id: id
+    };
+    const url = `${apiUrl}/teams/add/`;
+    return this.http.post(url, data, httpOptions).pipe(catchError(this.handleError));
+  }
+
+  removeFromTeam(id: string) {
     // TODO: Implement removeFromTeam()
+  }
+
+  isInTeam(id: string): Boolean {
+    const user = this.getUser(id);
+    return;
   }
 }

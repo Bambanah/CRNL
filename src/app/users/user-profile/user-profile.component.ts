@@ -42,7 +42,7 @@ export class UserProfileComponent implements OnInit {
     // this.router.navigate();
   }
 
-  isInTeam(): Boolean {
+  isInTeam(id: string): Boolean {
     // TODO: Implement - auth user is in a team
     return false;
   }
@@ -55,20 +55,40 @@ export class UserProfileComponent implements OnInit {
   createTeam() {
     const user_id = this.getUserId();
     const logged_id = this.auth.getCurrentUserId();
-    const data = [user_id, logged_id];
-    this.api.createTeam(data).subscribe(err => {
+
+    if (this.sameTeam()) {
+      // ERROR
+      return;
+    } else if (
+      this.isInTeam(this.getUserId()) ||
+      this.isInTeam(this.auth.getCurrentUserId())
+    ) {
+      // ERROR
+      return;
+    } else {
+      const data = [user_id, logged_id];
+      this.api.createTeam(data).subscribe(err => {
+        console.log(err);
+      });
+    }
+  }
+
+  addToTeam() {
+    const user_id = this.getUserId();
+    this.api.addToTeam(user_id).subscribe(err => {
       console.log(err);
     });
-
   }
 
   removeFromTeam() {
     // TODO: Implement - remove user from team
     // Warning if removing user will delete team
-    this.api.removeFromTeam();
+    const user_id = this.getUserId();
+    this.api.removeFromTeam(user_id);
   }
 
   ngOnInit() {
     this.getUserDetails();
+    this.api.isInTeam(this.getUserId());
   }
 }

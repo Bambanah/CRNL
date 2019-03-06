@@ -2,7 +2,7 @@ const User = require('./User');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Student = User.discriminator(
+var Student = User.discriminator(
   'Student',
   new Schema({
     major: {

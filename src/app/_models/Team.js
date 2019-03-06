@@ -26,4 +26,14 @@ function arrayLimit(val) {
   return val.length <= 4;
 }
 
+TeamSchema.methods.addMember = function(id) {
+  var team = this;
+  if (team.members.length >= 4) {
+    throw new Error('Team already has four members');
+  } else {
+    team.members.push(id);
+    team.save();
+  }
+};
+
 module.exports = mongoose.model('Team', TeamSchema);
