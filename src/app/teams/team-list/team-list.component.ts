@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { Observable } from 'rxjs';
-import { Team } from '../../_models/Team'
+import { Team } from '../../_models/Team';
 
 @Component({
   selector: 'app-team-list',
