@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
-var jwt = require('jsonwebtoken');
-var Schema = mongoose.Schema;
+const jwt = require('jsonwebtoken');
+const Schema = mongoose.Schema;
 
 const options = {
   discriminatorKey: 'itemtype',
   collection: 'users'
 };
 
-var UserSchema = new Schema(
+const UserSchema = new Schema(
   {
     full_name: String,
     email: {
@@ -34,8 +34,10 @@ var UserSchema = new Schema(
 );
 
 UserSchema.pre('save', function(next) {
-  var user = this;
+  // eslint-disable-next-line no-invalid-this
+  const user = this;
   if (user.isModified('password') || user.isNew) {
+    // eslint-disable-next-line no-invalid-this
     bcrypt.hash(this.password, saltRounds, function(err, hash) {
       if (err) {
         return next(err);
@@ -58,7 +60,7 @@ UserSchema.methods.comparePassword = function(password, cb) {
 };
 
 UserSchema.methods.generateJwt = function() {
-  var expiry = new Date();
+  const expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);
 
   return jwt.sign(
@@ -73,7 +75,7 @@ UserSchema.methods.generateJwt = function() {
 };
 
 UserSchema.methods.isInTeam = function() {
-  var user = this;
+  const user = this;
 
   if (!user._t) throw new Error('User is not a student');
 
@@ -81,7 +83,7 @@ UserSchema.methods.isInTeam = function() {
 };
 
 UserSchema.methods.getTeamId = function() {
-  var user = this;
+  const user = this;
   if (!this.isInTeam(user)) {
     throw new Error('User is not in a team');
   } else if (this.isInTeam(user)) {

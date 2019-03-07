@@ -45,7 +45,7 @@ export class UserProfileComponent implements OnInit {
 
   isInTeam(userId: string): boolean {
     let team = '';
-    this.api.getTeamIdFromUser(userId).subscribe( data => {
+    this.api.getTeamIdFromUser(userId).subscribe(data => {
       team = data;
     });
 
@@ -54,7 +54,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   sameTeam(): Boolean {
-    return (this.api.getTeamIdFromUser(this.getUserId()) == this.api.getTeamIdFromUser(this.auth.getCurrentUserId()));
+    return (
+      this.api.getTeamIdFromUser(this.getUserId()) ==
+      this.api.getTeamIdFromUser(this.auth.getCurrentUserId())
+    );
   }
 
   createTeam() {

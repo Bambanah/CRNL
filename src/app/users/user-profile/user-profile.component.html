@@ -9,10 +9,10 @@
       </a>
     </li>
     <li *ngIf="!this.isSelf && !this.inTeam">
-        <a (click)="addToTeam()" href="javascript:void(0);">
-          Invite {{ user.full_name }} to team
-        </a>
-      </li>
+      <a (click)="addToTeam()" href="javascript:void(0);">
+        Invite {{ user.full_name }} to team
+      </a>
+    </li>
     <li *ngIf="!this.isSelf && this.sameTeam()">
       <a (click)="removeFromTeam()" href="">
         Remove from team

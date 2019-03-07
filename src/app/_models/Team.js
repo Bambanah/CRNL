@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var TeamSchema = new Schema(
+const TeamSchema = new Schema(
   {
     team_name: {
       type: String
@@ -22,12 +22,13 @@ var TeamSchema = new Schema(
   }
 );
 
+// eslint-disable-next-line require-jsdoc
 function arrayLimit(val) {
   return val.length <= 4;
 }
 
 TeamSchema.methods.addMember = function(id) {
-  var team = this;
+  const team = this;
   if (team.members.length >= 4) {
     throw new Error('Team already has four members');
   } else {

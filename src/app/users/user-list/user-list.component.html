@@ -25,6 +25,10 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let user; columns: displayedColumns" routerLink="/users/{{user._id}}"></tr>
+    <tr
+      mat-row
+      *matRowDef="let user; columns: displayedColumns"
+      routerLink="/users/{{ user._id }}"
+    ></tr>
   </table>
 </div>

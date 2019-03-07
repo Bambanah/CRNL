@@ -1,20 +1,20 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
 // var favicon = require('serve-favicon');
-var logger = require('morgan');
-var config = require('./config/database');
-var passport = require('passport');
+const logger = require('morgan');
+const config = require('./config/database');
+const passport = require('passport');
 
 // Initiate Express
-var app = express();
+const app = express();
 
 //
 // API HANDLING
 //
 
 // Routes for API URLs
-var apiRouter = require('./src/app/_routes/api-routes');
+const apiRouter = require('./src/app/_routes/api-routes');
 
 // Set headers for API requests
 app.use((req, res, next) => {
@@ -35,9 +35,9 @@ app.use((req, res, next) => {
 //
 
 // Initiate database
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-//Connect to database
+// Connect to database
 mongoose
   .connect(config.database, {
     promiseLibrary: require('bluebird'),
