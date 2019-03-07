@@ -20,6 +20,8 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   isLoaded = false;
+  isSelf = false;
+  inTeam = false;
   // Placeholder user object
   // Overwritten with getUserDetails()
   user = {
@@ -39,17 +41,20 @@ export class UserProfileComponent implements OnInit {
       this.user = data;
       this.isLoaded = true;
     });
-    // this.router.navigate();
   }
 
-  isInTeam(id: string): Boolean {
-    // TODO: Implement - auth user is in a team
+  isInTeam(userId: string): boolean {
+    let team = '';
+    this.api.getTeamIdFromUser(userId).subscribe( data => {
+      team = data;
+    });
+
+    if (team) return true;
     return false;
   }
 
   sameTeam(): Boolean {
-    // TODO: Implement - users are in same team
-    return false;
+    return (this.api.getTeamIdFromUser(this.getUserId()) == this.api.getTeamIdFromUser(this.auth.getCurrentUserId()));
   }
 
   createTeam() {
@@ -68,7 +73,7 @@ export class UserProfileComponent implements OnInit {
     } else {
       const data = [user_id, logged_id];
       this.api.createTeam(data).subscribe(err => {
-        console.log(err);
+        console.error(err);
       });
     }
   }
@@ -76,7 +81,7 @@ export class UserProfileComponent implements OnInit {
   addToTeam() {
     const user_id = this.getUserId();
     this.api.addToTeam(user_id).subscribe(err => {
-      console.log(err);
+      console.error(err);
     });
   }
 
@@ -88,7 +93,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.inTeam = this.isInTeam(this.getUserId());
+    this.isSelf = this.auth.isSelf(this.getUserId());
     this.getUserDetails();
-    this.api.isInTeam(this.getUserId());
   }
 }

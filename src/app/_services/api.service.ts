@@ -112,6 +112,18 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  addToTeam(id: string) {
+    const url = `${apiUrl}/teams/add/`;
+    const data = {
+      hostId: this.auth.getCurrentUserId(),
+      guestId: id
+    };
+
+    return this.http
+      .put(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   deleteTeam(id: string) {
     const url = `${apiUrl}/teams/${id}`;
     return this.http
@@ -119,23 +131,15 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  addToTeam(id: string) {
-    console.log('here');
-    // TODO: Implement addToTeam()
-    const data = {
-      host_id: this.auth.getCurrentUserId(),
-      guest_id: id
-    };
-    const url = `${apiUrl}/teams/add/`;
-    return this.http.post(url, data, httpOptions).pipe(catchError(this.handleError));
-  }
-
   removeFromTeam(id: string) {
     // TODO: Implement removeFromTeam()
   }
 
-  isInTeam(id: string): Boolean {
-    const user = this.getUser(id);
-    return;
+  getTeamIdFromUser(userId: string): Observable<Team> {
+    const url = `${apiUrl}/users/${userId}/team/`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
   }
 }
