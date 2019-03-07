@@ -1,11 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var jwt = require('jsonwebtoken');
-var config = require('../../../config/database');
-var Post = require('../_models/Post');
-var User = require('../_models/User');
-var Student = require('../_models/Student');
-var Team = require('../_models/Team');
+const express = require('express');
+// eslint-disable-next-line new-cap
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const config = require('../../../config/database');
+const Post = require('../_models/Post');
+const User = require('../_models/User');
+const Student = require('../_models/Student');
+const Team = require('../_models/Team');
 
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
@@ -61,7 +62,7 @@ router.post('/users/authenticate/', function(req, res) {
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
             // if user is found and password is right create a token
-            var token = jwt.sign(user.toJSON(), config.secret);
+            const token = jwt.sign(user.toJSON(), config.secret);
             // return the information including token as JSON
             res.json({
               success: true,
@@ -80,28 +81,28 @@ router.post('/users/authenticate/', function(req, res) {
 });
 
 router.post('/students/', function(req, res) {
-  var newStudent = new Student(req.body);
+  const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
 });
 
 router.post('/users/', function(req, res) {
-  var newUser = new User(req.body);
+  const newUser = new User(req.body);
   newUser.save();
   res.status(202);
 });
 
 router.post('/teams/', function(req, res) {
   // Create new team
-  var newTeam = new Team();
+  const newTeam = new Team();
 
   // Add student IDs to team document
-  var student_id1 = req.body[0];
-  var student_id2 = req.body[1];
+  const studentId1 = req.body[0];
+  const studentId2 = req.body[1];
   newTeam.members.push(student_id1);
   newTeam.members.push(student_id2);
-  var user1 = User.findById(req.body[0]);
-  var user2 = User.findById(req.body[1]);
+  const user1 = User.findById(req.body[0]);
+  const user2 = User.findById(req.body[1]);
   user1.team = newTeam._id;
   user2.team = newTeam._id;
   // newTeam.save();
@@ -118,9 +119,9 @@ router.get('/teams/:id', function(req, res, next) {
 });
 
 router.post('/teams/add/', function(req, res, next) {
-  var team_id = User.findById(req.body.host_id).getTeamId();
+  const teamId = User.findById(req.body.host_id).getTeamId();
 
-  var team = Team.findById(team_id, function(err) {
+  const team = Team.findById(team_id, function(err) {
     if (err) return next(err);
   });
 
