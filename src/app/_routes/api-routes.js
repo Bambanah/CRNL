@@ -13,7 +13,11 @@ router.get('/', function(res) {
   res.send('API Test');
 });
 
-/* GET ALL STUDENTS */
+//
+// Students
+//
+
+// Get all students
 router.get('/students/', function(req, res, next) {
   Student.find(function(err, products) {
     if (err) return next(err);
@@ -21,6 +25,11 @@ router.get('/students/', function(req, res, next) {
   });
 });
 
+//
+//  Users
+//
+
+// Get all users
 router.get('/users/', function(req, res, next) {
   User.find(function(err, products) {
     if (err) return next(err);
@@ -28,20 +37,17 @@ router.get('/users/', function(req, res, next) {
   });
 });
 
-router.get('/teams/', function(req, res, next) {
-  Team.find(function(err, products) {
-    if (err) return next(err);
-    res.json(products);
-  });
-});
-
-/* GET SINGLE USER BY ID */
+// Get single user
 router.get('/users/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+
+//
+//  Authentication
+//
 
 // Sign in user
 router.post('/users/authenticate/', function(req, res) {
@@ -80,37 +86,33 @@ router.post('/users/authenticate/', function(req, res) {
   );
 });
 
+// Sign up new student
 router.post('/students/', function(req, res) {
   const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
 });
 
+// Sign up new user
 router.post('/users/', function(req, res) {
   const newUser = new User(req.body);
   newUser.save();
   res.status(202);
 });
 
-router.post('/teams/', function(req, res) {
-  // Create new team
-  const newTeam = new Team();
+//
+// Teams
+//
 
-  // Add student IDs to team document
-  const studentId1 = req.body[0];
-  const studentId2 = req.body[1];
-  newTeam.members.push(student_id1);
-  newTeam.members.push(student_id2);
-  const user1 = User.findById(req.body[0]);
-  const user2 = User.findById(req.body[1]);
-  user1.team = newTeam._id;
-  user2.team = newTeam._id;
-  // newTeam.save();
-  // user1.save();
-  // user2.save();
-  res.status(202);
+// Get all teams
+router.get('/teams/', function(req, res, next) {
+  Team.find(function(err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
 });
 
+// Get single team
 router.get('/teams/:id', function(req, res, next) {
   Team.findById(req.params.id, function(err, post) {
     if (err) return next(err);
@@ -118,10 +120,44 @@ router.get('/teams/:id', function(req, res, next) {
   });
 });
 
+// Create Team with two members
+router.post('/teams/', function(req, res) {
+  // Create new team
+  const newTeam = new Team();
+
+  // Add student IDs to team document
+  const studentId1 = req.body[0];
+  const studentId2 = req.body[1];
+  newTeam.members.push(studentId1);
+  newTeam.members.push(studentId2);
+
+  // Add team id to student documents
+  const user1 = User.findById(req.body[0]);
+  const user2 = User.findById(req.body[1]);
+  user1.team = newTeam._id;
+  user2.team = newTeam._id;
+
+  // Save documents
+  newTeam.save();
+  user1.save();
+  user2.save();
+
+  res.status(202);
+});
+
+// Get Team
+router.get('/teams/:id', function(req, res, next) {
+  Team.findById(req.params.id, function(err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+// Add member to team
 router.post('/teams/add/', function(req, res, next) {
   const teamId = User.findById(req.body.host_id).getTeamId();
 
-  const team = Team.findById(team_id, function(err) {
+  const team = Team.findById(teamId, function(err) {
     if (err) return next(err);
   });
 
@@ -130,6 +166,12 @@ router.post('/teams/add/', function(req, res, next) {
   res.status(202);
 });
 
+// Remove member from team
+router.post('/teams/remove', function(req, res, next) {
+  res.status(202);
+});
+
+// Delete Team
 router.delete('/teams/:id', function(req, res, next) {
   Team.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
@@ -138,10 +180,10 @@ router.delete('/teams/:id', function(req, res, next) {
 });
 
 //
-// POSTS
+// Posts
 //
 
-/* GET ALL POSTS */
+// Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
     .sort('-updatedAt')
@@ -151,7 +193,7 @@ router.get('/posts/', function(req, res, next) {
     });
 });
 
-/* GET SINGLE POST BY ID */
+// Get single post
 router.get('/posts/:id', function(req, res, next) {
   Post.findById(req.params.id, function(err, post) {
     if (err) return next(err);
@@ -159,7 +201,7 @@ router.get('/posts/:id', function(req, res, next) {
   });
 });
 
-/* CREATE POST */
+// Create post
 router.post('/posts/', function(req, res, next) {
   Post.create(req.body, function(err, post) {
     if (err) return next(err);
@@ -167,7 +209,7 @@ router.post('/posts/', function(req, res, next) {
   });
 });
 
-/* UPDATE POST */
+// Update post
 router.put('/posts/:id', function(req, res, next) {
   Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
@@ -175,12 +217,18 @@ router.put('/posts/:id', function(req, res, next) {
   });
 });
 
-/* DELETE POST */
+// Delete post
 router.delete('/posts/:id', function(req, res, next) {
   Post.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+
+//
+//  Helper Functions
+//
+
+// Under Construction
 
 module.exports = router;
