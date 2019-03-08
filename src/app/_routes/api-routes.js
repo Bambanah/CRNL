@@ -189,11 +189,8 @@ router.delete('/teams/:id', function(req, res, next) {
 router.get('/users/:userId/team/', function(req, res, next) {
   User.findById(req.params.userId, function(err, user) {
     if (err) return next(err);
-    if (!user._t) {
-      throw new Error('User is not a student');
-    } else {
-      res.json(user.team);
-    }
+    if (!user._t) console.warn('User is not a student');
+    res.json(user.team);
   });
 });
 

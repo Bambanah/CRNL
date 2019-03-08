@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
-import { Team } from '../../_models/Team';
-import { useAnimation } from '@angular/animations';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,14 +11,15 @@ import { map } from 'rxjs/operators';
 export class UserProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private api: ApiService,
     private auth: AuthService
   ) {}
 
+  // Variables
   isLoaded = false;
   isSelf = false;
   inTeam = false;
+
   // Placeholder user object
   // Overwritten with getUserDetails()
   user = {
