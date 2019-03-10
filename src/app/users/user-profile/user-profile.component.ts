@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,6 +12,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class UserProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private api: ApiService,
     private auth: AuthService
   ) {}
@@ -63,34 +65,36 @@ export class UserProfileComponent implements OnInit {
     const logged_id = this.auth.getCurrentUserId();
 
     if (this.sameTeam()) {
-      // ERROR
+      console.warn('Students are on the same team');
       return;
     } else if (
       this.isInTeam(this.getUserId()) ||
       this.isInTeam(this.auth.getCurrentUserId())
     ) {
-      // ERROR
+      console.warn('One or more students are already in a team');
       return;
     } else {
       const data = [user_id, logged_id];
-      this.api.createTeam(data).subscribe(err => {
-        console.error(err);
+      this.api.createTeam(data).subscribe(team => {
+        const teamId = team._id;
+        console.log(team);
+        this.router.navigate([`/teams/${teamId}`]);
       });
     }
   }
 
   addToTeam() {
-    const user_id = this.getUserId();
-    this.api.addToTeam(user_id).subscribe(err => {
+    const userId = this.getUserId();
+    this.api.addToTeam(userId).subscribe(err => {
       console.error(err);
     });
   }
 
   removeFromTeam() {
-    // TODO: Implement - remove user from team
-    // Warning if removing user will delete team
-    const user_id = this.getUserId();
-    this.api.removeFromTeam(user_id);
+    // TODO: Warning if removing user will delete team (only self left in team)
+    const userId = this.getUserId();
+    const teamId = '' + this.api.getTeamIdFromUser(userId);
+    this.api.removeFromTeam(teamId, userId);
   }
 
   ngOnInit() {

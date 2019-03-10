@@ -125,6 +125,10 @@ router.post('/teams/', function(req, res) {
   // Create new team
   const newTeam = new Team();
 
+  // Temporary
+  newTeam.name = 'Test name';
+  newTeam.bio = 'Test bio';
+
   // Add student IDs to team document
   const studentId1 = req.body[0];
   const studentId2 = req.body[1];
@@ -144,7 +148,7 @@ router.post('/teams/', function(req, res) {
   // Save team
   newTeam.save();
 
-  res.status(202);
+  res.json(202, newTeam);
 });
 
 // Get Team
@@ -190,6 +194,7 @@ router.get('/users/:userId/team/', function(req, res, next) {
   User.findById(req.params.userId, function(err, user) {
     if (err) return next(err);
     if (!user._t) console.warn('User is not a student');
+    console.log(user.team);
     res.json(user.team);
   });
 });

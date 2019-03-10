@@ -131,11 +131,11 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  removeFromTeam(id: string) {
+  removeFromTeam(teamId: string, userId: string) {
     // TODO: Implement removeFromTeam()
   }
 
-  getTeamIdFromUser(userId: string): Observable<Team> {
+  getTeamIdFromUser(userId: string): Observable<any> {
     const url = `${apiUrl}/users/${userId}/team/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),

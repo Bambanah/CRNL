@@ -3,13 +3,13 @@
     <!-- Name Column -->
     <ng-container matColumnDef="team_name">
       <th mat-header-cell *matHeaderCellDef width="25%">Team Name</th>
-      <td mat-cell *matCellDef="let row">{{ row.team_name }}</td>
+      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
     </ng-container>
 
     <!-- Bio Column -->
     <ng-container matColumnDef="team_bio">
       <th mat-header-cell *matHeaderCellDef>Team Bio</th>
-      <td mat-cell *matCellDef="let row">{{ row.team_bio }}</td>
+      <td mat-cell *matCellDef="let row">{{ row.bio }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

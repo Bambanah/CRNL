@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema(
   {
-    team_name: {
+    name: {
       type: String
     },
-    team_bio: String,
+    bio: String,
     members: {
       type: [
         {
