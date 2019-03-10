@@ -148,7 +148,7 @@ router.post('/teams/', function(req, res) {
   // Save team
   newTeam.save();
 
-  res.json(202, newTeam);
+  res.status(202).json(newTeam);
 });
 
 // Get Team
