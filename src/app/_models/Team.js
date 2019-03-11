@@ -30,7 +30,7 @@ function arrayLimit(val) {
 TeamSchema.methods.addMember = function(id) {
   const team = this;
   if (team.members.length >= 4) {
-    throw new Error('Team already has four members');
+    console.warn('Team already has four members');
   } else {
     team.members.push(id);
     team.save();

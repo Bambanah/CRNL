@@ -7,6 +7,7 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-team-profile',
@@ -21,7 +22,7 @@ export class TeamProfileComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  private teamId = this.route.snapshot.params['id'];
+  teamId = this.route.snapshot.params['id'];
 
   leaveTeam() {
     console.log('test');
@@ -30,7 +31,12 @@ export class TeamProfileComponent implements OnInit {
   }
 
   deleteTeam() {
-    this.api.deleteTeam(this.teamId);
+    console.log(this.teamId);
+    this.api.deleteTeam(this.teamId).subscribe(err => {
+      console.error(err);
+    });
+    this.router.navigateByUrl('/teams/');
+    window.location.reload();
   }
 
   ngOnInit() {}

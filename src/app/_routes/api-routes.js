@@ -162,17 +162,17 @@ router.get('/teams/:id', function(req, res, next) {
 });
 
 // Add member to team
-router.put('/teams/add/', function(req, res, next) {
+router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
   const guestId = req.body.guestId;
-
-  const teamId = User.findById(hostId).getTeamId();
-
-  const team = Team.findById(teamId, function(err) {
+  User.findById(hostId, function(err, user) {
     if (err) return next(err);
-  });
 
-  team.addMember(guestId);
+    Team.findById(user.team, function(err, team) {
+      if (err) return next(err);
+      team.addMember(guestId);
+    });
+  });
 
   res.status(202);
 });
@@ -185,10 +185,8 @@ router.put('/teams/remove/', function(req, res, next) {
 
 // Delete Team
 router.delete('/teams/:id', function(req, res, next) {
-  console.log('router.delete');
   Team.findByIdAndRemove(req.params.id, function(err) {
     if (err) return next(err);
-    console.log('food');
     res.status(202);
   });
 });

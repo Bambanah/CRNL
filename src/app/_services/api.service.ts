@@ -118,23 +118,21 @@ export class ApiService {
       hostId: this.auth.getCurrentUserId(),
       guestId: id
     };
-
     return this.http
-      .put(url, data, httpOptions)
-      .pipe(catchError(this.handleError));
-  }
-
-  deleteTeam(id: string) {
-    const url = `${apiUrl}/teams/${id}`;
-    console.log('deleteTeam()');
-    return this.http
-      .delete(url, httpOptions)
+      .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   removeFromTeam(teamId: string, userId: string) {
     const url = `${apiUrl}/teams/${teamId}/remove/${userId}`;
     return this.http.post(url, httpOptions).pipe(catchError(this.handleError));
+  }
+
+  deleteTeam(id: string) {
+    const url = `${apiUrl}/teams/${id}`;
+    return this.http
+      .delete(url, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getTeamIdFromUser(userId: string): Observable<any> {
