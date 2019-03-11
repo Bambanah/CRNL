@@ -20,6 +20,7 @@ export class TeamProfileComponent implements OnInit {
   ) {}
 
   teamId = this.route.snapshot.params['id'];
+  members = [];
 
   leaveTeam() {
     const currentUserId = this.auth.getCurrentUserId();
@@ -35,5 +36,21 @@ export class TeamProfileComponent implements OnInit {
     window.location.reload();
   }
 
-  ngOnInit() {}
+  getMembers() {
+    this.api.getMembersOfTeam(this.teamId).subscribe(data => {
+      for (const user in data) {
+        if (data.hasOwnProperty(user)) {
+          const userId = data[user];
+          this.api.getUser(userId).subscribe(user => {
+            this.members.push(user);
+          });
+        }
+      }
+      console.log(this.members[0]);
+    });
+  }
+
+  ngOnInit() {
+    this.getMembers();
+  }
 }

@@ -197,7 +197,19 @@ router.get('/users/:userId/team/', function(req, res, next) {
     if (err) return next(err);
     if (!user._t) console.warn('User is not a student');
     console.log(user.team);
-    res.json(user.team);
+    res.status(202).json(user.team);
+  });
+});
+
+router.get('/teams/:teamId/members', function(req, res, next) {
+  Team.findById(req.params.teamId, function(err, team) {
+    if (err) return next(err);
+    if (team.members === undefined || team.members.length === 0) {
+      console.warn('Team has no members');
+      res.status(300); // TODO: Figure out which code to use
+    } else {
+      res.status(202).json(team.members);
+    }
   });
 });
 
