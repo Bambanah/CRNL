@@ -95,6 +95,7 @@ export class UserProfileComponent implements OnInit {
     const userId = this.getUserId();
     const teamId = '' + this.api.getTeamIdFromUser(userId);
     this.api.removeFromTeam(teamId, userId);
+    window.location.reload();
   }
 
   ngOnInit() {

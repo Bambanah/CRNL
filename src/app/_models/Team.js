@@ -37,4 +37,14 @@ TeamSchema.methods.addMember = function(id) {
   }
 };
 
+TeamSchema.methods.removeMember = function(id) {
+  const team = this;
+  if (team.members.includes(id)) {
+    const idIndex = team.members.indexOf(id);
+    console.log(team.members);
+    team.members.splice(idIndex, 1);
+    console.log(team.members);
+  }
+};
+
 module.exports = mongoose.model('Team', TeamSchema);

@@ -2,12 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
 import {
   Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
   ActivatedRoute
 } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'app-team-profile',
@@ -25,7 +22,6 @@ export class TeamProfileComponent implements OnInit {
   teamId = this.route.snapshot.params['id'];
 
   leaveTeam() {
-    console.log('test');
     const currentUserId = this.auth.getCurrentUserId();
     this.api.removeFromTeam(this.teamId, currentUserId);
   }
