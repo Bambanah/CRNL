@@ -137,10 +137,12 @@ router.post('/teams/', function(req, res) {
 
   // Add team id to student documents
   User.findById(req.body[0], function(err, user) {
+    if (err) return next(err);
     user.team = newTeam._id;
     user.save();
   });
   User.findById(req.body[1], function(err, user) {
+    if (err) return next(err);
     user.team = newTeam._id;
     user.save();
   });
@@ -148,14 +150,14 @@ router.post('/teams/', function(req, res) {
   // Save team
   newTeam.save();
 
-  res.status(202).json(newTeam);
+  res.status(201).json(newTeam);
 });
 
 // Get Team
 router.get('/teams/:id', function(req, res, next) {
   Team.findById(req.params.id, function(err, team) {
     if (err) return next(err);
-    res.json(team);
+    res.status(202).json(team);
   });
 });
 
@@ -183,9 +185,11 @@ router.put('/teams/remove/', function(req, res, next) {
 
 // Delete Team
 router.delete('/teams/:id', function(req, res, next) {
-  Team.findByIdAndRemove(req.params.id, function(err, team) {
+  console.log('router.delete');
+  Team.findByIdAndRemove(req.params.id, function(err) {
     if (err) return next(err);
-    res.json(team);
+    console.log('food');
+    res.status(202);
   });
 });
 

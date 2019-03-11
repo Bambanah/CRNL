@@ -126,13 +126,15 @@ export class ApiService {
 
   deleteTeam(id: string) {
     const url = `${apiUrl}/teams/${id}`;
+    console.log('deleteTeam()');
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   removeFromTeam(teamId: string, userId: string) {
-    // TODO: Implement removeFromTeam()
+    const url = `${apiUrl}/teams/${teamId}/remove/${userId}`;
+    return this.http.post(url, httpOptions).pipe(catchError(this.handleError));
   }
 
   getTeamIdFromUser(userId: string): Observable<any> {
