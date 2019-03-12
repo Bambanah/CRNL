@@ -27,7 +27,6 @@
     "@ng-bootstrap/ng-bootstrap": "^4.0.4",
     "@types/angular-jwt": "0.0.29",
     "@types/chart.js": "^2.7.45",
-    "angular-fontawesome": "^1.0.0",
     "angular-jwt": "^0.1.10",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.2",
