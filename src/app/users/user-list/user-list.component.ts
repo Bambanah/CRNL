@@ -13,9 +13,9 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['full_name', 'major', 'minor', 'email'];
   users: Observable<User>;
 
-  constructor(private api: ApiService) {
-    this.users = api.getStudents();
-  }
+  constructor(private api: ApiService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.users = this.api.getStudents();
+  }
 }

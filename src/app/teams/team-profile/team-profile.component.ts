@@ -28,9 +28,8 @@ export class TeamProfileComponent implements OnInit {
   }
 
   deleteTeam() {
-    console.log(this.teamId);
     this.api.deleteTeam(this.teamId).subscribe(err => {
-      console.error(err);
+      console.warn(err);
     });
     this.router.navigateByUrl('/teams/');
     window.location.reload();
@@ -46,8 +45,14 @@ export class TeamProfileComponent implements OnInit {
           });
         }
       }
-      console.log(this.members[0]);
     });
+  }
+
+  removeUser(userId: any | string | number) {
+    this.api.removeFromTeam(this.teamId, userId).subscribe(err => {
+      console.error(err);
+    });
+    window.location.reload();
   }
 
   ngOnInit() {

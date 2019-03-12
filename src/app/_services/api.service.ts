@@ -130,12 +130,10 @@ export class ApiService {
 
   deleteTeam(teamId: string) {
     const url = `${apiUrl}/teams/${teamId}`;
-    return this.http
-      .delete(url, httpOptions)
-      .pipe(catchError(this.handleError));
+    return this.http.delete(url, httpOptions).pipe(catchError(this.handleError));
   }
 
-  getTeamIdFromUser(userId: string): Observable<any> {
+  getTeamIdFromUser(userId: string) {
     const url = `${apiUrl}/users/${userId}/team/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
@@ -148,6 +146,11 @@ export class ApiService {
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
-    )
+    );
+  }
+
+  isInTeam(userId: string): boolean {
+    const teamId = this.getTeamIdFromUser(userId);
+    return teamId != undefined;
   }
 }

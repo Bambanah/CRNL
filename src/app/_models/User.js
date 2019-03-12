@@ -74,12 +74,19 @@ UserSchema.methods.generateJwt = function() {
   ); // TODO: Move to environment variables
 };
 
+UserSchema.methods.isStudent = function() {
+  return this.__t;
+};
+
 UserSchema.methods.isInTeam = function() {
   const user = this;
 
-  if (!user._t) throw new Error('User is not a student');
-
-  return user.team;
+  if (!user.isStudent()) {
+    console.info('User is not a student');
+    return false;
+  } else {
+    return user.team ? true : false;
+  }
 };
 
 UserSchema.methods.getTeamId = function() {

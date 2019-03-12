@@ -178,14 +178,33 @@ router.post('/teams/add/', function(req, res, next) {
 });
 
 // Remove member from team
-router.put('/teams/remove/', function(req, res, next) {
-  // TODO: Implement
+router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
+  Team.findById(req.params.teamId, function(err, team) {
+    if (err) return next(err);
+    team.removeMember(req.params.userId);
+  });
+
+  User.findById(req.params.userId, function(err, user) {
+    if (err) return next(err);
+    user.team = undefined;
+    user.save();
+  });
   res.status(202);
 });
 
 // Delete Team
 router.delete('/teams/:id', function(req, res, next) {
-  Team.findByIdAndRemove(req.params.id, function(err) {
+  Team.findById(req.params.id, function(err, team) {
+    if (err) return next(err);
+    team.members.forEach(user => {
+      User.findById(user, function(err, user) {
+        user.team = undefined;
+        user.save();
+      });
+    });
+  });
+
+  Team.findOneAndDelete(req.params.id, function(err, team) {
     if (err) return next(err);
     res.status(202);
   });
@@ -195,9 +214,12 @@ router.delete('/teams/:id', function(req, res, next) {
 router.get('/users/:userId/team/', function(req, res, next) {
   User.findById(req.params.userId, function(err, user) {
     if (err) return next(err);
-    if (!user._t) console.warn('User is not a student');
-    console.log(user.team);
-    res.status(202).json(user.team);
+    if (!user.isStudent()) console.warn('User is not a student');
+    if (user.team) {
+      res.status(202).send(user.team);
+    } else {
+      res.status(300); // TODO: Figure out which code to use
+    }
   });
 });
 
