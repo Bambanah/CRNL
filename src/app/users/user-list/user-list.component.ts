@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
-import { Observable } from 'rxjs';
-import { User } from '../../_models/User.js';
-import { Router } from '@angular/router';
+import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-list',
@@ -10,12 +8,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  displayedColumns: string[] = ['full_name', 'major', 'minor', 'email'];
-  users: Observable<User>;
+  users: any;
 
-  constructor(private api: ApiService) {}
+  inTeam: false;
+  inSameTeam: false;
+
+  constructor(private api: ApiService, private config: NgbDropdownConfig) {
+    config.placement = 'right-top';
+    config.autoClose = true;
+  }
 
   ngOnInit() {
-    this.users = this.api.getStudents();
+    this.api.getStudents().subscribe(
+      res => {
+        this.users = res;
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 }
