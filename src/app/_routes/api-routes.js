@@ -1,46 +1,53 @@
-var express = require('express');
-var router = express.Router();
-var jwt = require('jsonwebtoken');
-var config = require('../../../config/database');
-var Post = require('../_models/Post');
-var User = require('../_models/User');
-var Student = require('../_models/Student');
-var Team = require('../_models/Team');
+const express = require('express');
+// eslint-disable-next-line new-cap
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const config = require('../../../config/database');
+const Post = require('../_models/Post');
+const User = require('../_models/User');
+const Student = require('../_models/Student');
+const Team = require('../_models/Team');
 
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
   res.send('API Test');
 });
 
-/* GET ALL STUDENTS */
+//
+// Students
+//
+
+// Get all students
 router.get('/students/', function(req, res, next) {
-  Student.find(function(err, products) {
+  Student.find(function(err, students) {
     if (err) return next(err);
-    res.json(products);
+    res.json(students);
   });
 });
 
+//
+//  Users
+//
+
+// Get all users
 router.get('/users/', function(req, res, next) {
-  User.find(function(err, products) {
+  User.find(function(err, users) {
     if (err) return next(err);
-    res.json(products);
+    res.json(users);
   });
 });
 
-router.get('/teams/', function(req, res, next) {
-  Team.find(function(err, products) {
-    if (err) return next(err);
-    res.json(products);
-  });
-});
-
-/* GET SINGLE USER BY ID */
+// Get single user
 router.get('/users/:id', function(req, res, next) {
-  User.findById(req.params.id, function(err, post) {
+  User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
-    res.json(post);
+    res.json(user);
   });
 });
+
+//
+//  Authentication
+//
 
 // Sign in user
 router.post('/users/authenticate/', function(req, res) {
@@ -61,7 +68,7 @@ router.post('/users/authenticate/', function(req, res) {
         user.comparePassword(req.body.password, function(err, isMatch) {
           if (isMatch && !err) {
             // if user is found and password is right create a token
-            var token = jwt.sign(user.toJSON(), config.secret);
+            const token = jwt.sign(user.toJSON(), config.secret);
             // return the information including token as JSON
             res.json({
               success: true,
@@ -79,53 +86,170 @@ router.post('/users/authenticate/', function(req, res) {
   );
 });
 
+// Sign up new student
 router.post('/students/', function(req, res) {
-  var newStudent = new Student(req.body);
+  const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
 });
 
+// Sign up new user
 router.post('/users/', function(req, res) {
-  var newUser = new User(req.body);
+  const newUser = new User(req.body);
   newUser.save();
   res.status(202);
 });
 
+//
+// Teams
+//
+
+// Get all teams
+router.get('/teams/', function(req, res, next) {
+  Team.find(function(err, teams) {
+    if (err) return next(err);
+    res.json(teams);
+  });
+});
+
+// Get single team
+router.get('/teams/:id', function(req, res, next) {
+  Team.findById(req.params.id, function(err, team) {
+    if (err) return next(err);
+    res.json(team);
+  });
+});
+
+// Create Team with two members
 router.post('/teams/', function(req, res) {
   // Create new team
-  var newTeam = new Team();
+  const newTeam = new Team();
+
+  // Temporary
+  newTeam.name = 'Test name';
+  newTeam.bio = 'Test bio';
 
   // Add student IDs to team document
-  var student_id1 = req.body[0];
-  var student_id2 = req.body[1];
-  newTeam.members.push(student_id1);
-  newTeam.members.push(student_id2);
+  const studentId1 = req.body[0];
+  const studentId2 = req.body[1];
+  newTeam.members.push(studentId1);
+  newTeam.members.push(studentId2);
 
-  var user1 = User.findById(req.body[0]);
-  var user2 = User.findById(req.body[1]);
-  user1.team = newTeam._id;
-  user2.team = newTeam._id;
-  // newTeam.save();
-  // user1.save();
-  // user2.save();
+  // Add team id to student documents
+  User.findById(req.body[0], function(err, user) {
+    if (err) return next(err);
+    user.team = newTeam._id;
+    user.save();
+  });
+  User.findById(req.body[1], function(err, user) {
+    if (err) return next(err);
+    user.team = newTeam._id;
+    user.save();
+  });
+
+  // Save team
+  newTeam.save();
+
+  res.status(201).json(newTeam);
+});
+
+// Get Team
+router.get('/teams/:id', function(req, res, next) {
+  Team.findById(req.params.id, function(err, team) {
+    if (err) return next(err);
+    res.status(202).json(team);
+  });
+});
+
+// Add member to team
+router.post('/teams/add/', function(req, res, next) {
+  const hostId = req.body.hostId;
+  const guestId = req.body.guestId;
+  User.findById(hostId, function(err, user) {
+    if (err) return next(err);
+
+    Team.findById(user.team, function(err, team) {
+      if (err) return next(err);
+      team.addMember(guestId);
+    });
+  });
+
   res.status(202);
 });
 
+// Remove member from team
+router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
+  Team.findById(req.params.teamId, function(err, team) {
+    if (err) return next(err);
+    team.removeMember(req.params.userId);
+  });
+
+  User.findById(req.params.userId, function(err, user) {
+    if (err) return next(err);
+    user.team = undefined;
+    user.save();
+  });
+  res.status(202);
+});
+
+// Delete Team
+router.delete('/teams/:id', function(req, res, next) {
+  Team.findById(req.params.id, function(err, team) {
+    if (err) return next(err);
+    team.members.forEach(user => {
+      User.findById(user, function(err, user) {
+        user.team = undefined;
+        user.save();
+      });
+    });
+  });
+
+  Team.findOneAndDelete(req.params.id, function(err, team) {
+    if (err) return next(err);
+    res.status(202);
+  });
+});
+
+// Get team ID of user
+router.get('/users/:userId/team/', function(req, res, next) {
+  User.findById(req.params.userId, function(err, user) {
+    if (err) return next(err);
+    if (!user.isStudent()) console.warn('User is not a student');
+    if (user.team) {
+      res.status(202).send(user.team);
+    } else {
+      res.status(300); // TODO: Figure out which code to use
+    }
+  });
+});
+
+router.get('/teams/:teamId/members', function(req, res, next) {
+  Team.findById(req.params.teamId, function(err, team) {
+    if (err) return next(err);
+    if (team.members === undefined || team.members.length === 0) {
+      console.warn('Team has no members');
+      res.status(300); // TODO: Figure out which code to use
+    } else {
+      res.status(202).json(team.members);
+    }
+  });
+});
+
 //
-// POSTS
+// Posts
 //
 
-/* GET ALL POSTS */
+// Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
     .sort('-updatedAt')
-    .exec(function(err, products) {
+    .exec(function(err, posts) {
       if (err) return next(err);
-      res.json(products);
+      res.json(posts);
     });
 });
 
-/* GET SINGLE POST BY ID */
+// Get single post
 router.get('/posts/:id', function(req, res, next) {
   Post.findById(req.params.id, function(err, post) {
     if (err) return next(err);
@@ -133,7 +257,7 @@ router.get('/posts/:id', function(req, res, next) {
   });
 });
 
-/* CREATE POST */
+// Create post
 router.post('/posts/', function(req, res, next) {
   Post.create(req.body, function(err, post) {
     if (err) return next(err);
@@ -141,7 +265,7 @@ router.post('/posts/', function(req, res, next) {
   });
 });
 
-/* UPDATE POST */
+// Update post
 router.put('/posts/:id', function(req, res, next) {
   Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
@@ -149,12 +273,18 @@ router.put('/posts/:id', function(req, res, next) {
   });
 });
 
-/* DELETE POST */
+// Delete post
 router.delete('/posts/:id', function(req, res, next) {
   Post.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
+
+//
+//  Helper Functions
+//
+
+// Under Construction
 
 module.exports = router;

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/_services/api.service';
+import {
+  Router,
+  ActivatedRoute
+} from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-team-profile',
@@ -6,7 +12,50 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./team-profile.component.scss']
 })
 export class TeamProfileComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private api: ApiService,
+    private auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
+  teamId = this.route.snapshot.params['id'];
+  members = [];
+
+  leaveTeam() {
+    const currentUserId = this.auth.getCurrentUserId();
+    this.api.removeFromTeam(this.teamId, currentUserId);
+  }
+
+  deleteTeam() {
+    this.api.deleteTeam(this.teamId).subscribe(err => {
+      console.warn(err);
+    });
+    this.router.navigateByUrl('/teams/');
+    window.location.reload();
+  }
+
+  getMembers() {
+    this.api.getMembersOfTeam(this.teamId).subscribe(data => {
+      for (const user in data) {
+        if (data.hasOwnProperty(user)) {
+          const userId = data[user];
+          this.api.getUser(userId).subscribe(user => {
+            this.members.push(user);
+          });
+        }
+      }
+    });
+  }
+
+  removeUser(userId: any | string | number) {
+    this.api.removeFromTeam(this.teamId, userId).subscribe(err => {
+      console.error(err);
+    });
+    window.location.reload();
+  }
+
+  ngOnInit() {
+    this.getMembers();
+  }
 }

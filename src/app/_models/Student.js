@@ -2,6 +2,7 @@ const User = require('./User');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// eslint-disable-next-line no-unused-vars
 const Student = User.discriminator(
   'Student',
   new Schema({

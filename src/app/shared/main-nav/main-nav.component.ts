@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth.service';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/_services/api.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -18,10 +19,15 @@ export class MainNavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private api: ApiService
   ) {}
 
   isCollapsed = true;
+  currentUser = {
+    email: '',
+    full_name: ''
+  };
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -35,5 +41,12 @@ export class MainNavComponent {
     const currentUserId = this.auth.getCurrentUserId();
 
     this.router.navigate([`/users/${currentUserId}`]);
+  }
+
+  ngOnInit() {
+    const currentUserId = this.auth.getCurrentUserId();
+    this.api.getUser(currentUserId).subscribe(data => {
+      this.currentUser = data;
+    });
   }
 }

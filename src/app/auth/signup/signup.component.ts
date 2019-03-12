@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.auth.signup(form, this.is_student).subscribe(err => {
-      console.log(err);
+      console.error(err);
     });
     this.router.navigate(['auth/login']);
   }

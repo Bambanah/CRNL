@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var TeamSchema = new Schema(
+const TeamSchema = new Schema(
   {
-    team_name: {
+    name: {
       type: String
     },
-    team_bio: String,
+    bio: String,
     members: {
       type: [
         {
@@ -22,8 +22,34 @@ var TeamSchema = new Schema(
   }
 );
 
+// eslint-disable-next-line require-jsdoc
 function arrayLimit(val) {
   return val.length <= 4;
 }
+
+TeamSchema.methods.addMember = function(id) {
+  const team = this;
+  if (team.members.length >= 4) {
+    console.warn('Team already has four members');
+  } else {
+    team.members.push(id);
+    team.save();
+  }
+};
+
+TeamSchema.methods.removeMember = function(id) {
+  const team = this;
+  if (team.members.length <= 1) {
+    console.warn(
+      'Removing this member would result in the team having zero members. Delete team instead.'
+    );
+  } else if (team.members.indexOf(id) < 0) {
+    console.warn(`User (${id}) is not part of team (${team._id})`);
+  } else {
+    const idIndex = team.members.indexOf(id);
+    team.members.splice(idIndex, 1);
+    team.save();
+  }
+};
 
 module.exports = mongoose.model('Team', TeamSchema);

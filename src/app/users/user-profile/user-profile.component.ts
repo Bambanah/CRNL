@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
-import { Team } from '../../_models/Team';
-import { useAnimation } from '@angular/animations';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +16,15 @@ export class UserProfileComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  // Variables
   isLoaded = false;
+  isSelf = false;
+  inTeam = false;
+
+  userId = undefined;
+  currentUserId = undefined;
+  currentUserTeamId = undefined;
+
   // Placeholder user object
   // Overwritten with getUserDetails()
   user = {
@@ -34,41 +39,78 @@ export class UserProfileComponent implements OnInit {
 
   // Retrieves data of visible user
   getUserDetails() {
-    const id = this.getUserId();
-    this.api.getUser(id).subscribe(data => {
+    this.api.getUser(this.userId).subscribe(data => {
       this.user = data;
       this.isLoaded = true;
     });
-    // this.router.navigate();
-  }
-
-  isInTeam(): Boolean {
-    // TODO: Implement - auth user is in a team
-    return false;
   }
 
   sameTeam(): Boolean {
-    // TODO: Implement - users are in same team
-    return false;
+    return (
+      this.api.getTeamIdFromUser(this.getUserId()) ==
+      this.api.getTeamIdFromUser(this.auth.getCurrentUserId())
+    );
   }
 
   createTeam() {
     const user_id = this.getUserId();
     const logged_id = this.auth.getCurrentUserId();
-    const data = [user_id, logged_id];
-    this.api.createTeam(data).subscribe(err => {
-      console.log(err);
-    });
 
+    if (this.sameTeam()) {
+      console.warn('Students are on the same team');
+      return;
+    } else if (
+      this.inTeam ||
+      this.currentUserTeamId != undefined
+    ) {
+      console.warn('One or more students are already in a team');
+      return;
+    } else {
+      const data = [user_id, logged_id];
+      this.api.createTeam(data).subscribe(team => {
+        const teamId = team._id;
+        this.router.navigate([`/teams/${teamId}`]);
+      });
+    }
+  }
+
+  addToTeam() {
+    const userId = this.getUserId();
+    const currentId = this.auth.getCurrentUserId();
+    if (!this.api.isInTeam(currentId)) {
+      console.warn('Current user is not in a team');
+      return;
+    } else if (this.sameTeam()) {
+      console.warn('User already in team');
+      return;
+    }else {
+      this.api.addToTeam(userId).subscribe(err => {
+        console.error(err);
+      });
+    }
   }
 
   removeFromTeam() {
-    // TODO: Implement - remove user from team
-    // Warning if removing user will delete team
-    this.api.removeFromTeam();
+    // TODO: Warning if removing user will delete team (only self left in team)
+    const userId = this.getUserId();
+    const teamId = '' + this.api.getTeamIdFromUser(userId);
+    this.api.removeFromTeam(teamId, userId);
+    window.location.reload();
   }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.params['id'];
+    this.currentUserId = this.auth.getCurrentUserId();
+
+    this.api.getUser(this.getUserId()).subscribe(user => {
+      this.inTeam = (user.team != undefined);
+    });
+
+    this.isSelf = this.auth.isSelf(this.userId);
+    this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
+      this.currentUserTeamId = teamId;
+    });
+
     this.getUserDetails();
   }
 }
