@@ -5,8 +5,11 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
+import { User } from '../_models/User';
+import { ApiService } from './api.service';
 
 const apiUrl = 'http://localhost:3000/api';
 
@@ -14,7 +17,7 @@ const helper = new JwtHelperService();
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -63,7 +66,15 @@ export class AuthService {
     return localStorage.getItem('currentUser') === null ? false : true;
   }
 
-  getCurrentUserId(): string {
+  public get currentUser(): User {
+    const decodedToken = helper.decodeToken(
+      localStorage.getItem('currentUser')
+    );
+
+    return decodedToken;
+  }
+
+  public get currentUserId(): string {
     const decodedToken = helper.decodeToken(
       localStorage.getItem('currentUser')
     );
@@ -73,6 +84,6 @@ export class AuthService {
 
   // Test if ID belongs to currently signed in user
   isSelf(id: string): boolean {
-    return this.getCurrentUserId() === id ? true : false;
+    return this.currentUserId === id ? true : false;
   }
 }
