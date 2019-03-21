@@ -40,7 +40,14 @@
       [ngClass]="{ inTeam: student.team }"
     >
       <td>{{ student.full_name }}</td>
-      <td>{{ student.team }}</td>
+
+      <ng-container *ngIf="student.team; else elseTemplate">
+        <td>{{ student.team }}</td>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <td>-</td>
+      </ng-template>
+
     </tr>
   </table>
 </div>
