@@ -23,7 +23,7 @@ export class TeamProfileComponent implements OnInit {
   members = [];
 
   leaveTeam() {
-    const currentUserId = this.auth.getCurrentUserId();
+    const currentUserId = this.auth.currentUserId;
     this.api.removeFromTeam(this.teamId, currentUserId);
   }
 

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { Role } from './_models/role';
+
+import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
 import { SignupPageComponent } from './auth/signup-page/signup-page.component';
@@ -33,26 +35,37 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {roles: ['Student', 'Staff']}
   },
   {
     path: 'users/:id',
     component: UserProfileComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {roles: ['Student', 'Staff']}
   },
   {
     path: 'teams',
-    component: TeamListComponent
+    component: TeamListComponent,
+    canActivate: [AuthGuard],
+    data: {roles: ['Student', 'Staff']}
   },
   {
     path: 'teams/:id',
-    component: TeamProfileComponent
-    // canActivate: [AuthGuard]
+    component: TeamProfileComponent,
+    canActivate: [AuthGuard],
+    data: {roles: ['Student', 'Staff']}
+  },
+  {
+    path: 'staff',
+    redirectTo: 'staff/dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'staff/dashboard',
     component: StaffDashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {roles: ['Staff']}
   }
 ];
 

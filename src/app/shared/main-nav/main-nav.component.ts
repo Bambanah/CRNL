@@ -37,13 +37,13 @@ export class MainNavComponent {
   }
 
   goProfile(): void {
-    const currentUserId = this.auth.getCurrentUserId();
+    const currentUserId = this.auth.currentUserId;
 
     this.router.navigate([`/users/${currentUserId}`]);
   }
 
   ngOnInit() {
-    const currentUserId = this.auth.getCurrentUserId();
+    const currentUserId = this.auth.currentUserId;
     this.api.getUser(currentUserId).subscribe(data => {
       this.currentUser = data;
     });
