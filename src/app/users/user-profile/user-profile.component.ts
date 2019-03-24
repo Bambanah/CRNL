@@ -48,13 +48,13 @@ export class UserProfileComponent implements OnInit {
   sameTeam(): Boolean {
     return (
       this.api.getTeamIdFromUser(this.getUserId()) ==
-      this.api.getTeamIdFromUser(this.auth.getCurrentUserId())
+      this.api.getTeamIdFromUser(this.auth.currentUserId)
     );
   }
 
   createTeam() {
     const user_id = this.getUserId();
-    const logged_id = this.auth.getCurrentUserId();
+    const logged_id = this.auth.currentUserId;
 
     if (this.sameTeam()) {
       console.warn('Students are on the same team');
@@ -76,7 +76,7 @@ export class UserProfileComponent implements OnInit {
 
   addToTeam() {
     const userId = this.getUserId();
-    const currentId = this.auth.getCurrentUserId();
+    const currentId = this.auth.currentUserId;
     if (!this.api.isInTeam(currentId)) {
       console.warn('Current user is not in a team');
       return;
@@ -100,7 +100,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.route.snapshot.params['id'];
-    this.currentUserId = this.auth.getCurrentUserId();
+    this.currentUserId = this.auth.currentUserId;
 
     this.api.getUser(this.getUserId()).subscribe(user => {
       this.inTeam = (user.team != undefined);

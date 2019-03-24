@@ -115,7 +115,7 @@ export class ApiService {
   addToTeam(userId: string) {
     const url = `${apiUrl}/teams/add/`;
     const data = {
-      hostId: this.auth.getCurrentUserId(),
+      hostId: this.auth.currentUserId,
       guestId: userId
     };
     return this.http

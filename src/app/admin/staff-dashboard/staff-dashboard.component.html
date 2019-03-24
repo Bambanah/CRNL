@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="team-list">
+    <h2>Teams</h2>
+    <!-- <span>
+      Show
+      <select>
+        <option value="all">all</option>
+        <option value="complete">complete</option>
+        <option value="incomplete">incomplete</option>
+      </select>
+      Teams
+    </span> -->
+    <table>
+      <tr>
+        <th>
+          Name
+        </th>
+      </tr>
+
+      <tr *ngFor="let team of teams" routerLink="/teams/{{ team._id }}">
+        <td>{{ team.name }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <h2>Students</h2>
+  <table>
+    <tr>
+      <th>
+        Name
+      </th>
+      <th>
+        Team
+      </th>
+    </tr>
+
+    <tr
+      *ngFor="let student of students"
+      routerLink="/users/{{ student._id }}"
+      [ngClass]="{ inTeam: student.team }"
+    >
+      <td>{{ student.full_name }}</td>
+
+      <ng-container *ngIf="student.team; else elseTemplate">
+        <td>{{ student.team }}</td>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <td>-</td>
+      </ng-template>
+
+    </tr>
+  </table>
+</div>
