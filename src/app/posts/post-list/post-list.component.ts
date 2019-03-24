@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit {
         this.posts = res;
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     );
   }

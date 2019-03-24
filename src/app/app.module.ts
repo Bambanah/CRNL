@@ -43,6 +43,7 @@ import { SignupPageComponent } from './auth/signup-page/signup-page.component';
 import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { TeamListComponent } from './teams/team-list/team-list.component';
 import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
+import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { TeamProfileComponent } from './teams/team-profile/team-profile.componen
     LoginModalComponent,
     SignupModalComponent,
     SignupPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    StaffDashboardComponent
   ],
   imports: [
     BrowserModule,

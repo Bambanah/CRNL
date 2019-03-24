@@ -12,11 +12,7 @@ describe('UserListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserListComponent],
-      imports: [
-        RouterTestingModule,
-        MatTableModule,
-        HttpClientModule
-      ]
+      imports: [RouterTestingModule, MatTableModule, HttpClientModule]
     }).compileComponents();
   }));
 

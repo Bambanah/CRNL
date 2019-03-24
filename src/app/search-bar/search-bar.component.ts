@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 export interface SortOptions {
   value: string;
@@ -12,12 +12,8 @@ export interface SortOptions {
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-
   majors = new FormControl();
-  majorList: string[] = [
-    'Computer Science',
-    'Information Systems'
-  ];
+  majorList: string[] = ['Computer Science', 'Information Systems'];
 
   minors = new FormControl();
   minorList: string[] = [
@@ -33,14 +29,12 @@ export class SearchBarComponent implements OnInit {
   ];
 
   sortOptions: SortOptions[] = [
-    {value: 'newest', viewValue: 'Newest'},
-    {value: 'oldest', viewValue: 'Oldest'},
-    {value: 'recommended', viewValue: 'Recommended'}
+    { value: 'newest', viewValue: 'Newest' },
+    { value: 'oldest', viewValue: 'Oldest' },
+    { value: 'recommended', viewValue: 'Recommended' }
   ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

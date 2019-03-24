@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { MainNavComponent } from './main-nav.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatToolbarModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +16,13 @@ describe('MainNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MainNavComponent, LoginModalComponent, SignupModalComponent, LoginComponent, SignupComponent],
+      declarations: [
+        MainNavComponent,
+        LoginModalComponent,
+        SignupModalComponent,
+        LoginComponent,
+        SignupComponent
+      ],
       imports: [
         MatToolbarModule,
         RouterTestingModule,
@@ -33,9 +37,5 @@ describe('MainNavComponent', () => {
     fixture = TestBed.createComponent(MainNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

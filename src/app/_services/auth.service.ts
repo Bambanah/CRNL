@@ -5,8 +5,11 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
+import { User } from '../_models/User';
+import { ApiService } from './api.service';
 
 const apiUrl = 'http://localhost:3000/api';
 
@@ -14,7 +17,7 @@ const helper = new JwtHelperService();
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(public http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -32,18 +35,16 @@ export class AuthService {
   }
 
   login(loginData) {
-    return this.http
-      .post<any>(apiUrl + '/users/authenticate', loginData)
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-          }
-          return user;
-        })
-      );
+    return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
+      map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      })
+    );
   }
 
   logout() {
@@ -51,18 +52,29 @@ export class AuthService {
     localStorage.removeItem('currentUser');
   }
 
-  signup(signupData) {
-    const url = apiUrl + '/users/';
-    return this.http
-      .post(url, signupData)
-      .pipe(catchError(this.handleError));
+  signup(signupData, is_student) {
+    let url = '';
+    if (is_student) {
+      url = apiUrl + '/students/';
+    } else {
+      url = apiUrl + '/users/';
+    }
+    return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 
   isAuthenticated(): boolean {
     return localStorage.getItem('currentUser') === null ? false : true;
   }
 
-  getCurrentUserId(): string {
+  public get currentUser(): User {
+    const decodedToken = helper.decodeToken(
+      localStorage.getItem('currentUser')
+    );
+
+    return decodedToken;
+  }
+
+  public get currentUserId(): string {
     const decodedToken = helper.decodeToken(
       localStorage.getItem('currentUser')
     );
@@ -70,7 +82,8 @@ export class AuthService {
     return decodedToken._id;
   }
 
+  // Test if ID belongs to currently signed in user
   isSelf(id: string): boolean {
-    return this.getCurrentUserId() === id ? true : false;
+    return this.currentUserId === id ? true : false;
   }
 }

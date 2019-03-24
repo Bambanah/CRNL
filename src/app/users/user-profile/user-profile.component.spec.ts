@@ -11,10 +11,7 @@ describe('UserProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserProfileComponent],
-      imports: [
-        RouterTestingModule,
-        HttpClientModule
-      ]
+      imports: [RouterTestingModule, HttpClientModule]
     }).compileComponents();
   }));
 
@@ -22,9 +19,5 @@ describe('UserProfileComponent', () => {
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });
