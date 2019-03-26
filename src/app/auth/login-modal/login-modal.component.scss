@@ -6,4 +6,13 @@
 .close {
   padding: 10px;
   margin: 10px;
+  cursor: pointer;
+}
+
+.navbar-link {
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  padding: 0.3rem 1rem;
+  color: black;
+  border-color: #bbb;
 }

@@ -1,14 +1,50 @@
-.navbar-brand {
-  img {
-    width: 1.75em;
+@import 'src/styles.scss';
+
+@media (min-width: 768px) {
+  .navbar {
+    border-top: 4px solid $primary_color;
+    padding: 8px 18%;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    .navbar-brand {
+      font-weight: 500;
+      img {
+        width: 3rem;
+        margin-bottom: 7px;
+      }
+    }
+
+    .navbar-link {
+      display: block;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      padding: 0.3rem 1rem;
+
+      &:hover {
+        background-color: #dedede;
+      }
+
+      &.router-link-active {
+        color: rgb(0, 0, 0);
+        border-bottom: 1px solid rgb(124, 124, 124);
+      }
+
+      &.profile-link:hover {
+        background-color: inherit;
+        color: rgb(30, 30, 30);
+      }
+    }
+
+    .auth-btn {
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      &.signup-btn {
+        margin-left: 5px;
+      }
+    }
+
   }
-}
-
-.router-link-active {
-  color: #fff !important;
-  background-color: rgba($color: #fff, $alpha: 0.1);
-}
-
-.nav-link {
-  cursor: pointer;
 }

@@ -1,9 +1,7 @@
-<nav
-  class="navbar navbar-expand-md navbar-dark bg-primary sticky-top mat-elevation-z2 "
->
-  <a class="navbar-brand" [routerLink]="['/home']"
-    ><img src="assets/images/QUT_Logo.PNG" /> Compass</a
-  >
+<nav class="navbar navbar-expand-md sticky-top">
+  <a class="navbar-brand" [routerLink]="['/home']">
+    <img src="assets/images/QUT_Logo.PNG" /> Compass
+  </a>
   <button
     class="navbar-toggler hidden-sm-up"
     type="button"
@@ -23,7 +21,7 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a
-          class="nav-link"
+          class="navbar-link"
           [routerLink]="['/home']"
           routerLinkActive="router-link-active"
           >Home</a
@@ -31,7 +29,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link"
+          class="navbar-link"
           [routerLink]="['/users']"
           routerLinkActive="router-link-active"
           >Users</a
@@ -39,7 +37,7 @@
       </li>
       <li class="nav-item">
         <a
-          class="nav-link"
+          class="navbar-link"
           [routerLink]="['/teams']"
           routerLinkActive="router-link-active"
           >Teams</a
@@ -48,24 +46,24 @@
     </ul>
     <ul class="navbar-nav">
       <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
-        <li class="nav-item">
+        <li class="nav-item auth-btn login-btn">
           <app-login-modal></app-login-modal>
         </li>
-        <li class="nav-item">
+        <li class="nav-item auth-btn signup-btn">
           <app-signup-modal></app-signup-modal>
         </li>
       </ng-container>
       <ng-template #elseTemplate>
         <li class="nav-item">
           <a
-            class="nav-link"
+            class="navbar-link profile-link"
             routerLinkActive="router-link-active"
             (click)="goProfile()"
             >Profile <small>({{ currentUser.full_name }})</small></a
           >
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/auth/login']">Sign Out</a>
+        <li class="nav-item auth-btn logout-btn">
+          <a class="navbar-link" [routerLink]="['/auth/login']">Sign Out</a>
         </li>
       </ng-template>
     </ul>

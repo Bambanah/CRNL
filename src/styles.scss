@@ -4,6 +4,10 @@
 $font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
   'Roboto', sans-serif;
 
+$primary_color: rgb(0, 59, 113);
+$secondary_color: rgb(142, 144, 144);
+$support_color: rgb(0, 134, 117);
+
 * {
   font-family: $font_family_1;
 }
