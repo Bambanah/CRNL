@@ -9,7 +9,7 @@ import { Team } from '../../_models/Team';
   styleUrls: ['./team-list.component.scss']
 })
 export class TeamListComponent implements OnInit {
-  displayedColumns: string[] = ['team_name', 'team_bio'];
+  displayedColumns: string[] = ['team-name', 'team-bio', 'members'];
   teams: Observable<Team>;
 
   constructor(private api: ApiService) {
