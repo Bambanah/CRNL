@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { Observable } from 'rxjs';
 import { Team } from '../../_models/Team';
+import { User } from '../../_models/users/User';
 
 @Component({
   selector: 'app-team-list',
@@ -11,10 +12,17 @@ import { Team } from '../../_models/Team';
 export class TeamListComponent implements OnInit {
   displayedColumns: string[] = ['team-name', 'team-bio', 'members'];
   teams: Observable<Team>;
+  members: [Observable<User>];
+  constructor(private api: ApiService) {}
 
-  constructor(private api: ApiService) {
-    this.teams = api.getTeams();
+  ngOnInit() {
+    this.teams = this.api.getTeams();
+    this.teams.forEach(team => {
+      team.members.forEach(member => {
+        team.members.member = this.api.getUser(member);
+        // TODO: Display member names instead of ID
+      });
+    });
+
   }
-
-  ngOnInit() {}
 }
