@@ -1,9 +1,10 @@
 <div class="container">
-  <div class="card" *ngFor="let student of users">
+  <div class="card mat-elevation-z2" *ngFor="let student of users">
     <div class="card-body">
       <div class="col">
-        <a routerLink="/users/{{ student._id }}">
-          <h5 class="card-title">{{ student.full_name }}</h5>
+        <a routerLink="/users/{{ student._id }}" class="card-title">
+          {{ student.full_name }}
+          <fa-icon [icon]="['fas', 'circle']" [classes]="['circle-class']" size="xs"></fa-icon>
         </a>
         <p class="card-text major">{{ student.major }}</p>
         <p class="card-text minor">Minors: {{ student.minor }}</p>

@@ -12,12 +12,13 @@
   max-width: 100%;
 }
 
+
+
 .card {
   width: 526px;
   height: 187px;
   padding: 0;
   background: #ffffff;
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 0;
   justify-items: center;
 
@@ -34,22 +35,29 @@
     font-style: normal;
     font-weight: bold;
     line-height: normal;
-    font-size: 30px;
+    font-size: 1.5rem;
     text-decoration-color: black;
+    margin-bottom: 5px;
 
     color: #000000;
   }
 
-  .major {
-    font-size: 16px;
-    margin-bottom: 4px;
+  fa-icon {
+    font-size: 0.3rem;
+    vertical-align: middle;
+    display: inline-block;
+    color: rgba(20, 120, 20, 0.7);
+  }
 
+  .major {
+    font-size: 1rem;
+    margin-bottom: 0;
+    font-weight: 500;
     color: #000000;
   }
 
   .minor {
-    font-size: 12px;
-
+    font-size: 0.8rem;
     color: #494949;
   }
 

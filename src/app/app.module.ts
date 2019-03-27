@@ -1,3 +1,5 @@
+import { AppComponent } from './app.component';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,9 +22,10 @@ import {
   MatTabsModule
 } from '@angular/material';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { AppComponent } from './app.component';
 
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
@@ -87,9 +90,14 @@ import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard
     MatOptionModule,
     MatToolbarModule,
     MatDialogModule,
-    MatTabsModule
+    MatTabsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    library.add(faCircle);
+  }
+}
