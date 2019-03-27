@@ -4,8 +4,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('../../../config/database');
 const Post = require('../_models/Post');
-const User = require('../_models/User');
-const Student = require('../_models/Student');
+const User = require('../_models/users/User');
+const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
 
 // EXCLUSIVELY FOR TESTING

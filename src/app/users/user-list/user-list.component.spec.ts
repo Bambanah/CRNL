@@ -4,6 +4,7 @@ import { UserListComponent } from './user-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -12,7 +13,12 @@ describe('UserListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [UserListComponent],
-      imports: [RouterTestingModule, MatTableModule, HttpClientModule]
+      imports: [
+        RouterTestingModule,
+        MatTableModule,
+        HttpClientModule,
+        FontAwesomeModule
+      ]
     }).compileComponents();
   }));
 
