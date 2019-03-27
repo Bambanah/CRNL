@@ -31,7 +31,6 @@ import { MainNavComponent } from './shared/main-nav/main-nav.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SideProfileComponent } from './side-profile/side-profile.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -53,7 +52,6 @@ import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard
     MainNavComponent,
     PostCreateComponent,
     PostListComponent,
-    SideProfileComponent,
     SearchBarComponent,
     LoginComponent,
     SignupComponent,
