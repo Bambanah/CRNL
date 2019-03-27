@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-let app = require('../app');
-let debug = require('debug')('crnl-app:server');
-let http = require('http');
+const app = require('../app');
+const debug = require('debug')('crnl-app:server');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +19,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-let server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -33,6 +33,7 @@ server.on('listening', onListening);
  * Normalize a port into a number, string, or false.
  */
 
+// eslint-disable-next-line require-jsdoc
 function normalizePort(val) {
   // tslint:disable-next-line:no-shadowed-variable
   const port = parseInt(val, 10);
@@ -54,14 +55,13 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
+// eslint-disable-next-line require-jsdoc
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -82,10 +82,9 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
+// eslint-disable-next-line require-jsdoc
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }

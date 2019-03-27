@@ -23,6 +23,5 @@ export class TeamListComponent implements OnInit {
         // TODO: Display member names instead of ID
       });
     });
-
   }
 }
