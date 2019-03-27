@@ -9,9 +9,24 @@
 
     .navbar-brand {
       font-weight: 500;
+      color: $primary_color;
       img {
         width: 3rem;
         margin-bottom: 7px;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .3s ease, background-color .3s ease;
+      }
+      &:hover:after {
+        width: 75%;
+        background: black;
       }
     }
 
@@ -22,9 +37,23 @@
       color: black;
       padding: 0.3rem 1rem;
 
-      &:hover {
-        background-color: #dedede;
+      &:after {
+        content: '';
+        display: block;
+        margin: auto;
+        height: 2px;
+        width: 0px;
+        background: transparent;
+        transition: width .3s ease, background-color .3s ease;
       }
+      &:hover:after {
+        width: 100%;
+        background: black;
+      }
+
+      // &:hover {
+      //   background-color: #dedede;
+      // }
 
       &.router-link-active {
         color: rgb(0, 0, 0);
@@ -33,7 +62,7 @@
 
       &.profile-link:hover {
         background-color: inherit;
-        color: rgb(110, 110, 110);
+        // color: rgb(110, 110, 110);
       }
     }
 
@@ -45,6 +74,5 @@
         margin-left: 5px;
       }
     }
-
   }
 }
