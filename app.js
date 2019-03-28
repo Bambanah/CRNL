@@ -66,11 +66,14 @@ app.use(
 // Tell express where to look for angular files
 app.use(express.static(path.join(__dirname, 'dist/crnl-app')));
 
-// Use angular for routing
-app.use('*', express.static(path.join(__dirname, 'dist/crnl-app')));
-
 // Configure API routes
 app.use('/api', apiRouter);
+
+// Use angular for routing
+app.all('*', (req, res) => {
+  console.log(`[TRACE] Server 404 request: ${req.originalUrl}`);
+  res.sendFile(path.join(__dirname, 'dist/crnl-app/index.html'));
+});
 
 //
 // ERROR HANDLING
