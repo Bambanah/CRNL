@@ -3,12 +3,13 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && nodemon ./bin/www",
+    "start-dev": "ng build && nodemon ./bin/www",
+    "start": "node ./bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check"
+    "postinstall": "ng build --output-path dist"
   },
   "private": true,
   "dependencies": {
