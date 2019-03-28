@@ -54,13 +54,23 @@
         </li>
       </ng-container>
       <ng-template #elseTemplate>
+        <li class="nav-item" *ngIf="currentUser.__t == 'Staff'">
+          <a
+            class="navbar-link"
+            routerLink="/staff"
+            routerLinkActive="router-link-active"
+          >
+            Staff
+          </a>
+        </li>
         <li class="nav-item">
           <a
             class="navbar-link profile-link"
             routerLinkActive="router-link-active"
             (click)="goProfile()"
-            >Profile <small>({{ currentUser.full_name }})</small></a
           >
+            Profile <small>({{ currentUser.full_name }})</small>
+          </a>
         </li>
         <li class="nav-item auth-btn logout-btn">
           <a class="navbar-link" [routerLink]="['/auth/login']">Sign Out</a>
