@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SignupModalComponent } from './signup-modal.component';
-import { SignupComponent } from '../signup/signup.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import {SignupModalComponent} from './signup-modal.component';
+import {SignupComponent} from '../signup/signup.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('SignupModalComponent', () => {
   let component: SignupModalComponent;
@@ -13,7 +13,11 @@ describe('SignupModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SignupModalComponent, SignupComponent],
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule]
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
     }).compileComponents();
   }));
 

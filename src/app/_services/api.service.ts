@@ -1,29 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable, of, throwError} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
 
-import { User } from '../_models/users/User';
-import { Student } from '../_models/users/Student';
-import { Team } from '../_models/Team';
-import { Post } from '../_models/Post';
-import { AuthService } from './auth.service';
+import {User} from '../_models/users/User';
+import {Student} from '../_models/users/Student';
+import {Team} from '../_models/Team';
+import {Post} from '../_models/Post';
+import {AuthService} from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*'
-  })
+    'Access-Control-Allow-Origin': '*',
+  }),
 };
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = '/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   constructor(private http: HttpClient, private auth: AuthService) {}
@@ -36,7 +32,7 @@ export class ApiService {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.error(
-        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`,
       );
     }
     // return an observable with a user-facing error message
@@ -64,7 +60,7 @@ export class ApiService {
     const url = `${apiUrl}/users/${userId}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -72,7 +68,7 @@ export class ApiService {
     const url = `${apiUrl}/posts/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -80,7 +76,7 @@ export class ApiService {
     const url = `${apiUrl}/posts/${postId}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -116,7 +112,7 @@ export class ApiService {
     const url = `${apiUrl}/teams/add/`;
     const data = {
       hostId: this.auth.currentUserId,
-      guestId: userId
+      guestId: userId,
     };
     return this.http
       .post(url, data, httpOptions)
@@ -139,7 +135,7 @@ export class ApiService {
     const url = `${apiUrl}/users/${userId}/team/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -147,7 +143,7 @@ export class ApiService {
     const url = `${apiUrl}/teams/${teamId}/members`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 

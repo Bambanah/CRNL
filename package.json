@@ -3,12 +3,12 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && nodemon ./bin/www",
     "build": "ng build",
+    "start": "node ./bin/www",
+    "dev": "ng build && concurrently \"nodemon ./bin/www\" \"ng serve --proxy-config proxy.conf.json\"",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "eslint-check": "eslint --print-config .eslintrc.json | eslint-config-prettier-check"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +38,7 @@
     "body-parser": "^1.18.3",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.7.3",
+    "concurrently": "^4.1.0",
     "core-js": "^2.6.5",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
