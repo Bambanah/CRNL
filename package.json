@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
+    "build": "ng build --output-path dist",
     "start": "node ./bin/www",
     "dev": "ng build && concurrently \"nodemon ./bin/www\" \"ng serve --proxy-config proxy.conf.json\"",
     "test": "ng test",
