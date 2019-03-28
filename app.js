@@ -67,7 +67,7 @@ app.use(
 app.use(express.static(path.join(__dirname, 'dist/crnl-app')));
 
 // Use angular for routing
-app.use('/', express.static(path.join(__dirname, 'dist/crnl-app')));
+app.use('*', express.static(path.join(__dirname, 'dist/crnl-app')));
 
 // Configure API routes
 app.use('/api', apiRouter);
