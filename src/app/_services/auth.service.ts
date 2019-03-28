@@ -8,8 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { User } from '../_models/User';
-import { ApiService } from './api.service';
+import { User } from '../_models/users/User';
 
 const apiUrl = 'http://localhost:3000/api';
 

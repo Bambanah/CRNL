@@ -7,6 +7,12 @@ import {
 } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 
+import { User } from '../_models/users/User';
+import { Student } from '../_models/users/Student';
+import { Team } from '../_models/Team';
+import { Post } from '../_models/Post';
+import { AuthService } from './auth.service';
+
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -15,12 +21,6 @@ const httpOptions = {
 };
 
 const apiUrl = 'http://localhost:3000/api';
-
-import { User } from '../_models/User';
-import { Student } from '../_models/Student';
-import { Team } from '../_models/Team';
-import { Post } from '../_models/Post';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -130,7 +130,9 @@ export class ApiService {
 
   deleteTeam(teamId: string) {
     const url = `${apiUrl}/teams/${teamId}`;
-    return this.http.delete(url, httpOptions).pipe(catchError(this.handleError));
+    return this.http
+      .delete(url, httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getTeamIdFromUser(userId: string) {

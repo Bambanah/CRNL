@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { SideProfileComponent } from '../side-profile/side-profile.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
@@ -25,7 +24,6 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HomeComponent,
-        SideProfileComponent,
         SearchBarComponent,
         PostListComponent,
         PostCreateComponent
