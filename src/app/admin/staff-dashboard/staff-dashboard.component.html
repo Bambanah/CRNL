@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="team-list">
+  <div class="team-container">
     <h2>Teams</h2>
     <!-- <span>
       Show
@@ -10,7 +10,7 @@
       </select>
       Teams
     </span> -->
-    <table>
+    <table class="mat-elevation-z2">
       <tr>
         <th>
           Name
@@ -22,31 +22,34 @@
       </tr>
     </table>
   </div>
+  <hr />
 
-  <h2>Students</h2>
-  <table>
-    <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Team
-      </th>
-    </tr>
+  <div class="student-container">
+    <h2>Students</h2>
+    <table>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+          Team
+        </th>
+      </tr>
 
-    <tr
-      *ngFor="let student of students"
-      routerLink="/users/{{ student._id }}"
-      [ngClass]="{ inTeam: student.team }"
-    >
-      <td>{{ student.full_name }}</td>
+      <tr
+        *ngFor="let student of students"
+        routerLink="/users/{{ student._id }}"
+        [ngClass]="{inTeam: student.team}"
+      >
+        <td>{{ student.full_name }}</td>
 
-      <ng-container *ngIf="student.team; else elseTemplate">
-        <td>{{ student.team }}</td>
-      </ng-container>
-      <ng-template #elseTemplate>
-        <td>-</td>
-      </ng-template>
-    </tr>
-  </table>
+        <ng-container *ngIf="student.team; else elseTemplate">
+          <td>{{ student.team }}</td>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <td>-</td>
+        </ng-template>
+      </tr>
+    </table>
+  </div>
 </div>

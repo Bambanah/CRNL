@@ -4,21 +4,18 @@
 
 table {
   width: 100%;
-
-
+  border-radius: 5px;
+  overflow: hidden;
 
   tr {
-    border: 1px solid #ddd;
     cursor: pointer;
 
-    td, th {
-      padding: 10px;
+    td,
+    th {
+      padding: 20px 10px;
     }
-
-
   }
   .inTeam {
     background-color: rgba(20, 120, 20, 0.3);
   }
-
 }
