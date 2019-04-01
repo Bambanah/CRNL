@@ -112,14 +112,6 @@ router.get('/teams/', function(req, res, next) {
   });
 });
 
-// Get single team
-router.get('/teams/:id', function(req, res, next) {
-  Team.findById(req.params.id, function(err, team) {
-    if (err) return next(err);
-    res.json(team);
-  });
-});
-
 // Create Team with two members
 router.post('/teams/', function(req, res) {
   // Create new team
@@ -223,6 +215,7 @@ router.get('/users/:userId/team/', function(req, res, next) {
   });
 });
 
+// Get members of team
 router.get('/teams/:teamId/members', function(req, res, next) {
   Team.findById(req.params.teamId, function(err, team) {
     if (err) return next(err);
@@ -230,7 +223,21 @@ router.get('/teams/:teamId/members', function(req, res, next) {
       console.warn('Team has no members');
       res.status(300); // TODO: Figure out which code to use
     } else {
-      res.status(202).json(team.members);
+      const memberArray = [];
+
+      for (let i = 0; i < team.members.length; i++) {
+        const memberId = team.members[i];
+
+        User.findById(memberId, function(err, user) {
+          if (err) return next(err);
+
+          memberArray.push(user);
+
+          if (i === team.members.length - 1) {
+            res.status(202).send(memberArray);
+          }
+        });
+      }
     }
   });
 });

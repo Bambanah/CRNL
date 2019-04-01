@@ -1,14 +1,28 @@
-<ul>
-  <a href="javascript:void(0);" (click)="leaveTeam()"><li>Leave Team</li></a>
-  <a href="javascript:void(0);" (click)="deleteTeam()"><li>Delete Team</li></a>
-</ul>
+<ng-container *ngIf="loading; else elseTemplate">
+  <app-loading></app-loading>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="container">
+    <h2>Members</h2>
+    <ul>
+      <li *ngFor="let member of members">
+        {{ member.full_name }}
+        <a
+          href="javascript:void(0);"
+          class="link"
+          (click)="removeUser(member._id)"
+          >Remove User</a
+        >
+      </li>
+    </ul>
 
-<h2>Members</h2>
-<ul>
-  <li *ngFor="let member of members">
-    {{ member.full_name }}
-    <a href="javascript:void(0);" class="link" (click)="removeUser(member._id)"
-      >Remove User</a
-    >
-  </li>
-</ul>
+    <ul>
+      <a href="javascript:void(0);" (click)="leaveTeam()">
+        <li>Leave Team</li>
+      </a>
+      <a href="javascript:void(0);" (click)="deleteTeam()">
+        <li>Delete Team</li>
+      </a>
+    </ul>
+  </div>
+</ng-template>

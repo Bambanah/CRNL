@@ -46,6 +46,7 @@ import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { TeamListComponent } from './teams/team-list/team-list.component';
 import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
+import { LoadingComponent } from './shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard
     SignupModalComponent,
     SignupPageComponent,
     LoginPageComponent,
-    StaffDashboardComponent
+    StaffDashboardComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
