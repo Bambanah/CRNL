@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  BreakpointObserver,
-  Breakpoints
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -44,8 +41,10 @@ export class MainNavComponent {
 
   ngOnInit() {
     const currentUserId = this.auth.currentUserId;
-    this.api.getUser(currentUserId).subscribe(data => {
-      this.currentUser = data;
-    });
+    if (currentUserId) {
+      this.api.getUser(currentUserId).subscribe(data => {
+        this.currentUser = data;
+      });
+    }
   }
 }

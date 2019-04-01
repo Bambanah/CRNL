@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
-import {
-  Router,
-  ActivatedRoute
-} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
@@ -19,8 +16,10 @@ export class TeamProfileComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  loading = true;
+
   teamId = this.route.snapshot.params['id'];
-  members = [];
+  members = {};
 
   leaveTeam() {
     const currentUserId = this.auth.currentUserId;
@@ -37,14 +36,8 @@ export class TeamProfileComponent implements OnInit {
 
   getMembers() {
     this.api.getMembersOfTeam(this.teamId).subscribe(data => {
-      for (const user in data) {
-        if (data.hasOwnProperty(user)) {
-          const userId = data[user];
-          this.api.getUser(userId).subscribe(user => {
-            this.members.push(user);
-          });
-        }
-      }
+      this.members = data;
+      this.loading = false;
     });
   }
 
