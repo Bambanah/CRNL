@@ -1,10 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserListComponent } from './user-list.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatTableModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {UserListComponent} from './user-list.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatTableModule} from '@angular/material';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -16,9 +16,9 @@ describe('UserListComponent', () => {
       imports: [
         RouterTestingModule,
         MatTableModule,
-        HttpClientModule,
-        FontAwesomeModule
-      ]
+        HttpClientTestingModule,
+        FontAwesomeModule,
+      ],
     }).compileComponents();
   }));
 

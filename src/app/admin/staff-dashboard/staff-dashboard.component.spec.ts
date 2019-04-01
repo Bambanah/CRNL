@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StaffDashboardComponent } from './staff-dashboard.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
+import {StaffDashboardComponent} from './staff-dashboard.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('StaffDashboardComponent', () => {
   let component: StaffDashboardComponent;
@@ -10,11 +10,9 @@ describe('StaffDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StaffDashboardComponent ],
-      imports: [RouterTestingModule,
-      HttpClientModule]
-    })
-    .compileComponents();
+      declarations: [StaffDashboardComponent],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TeamListComponent } from './team-list.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatTableModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import {TeamListComponent} from './team-list.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatTableModule} from '@angular/material';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('TeamListComponent', () => {
   let component: TeamListComponent;
@@ -12,7 +12,7 @@ describe('TeamListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TeamListComponent],
-      imports: [RouterTestingModule, MatTableModule, HttpClientModule]
+      imports: [RouterTestingModule, MatTableModule, HttpClientTestingModule],
     }).compileComponents();
   }));
 

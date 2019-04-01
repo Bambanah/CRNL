@@ -20,7 +20,7 @@ const httpOptions = {
   })
 };
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = '/api';
 
 @Injectable({
   providedIn: 'root'
@@ -56,12 +56,13 @@ export class ApiService {
     return this.http.get<Student[]>(apiUrl + '/students/');
   }
 
-  getTeams() {
+  getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>(apiUrl + '/teams/');
   }
 
   getUser(userId: string): Observable<User> {
     const url = `${apiUrl}/users/${userId}`;
+
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)

@@ -35,25 +35,25 @@ const routes: Routes = [
     path: 'users',
     component: UserListComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['Student', 'Staff']}
+    data: { roles: ['Student', 'Staff'] }
   },
   {
     path: 'users/:id',
     component: UserProfileComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['Student', 'Staff']}
+    data: { roles: ['Student', 'Staff'] }
   },
   {
     path: 'teams',
     component: TeamListComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['Student', 'Staff']}
+    data: { roles: ['Student', 'Staff'] }
   },
   {
     path: 'teams/:id',
     component: TeamProfileComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['Student', 'Staff']}
+    data: { roles: ['Student', 'Staff'] }
   },
   {
     path: 'staff',
@@ -64,7 +64,7 @@ const routes: Routes = [
     path: 'staff/dashboard',
     component: StaffDashboardComponent,
     canActivate: [AuthGuard],
-    data: {roles: ['Staff']}
+    data: { roles: ['Staff'] }
   }
 ];
 
