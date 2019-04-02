@@ -22,7 +22,8 @@ export class MainNavComponent {
   isCollapsed = true;
   currentUser = {
     email: '',
-    full_name: ''
+    full_name: '',
+    __t: ''
   };
 
   isHandset$: Observable<boolean> = this.breakpointObserver
