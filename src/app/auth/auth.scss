@@ -1,0 +1,69 @@
+@import 'src/styles.scss';
+
+.invalid-feedback {
+  display: block;
+}
+
+label {
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.container {
+  position: absolute;
+  max-width: 100%;
+  width: 100%;
+  min-height: calc(100% - 63px - 80px);
+
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  width: 350px;
+  text-align: center;
+}
+
+.btn-primary {
+  width: 100%;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 0;
+  background-color: white;
+  border: 1px solid $color-primary;
+  color: black;
+  margin-top: 50px;
+
+  &:disabled {
+    background-color: #ddd;
+  }
+}
+
+.p-top {
+  margin-bottom: 50px;
+}
+
+.p-bottom {
+  margin-top: 50px;
+}
+
+input {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+
+  &:hover {
+    box-shadow: none;
+    background-color: rgba($color: #4895b9, $alpha: 0.05);
+  }
+
+  &:focus {
+    box-shadow: none;
+    background-color: rgba($color: #4895b9, $alpha: 0.1);
+  }
+}

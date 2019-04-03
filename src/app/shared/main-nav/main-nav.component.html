@@ -48,13 +48,13 @@
     <ul class="navbar-nav">
       <ng-container *ngIf="!isAuthenticated; else elseTemplate">
         <li class="nav-item auth-btn login-btn">
-          <button
+          <a
             class="navbar-link"
             (click)="loginRedirect()"
             routerLinkActive="router-link-active"
           >
             Log In
-          </button>
+          </a>
         </li>
         <li class="nav-item auth-btn signup-btn">
           <a
