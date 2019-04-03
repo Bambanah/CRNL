@@ -1,15 +1,16 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Titillium+Web|Montserrat|Comfortaa|Open+Sans:400,600');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Titillium+Web|Montserrat|Comfortaa|Open+Sans:400,600|Patua+One');
 @import '../node_modules/bootstrap/scss/bootstrap';
 
-$font_family_1: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light',
+$font-family-1: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light',
   'Helvetica Neue', 'Roboto', sans-serif;
 
-$primary_color: rgb(0, 59, 113);
-$secondary_color: rgb(142, 144, 144);
-$support_color: rgb(0, 134, 117);
+$color-primary: rgb(0, 59, 113);
+$color-secondary: rgb(142, 144, 144);
+$color-dark: rgb(86, 91, 95);
+$color-support: rgb(0, 134, 117);
 
 * {
-  font-family: $font_family_1;
+  font-family: $font-family-1;
 }
 
 html,
@@ -19,5 +20,5 @@ body {
 
 body {
   margin: 0;
-  font-family: $font_family_1;
+  font-family: $font-family-1;
 }
