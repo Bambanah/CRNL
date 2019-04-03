@@ -73,7 +73,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   addToTeam() {
-    const userId = this.getUserId();
+    const userId = this.userId();
     const currentId = this.auth.currentUserId;
     if (!this.api.isInTeam(currentId)) {
       console.warn('Current user is not in a team');
@@ -90,9 +90,8 @@ export class UserProfileComponent implements OnInit {
 
   removeFromTeam() {
     // TODO: Warning if removing user will delete team (only self left in team)
-    const userId = this.getUserId();
-    const teamId = '' + this.api.getTeamIdFromUser(userId);
-    this.api.removeFromTeam(teamId, userId);
+    const teamId = '' + this.api.getTeamIdFromUser(this.userId);
+    this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
   }
 
