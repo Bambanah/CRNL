@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Titillium+Web|Montserrat|Comfortaa');
+@import url('https://fonts.googleapis.com/css?family=Roboto|Titillium+Web|Montserrat|Comfortaa|Open+Sans:400,600');
 @import '../node_modules/bootstrap/scss/bootstrap';
 
-$font_family_1: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
-  'Roboto', sans-serif;
+$font_family_1: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light',
+  'Helvetica Neue', 'Roboto', sans-serif;
 
 $primary_color: rgb(0, 59, 113);
 $secondary_color: rgb(142, 144, 144);

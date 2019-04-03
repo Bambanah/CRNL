@@ -2,7 +2,7 @@
   <ul>
     <li>{{ user.email }}</li>
     <li>{{ user.full_name }}</li>
-    <li>{{ this.getUserId() }}</li>
+    <li>{{ this.userId }}</li>
     <li *ngIf="!this.isSelf && !this.inTeam">
       <a (click)="createTeam()" href="javascript:void(0);">
         Create team with {{ user.full_name }}

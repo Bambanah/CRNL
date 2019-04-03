@@ -42,10 +42,8 @@ export class MainNavComponent {
     return this.auth.isAuthenticated;
   }
 
-  goProfile(): void {
-    const currentUserId = this.auth.currentUserId;
-
-    this.router.navigate([`/users/${currentUserId}`]);
+  profileRedirect(): void {
+    this.router.navigate(['/profile']);
   }
 
   ngOnInit() {

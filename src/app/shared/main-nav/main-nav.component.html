@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-md sticky-top mat-elevation-z1">
   <a class="navbar-brand" [routerLink]="['/home']">
-    <img src="assets/images/QUT_Logo.PNG" /> Compass
+    <img src="assets/images/QUT_Logo.PNG" />
+    <span class="nav-brand-text">Compass</span>
   </a>
   <button
     class="navbar-toggler hidden-sm-up"
@@ -77,8 +78,8 @@
         <li class="nav-item">
           <a
             class="navbar-link profile-link"
+            routerLink="/profile"
             routerLinkActive="router-link-active"
-            (click)="goProfile()"
           >
             Profile
             <small class="currentUserName">({{ currentUser.full_name }})</small>

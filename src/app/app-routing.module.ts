@@ -44,6 +44,12 @@ const routes: Routes = [
     data: { roles: ['Student', 'Staff'] }
   },
   {
+    path: 'profile',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+    data: { self: true }
+  },
+  {
     path: 'teams',
     component: TeamListComponent,
     canActivate: [AuthGuard],
