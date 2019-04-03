@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../_models/users/User';
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = '/api';
 
 const helper = new JwtHelperService();
 
