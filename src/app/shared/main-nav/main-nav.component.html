@@ -45,14 +45,15 @@
       </li>
     </ul>
     <ul class="navbar-nav">
-      <ng-container *ngIf="!isAuthenticated(); else elseTemplate">
+      <ng-container *ngIf="!isAuthenticated; else elseTemplate">
         <li class="nav-item auth-btn login-btn">
-          <a
+          <button
             class="navbar-link"
-            routerLink="/auth/login"
+            (click)="loginRedirect()"
             routerLinkActive="router-link-active"
-            >Log In</a
           >
+            Log In
+          </button>
         </li>
         <li class="nav-item auth-btn signup-btn">
           <a
@@ -79,7 +80,8 @@
             routerLinkActive="router-link-active"
             (click)="goProfile()"
           >
-            Profile <small>({{ currentUser.full_name }})</small>
+            Profile
+            <small class="currentUserName">({{ currentUser.full_name }})</small>
           </a>
         </li>
         <li class="nav-item auth-btn logout-btn">

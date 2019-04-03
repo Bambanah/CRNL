@@ -61,7 +61,7 @@ export class AuthService {
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 
-  isAuthenticated(): boolean {
+  public get isAuthenticated(): boolean {
     return localStorage.getItem('currentUser') === null ? false : true;
   }
 
