@@ -15,8 +15,7 @@ export class MainNavComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private auth: AuthService,
-    private router: Router,
-    private api: ApiService
+    private router: Router
   ) {}
 
   isCollapsed = true;
@@ -25,12 +24,6 @@ export class MainNavComponent {
     full_name: '',
     __t: ''
   };
-
-  loginRedirect() {
-    this.router.navigate(['/auth/login'], {
-      queryParams: { returnUrl: this.router.url }
-    });
-  }
 
   signupRedirect() {}
 

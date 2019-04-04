@@ -50,7 +50,8 @@
         <li class="nav-item auth-btn login-btn">
           <a
             class="navbar-link"
-            (click)="loginRedirect()"
+            [routerLink]="['/auth/login/']"
+            [queryParams]="{ returnUrl: this.router.url }"
             routerLinkActive="router-link-active"
           >
             Log In
@@ -59,7 +60,8 @@
         <li class="nav-item auth-btn signup-btn">
           <a
             class="navbar-link"
-            routerLink="/auth/signup"
+            [routerLink]="['/auth/signup/']"
+            [queryParams]="{ returnUrl: this.router.url }"
             routerLinkActive="router-link-active"
             >Sign Up</a
           >
