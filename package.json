@@ -3,16 +3,17 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "build": "ng build",
+    "build": "ng build --prod",
     "start": "node ./bin/www",
     "dev": "ng build && concurrently \"nodemon ./bin/www\" \"ng serve --proxy-config proxy.conf.json\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-optimizer": "^0.13.8",
     "@angular/animations": "^7.2.7",
     "@angular/cdk": "^7.3.3",
     "@angular/common": "^7.2.7",
@@ -40,7 +41,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.7.3",
     "concurrently": "^4.1.0",
-    "core-js": "^2.6.5",
+    "core-js": "^3.0.0",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.4",
@@ -55,8 +56,8 @@
     "passport-local": "^1.0.0",
     "rxjs": "~6.4.0",
     "serve-favicon": "^2.5.0",
-    "typescript": "^3.2.4",
-    "zone.js": "~0.8.26"
+    "typescript": "3.2.4",
+    "zone.js": "~0.9.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.4",
@@ -65,13 +66,13 @@
     "@angular/language-service": "^7.2.7",
     "@types/jasmine": "^3.3.9",
     "@types/jasminewd2": "^2.0.5",
-    "@types/node": "~11.10.4",
-    "codelyzer": "~4.5.0",
+    "@types/node": "~11.13.0",
+    "codelyzer": "~5.0.0",
     "eslint": "^5.15.1",
     "eslint-config-google": "^0.12.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "jasmine-core": "~3.3.0",
+    "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.1",
     "karma-chrome-launcher": "~2.2.0",

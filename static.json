@@ -1,0 +1,4 @@
+{
+  "root": "dist/crnl-app/",
+  "clean_urls": true
+}

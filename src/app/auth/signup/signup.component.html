@@ -1,118 +1,113 @@
-<div class="content">
-  <form [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm.value)">
-    <div class="form-group">
-      <input
-        type="text"
-        formControlName="full_name"
-        class="form-control"
-        placeholder="Full Name"
-      />
-      <div
-        *ngIf="
-          !signupForm.get('full_name').valid &&
-          signupForm.get('full_name').touched
-        "
-        class="invalid-feedback"
-      >
-        <div>* Required *</div>
+<div class="container">
+  <div class="content">
+    <form
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit(signupForm.value)"
+      class="signupForm form"
+    >
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="full_name"
+          class="form-control"
+          placeholder="Full Name"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('full_name').valid &&
+              signupForm.get('full_name').touched
+          }"
+          autofocus
+        />
       </div>
-    </div>
-    <!-- TODO: Select major and minor from available list -->
-    <div class="form-group">
-      <input type="checkbox" (change)="toggleChecked($event)" />
-      <label>Student</label>
-    </div>
-    <div class="form-group" *ngIf="is_student">
-      <input
-        type="text"
-        formControlName="major"
-        class="form-control"
-        placeholder="Major"
-      />
-      <div
-        *ngIf="
-          !signupForm.get('major').valid && signupForm.get('major').touched
-        "
-        class="invalid-feedback"
-      >
-        <div>Please select a major</div>
+      <!-- TODO: Select major and minor from available list -->
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="major"
+          class="form-control"
+          placeholder="Major"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('major').valid && signupForm.get('major').touched
+          }"
+        />
       </div>
-    </div>
-    <div class="form-group" *ngIf="is_student">
-      <input
-        type="text"
-        formControlName="minor"
-        class="form-control"
-        placeholder="Minor"
-      />
-      <div
-        *ngIf="
-          !signupForm.get('minor').valid && signupForm.get('minor').touched
-        "
-        class="invalid-feedback"
-      >
-        <div>Please select a minor</div>
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="minor"
+          class="form-control"
+          placeholder="Minor"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('minor').valid && signupForm.get('minor').touched
+          }"
+        />
       </div>
-    </div>
-    <!-- TODO: Validate email format -->
-    <div class="form-group">
-      <input
-        type="text"
-        formControlName="email"
-        class="form-control"
-        placeholder="Email"
-      />
-      <div
-        *ngIf="
-          !signupForm.get('email').valid && signupForm.get('email').touched
-        "
-        class="invalid-feedback"
-      >
-        <div>Please enter email</div>
+      <!-- TODO: Validate email format -->
+      <div class="form-group">
+        <input
+          type="text"
+          formControlName="email"
+          class="form-control"
+          placeholder="Email"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('email').valid && signupForm.get('email').touched
+          }"
+        />
       </div>
-    </div>
-    <!-- TODO: validate passwords are different -->
-    <div class="form-group">
-      <input
-        type="password"
-        formControlName="password"
-        class="form-control"
-        placeholder="Password"
-        required
-      />
-      <div
-        *ngIf="
-          !signupForm.get('password').valid &&
-          signupForm.get('password').touched
-        "
-        class="invalid-feedback"
-      >
-        <div>Password is required</div>
+      <!-- TODO: validate passwords are different -->
+      <div class="form-group">
+        <input
+          type="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Password"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('password').valid &&
+              signupForm.get('password').touched
+          }"
+          required
+        />
       </div>
-    </div>
-    <div class="form-group">
-      <input
-        type="password"
-        formControlName="password_confirm"
-        class="form-control"
-        placeholder="Confirm Password"
-        required="true"
-      />
-      <div
-        *ngIf="signupForm.get('password') != signupForm.get('password_confirm')"
-        class="invalid-feedback"
-      >
-        <div>Passwords don't match</div>
+      <div class="form-group">
+        <input
+          type="password"
+          formControlName="password_confirm"
+          class="form-control"
+          placeholder="Confirm Password"
+          [ngClass]="{
+            invalid:
+              signupForm.get('password').touched &&
+              signupForm.get('password_confirm').touched &&
+              signupForm.get('password') != signupForm.get('password_confirm')
+          }"
+          required
+        />
+        <div
+          *ngIf="
+            signupForm.get('password').touched &&
+            signupForm.get('password_confirm').touched &&
+            signupForm.get('password') != signupForm.get('password_confirm')
+          "
+          class="invalid-feedback"
+        >
+          Passwords don't match
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <button [disabled]="!signupForm.valid" class="btn btn-primary btn-signup">
-        Sign Up
-      </button>
-    </div>
-  </form>
-  <hr />
-  <p class="p-bottom">
-    Already have an account? <a [routerLink]="['/auth/login']">Log In</a>
-  </p>
+      <div class="form-group">
+        <button
+          [disabled]="!signupForm.valid"
+          class="btn btn-primary btn-signup"
+        >
+          Sign Up
+        </button>
+      </div>
+    </form>
+    <p class="p-bottom">
+      Already have an account? <a [routerLink]="['/auth/login']">Log In</a>
+    </p>
+  </div>
 </div>

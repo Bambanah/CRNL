@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../_models/users/User';
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = '/api';
 
 const helper = new JwtHelperService();
 
@@ -51,17 +51,12 @@ export class AuthService {
     localStorage.removeItem('currentUser');
   }
 
-  signup(signupData, is_student) {
-    let url = '';
-    if (is_student) {
-      url = apiUrl + '/students/';
-    } else {
-      url = apiUrl + '/users/';
-    }
+  signup(signupData) {
+    let url = apiUrl + '/students/';
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 
-  isAuthenticated(): boolean {
+  public get isAuthenticated(): boolean {
     return localStorage.getItem('currentUser') === null ? false : true;
   }
 
