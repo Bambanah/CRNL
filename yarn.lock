@@ -62,7 +62,7 @@
   optionalDependencies:
     node-sass "4.11.0"
 
-"@angular-devkit/build-optimizer@0.13.8":
+"@angular-devkit/build-optimizer@0.13.8", "@angular-devkit/build-optimizer@^0.13.8":
   version "0.13.8"
   resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.13.8.tgz#0bcba1a4ef598c1a01caa60dd3603bac52a57b16"
   integrity sha512-RvYxtsdYuvpFb1iivVixylSVN/Q8LsQ449uYuqEe3OsDjQBvUVG2fMLPOQjmKWhi0NC9WSsNiUluxLDNdvd0Vw==
