@@ -9,10 +9,20 @@ body {
 
 .main-container {
   min-height: 100%;
-  position: relative;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+}
+
+.app-header {
+  flex: 0 1 auto;
 }
 
 .body {
-  padding-bottom: 80px;
-  height: 100%;
+  flex: 1 1 auto;
+}
+
+.app-footer {
+  flex: 0 1 auto;
 }

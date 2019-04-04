@@ -6,11 +6,11 @@ import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import { SignupPageComponent } from './auth/signup-page/signup-page.component';
-import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { TeamListComponent } from './teams/team-list/team-list.component';
 import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -25,11 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'auth/login',
-    component: LoginPageComponent
+    component: LoginComponent
   },
   {
     path: 'auth/signup',
-    component: SignupPageComponent
+    component: SignupComponent
   },
   {
     path: 'users',
@@ -42,6 +42,12 @@ const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Student', 'Staff'] }
+  },
+  {
+    path: 'profile',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+    data: { self: true }
   },
   {
     path: 'teams',

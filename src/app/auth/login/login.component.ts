@@ -8,7 +8,7 @@ import { AuthService } from '../../_services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../signup/signup.component.scss']
+  styleUrls: ['../auth.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     });
 
     // reset login status
-    this.authService.logout();
+    this.auth.logout();
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService
+    this.auth
       .login(form)
       .pipe(first())
       .subscribe(
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          console.warn(error);
           this.loading = false;
         }
       );
