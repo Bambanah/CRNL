@@ -111,7 +111,6 @@ describe('SignupComponent', () => {
     });
   });
 
-
   it(`should have signupForm's password reflect form conponent #password`, () =>{
     el = fixture.debugElement.query(By.css('#password')).nativeElement;
     el.dispatchEvent(new Event('input'));

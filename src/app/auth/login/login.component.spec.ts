@@ -148,4 +148,22 @@ describe('LoginComponent', () => {
     .getAttribute('href');
     expect(href).toEqual('/auth/signup');
   });
+
+  it(`should have loginForm's email reflect form component #email`, () =>{
+    el = fixture.debugElement.query(By.css('#email')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.loginForm.get('email').value).toEqual('');
+    });
+  });
+
+  it(`should have loginForm's password reflect form component #password`, () =>{
+    el = fixture.debugElement.query(By.css('#password')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.loginForm.get('password').value).toEqual('');
+    });
+  });
 });
