@@ -3,13 +3,13 @@
   "version": "0.0.5",
   "scripts": {
     "ng": "ng",
-    "build": "ng build --prod --outputPath=\"dist\"",
+    "build": "ng build --prod",
     "start": "node ./bin/www",
     "dev": "ng build && concurrently \"nodemon ./bin/www\" \"ng serve --proxy-config proxy.conf.json\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build --prod --outputPath=\"dist\""
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
