@@ -55,7 +55,7 @@ input {
   border-radius: 0;
   border: none;
   border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  padding: 10px 3px;
 
   &:hover {
     box-shadow: none;
@@ -66,4 +66,15 @@ input {
     box-shadow: none;
     background-color: rgba($color: #4895b9, $alpha: 0.1);
   }
+
+  &.invalid {
+    border-bottom: 1px solid rgb(255, 101, 101);
+  }
+}
+
+.invalid-feedback {
+  text-align: right;
+  position: absolute;
+  margin-top: -28px;
+  left: -360px;
 }
