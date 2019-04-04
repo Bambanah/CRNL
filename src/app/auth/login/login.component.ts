@@ -12,13 +12,13 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
+  loading = false; //TODO: remove loading? Seems unnessesary
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = ''; //TODO: remove? also seems unnessesary
   email: string;
   password: string;
-  closeResult: string;
+  closeResult: string; //TODO: remove? also seems unnessesary
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
-
+    
     // reset login status
     this.authService.logout();
 
@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate([this.returnUrl]);
+            this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = error;
+          this.error = 'Incorrect Login Criteria'
           this.loading = false;
         }
       );
