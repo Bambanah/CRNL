@@ -4,10 +4,14 @@ import {SignupComponent} from './signup.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ReactiveFormsModule} from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
 describe('SignupComponent', () => {
   let component: SignupComponent;
   let fixture: ComponentFixture<SignupComponent>;
+  let de: DebugElement;
+  let el: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -17,16 +21,131 @@ describe('SignupComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
       ],
-    }).compileComponents();
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(SignupComponent);
+      component = fixture.componentInstance;
+      de = fixture.debugElement.query(By.css('form'));
+      el = de.nativeElement;
+      fixture.detectChanges();
+  });
+}));
+
+  it('should create', async(()  => {
+    expect(component).toBeTruthy();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SignupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  it(`should have submit button be unable to sumbit without compete form`, async(()  => {
+    spyOn(component, 'onSubmit');
+    el = fixture.debugElement.nativeElement.querySelector('button');
+    el.click;
+    fixture.whenStable().then(() => {
+      expect(component.onSubmit).toHaveBeenCalledTimes(0);
+    });
+  }));
+
+  it(`should have submit button be able to sumbit with compete form`, ()   => {
+    component.ngOnInit;
+    component.signupForm.controls['email'].setValue('test@test.com');
+    component.signupForm.controls['full_name'].setValue('Bill');
+    component.signupForm.controls['major'].setValue('Computer Science');
+    component.signupForm.controls['minor'].setValue('minor');
+    component.signupForm.controls['password'].setValue('password')
+    component.signupForm.controls['password_confirm'].setValue('password')
+    spyOn(component, 'onSubmit');
+    el = fixture.debugElement.nativeElement.querySelector('button');
+    el.click;
+    fixture.whenStable().then(() => {
+      expect(component.onSubmit).toHaveBeenCalledTimes(1);
+    });
+  }); //only works when not async for some reason?
+
+  it(`should have signupForm be invalid with empty form`, async(()  => {
+    component.ngOnInit;
+    expect(component.signupForm.valid).toBeFalsy();
+  }));
+
+  it(`should have signupForm be valid with completed form`, async(()  => {
+    component.ngOnInit;
+    component.signupForm.controls['email'].setValue('test@test.com');
+    component.signupForm.controls['full_name'].setValue('Bill');
+    component.signupForm.controls['major'].setValue('Computer Science');
+    component.signupForm.controls['minor'].setValue('minor');
+    component.signupForm.controls['password'].setValue('password')
+    component.signupForm.controls['password_confirm'].setValue('password_conf')
+    expect(component.signupForm.valid).toBeTruthy();
+  }));
+
+  it(`login link should route to login page when pressed`, async(() => {
+    let href = fixture.debugElement.query(By.css('a')).nativeElement
+    .getAttribute('href');
+    expect(href).toEqual('/auth/login');
+  }));
+
+  it(`should have is_student be falsy if #student is not checked`, () =>{
+    expect(component.is_student).toBeFalsy;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it(`should have is_student be truthy if #student is checked`, () =>{
+    el = fixture.debugElement.query(By.css('#student')).nativeElement;
+    el.click;
+    fixture.whenStable().then(() => {
+      expect(component.is_student).toBeTruthy;
+    });
+  });
+
+  it(`should have signupForm's email reflect form conponent #email`, () =>{
+    el = fixture.debugElement.query(By.css('#email')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('email').value).toEqual('');
+    });
+  });
+
+  it(`should have signupForm's full_name reflect form component #name`, () =>{
+    el = fixture.debugElement.query(By.css('#name')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('full_name').value).toEqual('');
+    });
+  });
+
+
+  it(`should have signupForm's password reflect form conponent #password`, () =>{
+    el = fixture.debugElement.query(By.css('#password')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('password').value).toEqual('');
+    });
+  });
+
+  it(`should have signupForm's major reflect form component #major`, () =>{
+    let student = fixture.debugElement.query(By.css('#student')).nativeElement;
+    student.click;
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      el = fixture.debugElement.query(By.css('#major')).nativeElement;
+      el.dispatchEvent(new Event('input'));
+    });
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('major').value).toEqual('');
+    });
+  });
+
+  it(`should have signupForm's minor reflect form conponent #minor`, () =>{
+    let student = fixture.debugElement.query(By.css('#student')).nativeElement;
+    student.click;
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      el = fixture.debugElement.query(By.css('#minor')).nativeElement;
+      el.dispatchEvent(new Event('input'));
+    });
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('minor').value).toEqual('');
+    });
   });
 });
