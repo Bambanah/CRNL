@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate([this.returnUrl]);
         },
         error => {
-          this.error = 'Incorrect Login Criteria';
           console.warn(error);
           this.loading = false;
         }
