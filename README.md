@@ -65,6 +65,6 @@ QUT Compass is a MEAN full stack app, built with:
 ## Authors
 
 - Nik Sirhan - _Project Lead_ - n10275363
-- Ranne Sanedrin - _SCRUM Master_ - n8817596
-- Lachlan Underhill - _Developer_ - n9692941
-- Cameron Short - _Developer_ - n9450106
+- Ranne Sanedrin ([impulsifier](https://github.com/impulsifier/)) - _SCRUM Master_ - n8817596
+- Lachlan Underhill ([Bambanah](https://github.com/Bambanah/)) - _Developer_ - n9692941
+- Cameron Short ([cshor24](https://github.com/cshor24/)) - _Developer_ - n9450106
