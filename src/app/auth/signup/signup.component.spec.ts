@@ -103,8 +103,8 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's full_name reflect form component #name`, () =>{
-    el = fixture.debugElement.query(By.css('#name')).nativeElement;
+  it(`should have signupForm's full_name reflect form component #full_name`, () =>{
+    el = fixture.debugElement.query(By.css('#full_name')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -122,13 +122,8 @@ describe('SignupComponent', () => {
   });
 
   it(`should have signupForm's major reflect form component #major`, () =>{
-    let student = fixture.debugElement.query(By.css('#student')).nativeElement;
-    student.click;
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      el = fixture.debugElement.query(By.css('#major')).nativeElement;
-      el.dispatchEvent(new Event('input'));
-    });
+    el = fixture.debugElement.query(By.css('#major')).nativeElement;
+    el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(component.signupForm.get('major').value).toEqual('');
@@ -136,13 +131,8 @@ describe('SignupComponent', () => {
   });
 
   it(`should have signupForm's minor reflect form conponent #minor`, () =>{
-    let student = fixture.debugElement.query(By.css('#student')).nativeElement;
-    student.click;
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      el = fixture.debugElement.query(By.css('#minor')).nativeElement;
-      el.dispatchEvent(new Event('input'));
-    });
+    el = fixture.debugElement.query(By.css('#minor')).nativeElement;
+    el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(component.signupForm.get('minor').value).toEqual('');

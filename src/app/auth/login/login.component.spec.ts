@@ -140,7 +140,7 @@ describe('LoginComponent', () => {
 
   it('should logout current user on attempted login', async(() =>{
     component.ngOnInit;
-    expect(component['authService'].isAuthenticated()).toEqual(false);
+    expect(component['auth'].isAuthenticated).toEqual(false);
   }));
 
   it(`signup link should route to signup page when pressed`, () => {
