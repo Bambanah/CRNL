@@ -1,3 +1,5 @@
+@import 'src/styles.scss';
+
 hr {
   width: 80%;
 }
@@ -16,12 +18,13 @@ hr {
   align-items: center;
   text-align: center;
 
-  background-color: rgb(98, 148, 255);
-  color: white;
+  background-color: lighten($color-primary, 10%);
+  color: rgb(255, 255, 255);
 
   .headline {
     flex: auto;
-    font-family: 'Comfortaa';
+    font-family: 'Patua One';
+    letter-spacing: 0.2rem;
 
     -moz-user-select: none;
     -ms-user-select: none;

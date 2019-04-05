@@ -5,8 +5,8 @@ import {FooterComponent} from './shared/footer/footer.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {LoginModalComponent} from './auth/login-modal/login-modal.component';
-import {SignupModalComponent} from './auth/signup-modal/signup-modal.component';
+// import {LoginModalComponent} from './auth/login-modal/login-modal.component';
+// import {SignupModalComponent} from './auth/signup-modal/signup-modal.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -18,8 +18,8 @@ describe('AppComponent', () => {
         AppComponent,
         MainNavComponent,
         FooterComponent,
-        LoginModalComponent,
-        SignupModalComponent,
+        // LoginModalComponent,
+        // SignupModalComponent,
         LoginComponent,
         SignupComponent,
       ],

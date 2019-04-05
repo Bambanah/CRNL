@@ -39,10 +39,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserProfileComponent } from './users/user-profile/user-profile.component';
-import { LoginModalComponent } from './auth/login-modal/login-modal.component';
-import { SignupModalComponent } from './auth/signup-modal/signup-modal.component';
-import { SignupPageComponent } from './auth/signup-page/signup-page.component';
-import { LoginPageComponent } from './auth/login-page/login-page.component';
 import { TeamListComponent } from './teams/team-list/team-list.component';
 import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
@@ -63,10 +59,6 @@ import { LoadingComponent } from './shared/loading/loading.component';
     UserProfileComponent,
     TeamListComponent,
     TeamProfileComponent,
-    LoginModalComponent,
-    SignupModalComponent,
-    SignupPageComponent,
-    LoginPageComponent,
     StaffDashboardComponent,
     LoadingComponent
   ],
