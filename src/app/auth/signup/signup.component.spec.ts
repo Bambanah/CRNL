@@ -93,6 +93,7 @@ describe('SignupComponent', () => {
   //   });
   // });
 
+  
   it(`should have signupForm's email reflect form conponent #email`, () =>{
     el = fixture.debugElement.query(By.css('#email')).nativeElement;
     el.dispatchEvent(new Event('input'));
