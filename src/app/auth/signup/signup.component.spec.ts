@@ -81,17 +81,17 @@ describe('SignupComponent', () => {
     expect(href).toEqual('/auth/login');
   }));
 
-  it(`should have is_student be falsy if #student is not checked`, () =>{
-    expect(component.is_student).toBeFalsy;
-  });
+  // it(`should have is_student be falsy if #student is not checked`, () =>{
+  //   expect(component.is_student).toBeFalsy;
+  // });
 
-  it(`should have is_student be truthy if #student is checked`, () =>{
-    el = fixture.debugElement.query(By.css('#student')).nativeElement;
-    el.click;
-    fixture.whenStable().then(() => {
-      expect(component.is_student).toBeTruthy;
-    });
-  });
+  // it(`should have is_student be truthy if #student is checked`, () =>{
+  //   el = fixture.debugElement.query(By.css('#student')).nativeElement;
+  //   el.click;
+  //   fixture.whenStable().then(() => {
+  //     expect(component.is_student).toBeTruthy;
+  //   });
+  // });
 
   it(`should have signupForm's email reflect form conponent #email`, () =>{
     el = fixture.debugElement.query(By.css('#email')).nativeElement;
