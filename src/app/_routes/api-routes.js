@@ -269,9 +269,9 @@ router.post('/posts/', function(req, res, next) {
   console.log(req.body);
   Post.create(
     {
-      title: req.body[0],
-      content: req.body[1],
-      author: req.body[2]
+      title: req.body[0].title,
+      content: req.body[0].content,
+      author: req.body[1]
     },
     function(err, post) {
       if (err) return next(err);

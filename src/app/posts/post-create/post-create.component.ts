@@ -15,7 +15,6 @@ export class PostCreateComponent implements OnInit {
   content: string;
 
   constructor(
-    private router: Router,
     private api: ApiService,
     private formBuilder: FormBuilder,
     private auth: AuthService
@@ -29,10 +28,9 @@ export class PostCreateComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    const data = [form.title, form.content, this.auth.currentUserId];
+    const data = [form, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
       console.error(err);
     });
-    this.router.navigate(['']);
   }
 }
