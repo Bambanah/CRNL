@@ -17,7 +17,7 @@
               !signupForm.get('full_name').valid &&
               signupForm.get('full_name').touched
           }"
-          autofocus
+          required
         />
       </div>
       <!-- TODO: Select major and minor from available list -->
@@ -59,6 +59,7 @@
             invalid:
               !signupForm.get('email').valid && signupForm.get('email').touched
           }"
+          required
         />
       </div>
       <!-- TODO: validate passwords are different -->
