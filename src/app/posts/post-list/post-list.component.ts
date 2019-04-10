@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { DataSource } from '@angular/cdk/collections';
+import { getMatFormFieldDuplicatedHintError } from '@angular/material';
 
 @Component({
   selector: 'app-post-list',
@@ -11,6 +12,12 @@ export class PostListComponent implements OnInit {
   constructor(private api: ApiService) {}
 
   posts: any;
+
+  getAuthor(userId) {
+    this.api.getUser(userId).subscribe(user => {
+      return user.full_name;
+    });
+  }
 
   ngOnInit() {
     this.api.getPosts().subscribe(

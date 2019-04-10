@@ -20,7 +20,10 @@ User.discriminator(
       // TODO: Create tag model to hold total number of students using that tag for use in returning most popular tags first
       type: Array
     },
-    team: { type: Schema.Types.ObjectId, ref: 'Team' }
+    team: {
+      type: Schema.Types.ObjectId,
+      ref: 'Team'
+    }
   })
 );
 

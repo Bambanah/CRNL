@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from '../../_services/api.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-post-create',
@@ -16,7 +17,8 @@ export class PostCreateComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -27,7 +29,8 @@ export class PostCreateComponent implements OnInit {
   }
 
   onFormSubmit(form: NgForm) {
-    this.api.postPost(form).subscribe(err => {
+    const data = [form.title, form.content, this.auth.currentUserId];
+    this.api.postPost(data).subscribe(err => {
       console.error(err);
     });
     this.router.navigate(['']);
