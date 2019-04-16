@@ -12,6 +12,14 @@ const options = {
 const UserSchema = new Schema(
   {
     full_name: String,
+    posts: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Post'
+        }
+      ]
+    },
     email: {
       type: String,
       lowercase: true,

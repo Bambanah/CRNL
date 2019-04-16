@@ -84,10 +84,10 @@ export class ApiService {
     );
   }
 
-  postPost(postData): Observable<Post> {
+  postPost(data): Observable<Post> {
     const url = `${this.apiUrl}/posts/`;
     return this.http
-      .post(url, postData, httpOptions)
+      .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 

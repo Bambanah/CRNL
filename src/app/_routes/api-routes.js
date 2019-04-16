@@ -266,10 +266,20 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
-  Post.create(req.body, function(err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  console.log(req.body);
+  Post.create(
+    {
+      title: req.body[0].title,
+      content: req.body[0].content,
+      author: req.body[1]
+    },
+    function(err, post) {
+      if (err) return next(err);
+      post.populate('author');
+      post.save();
+      res.json(post);
+    }
+  );
 });
 
 // Update post
