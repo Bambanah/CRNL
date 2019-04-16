@@ -267,64 +267,115 @@ describe('ApiService', () => {
 
   describe('#getUser', () => {
     let dummyUserData: User;
-  
-      beforeEach(() => {
-        service = TestBed.get(ApiService);
-        dummyUserData = [
-          { age: 21 , 
-            major: 'Computer Science', 
-            minor: 'Intelligent Systems', 
-            full_name: 'Test Student 2',
-            email: 'teststudent2@test.com',
-            id: '5ca561173f69332cccc3860f'},
-        ] as User;
-      });
-  
-      it('should be created', () => {
-        const service: ApiService = TestBed.get(ApiService);
-        expect(service).toBeTruthy();
-      });
-      
-      it('should return expected users (called once)', () => {
-        service.getUser('5ca561173f69332cccc3860f').subscribe(User => {
-          expect(User.length).toBe(1);
-          expect(User).toEqual(dummyUserData);
-        });
-  
-        const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-        expect(req.request.method).toBe("GET");
-  
-        req.flush(dummyUserData);
-      });
 
-      it('should not be able to return user', () => {
-        service.getUser('5ca561173f69332cccc3860f').subscribe(Users => {
-          expect(Users.length).toEqual(0);
-          fail
-        });
-  
-        const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-        req.flush([]);
-      });
-
-      it('should return expected user values with various setups', () => {
-        service.getUser('5ca561173f69332cccc3860f').subscribe();
-        service.getUser('5ca561173f69332cccc3860f').subscribe();
-        service.getUser('5ca561173f69332cccc3860f').subscribe(
-          user => expect(user).toEqual(dummyUserData),
-          fail
-        );
-  
-        const req = httpTestingController.match(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-        expect(req.length).toEqual(3);
-  
-        req[0].flush([]);
-        req[1].flush([{id: 1, name: 'test'}]);
-        req[2].flush(dummyUserData);
-      });
-      
+    beforeEach(() => {
+      service = TestBed.get(ApiService);
+      dummyUserData = [
+        { age: 21 , 
+          major: 'Computer Science', 
+          minor: 'Intelligent Systems', 
+          full_name: 'Test Student 2',
+          email: 'teststudent2@test.com',
+          id: '5ca561173f69332cccc3860f'},
+      ] as User;
     });
-  
+
+    it('should be created', () => {
+      const service: ApiService = TestBed.get(ApiService);
+      expect(service).toBeTruthy();
+    });
+    
+    it('should return expected users (called once)', () => {
+      service.getUser('5ca561173f69332cccc3860f').subscribe(User => {
+        expect(User.length).toBe(1);
+        expect(User).toEqual(dummyUserData);
+      });
+
+      const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
+      expect(req.request.method).toBe("GET");
+
+      req.flush(dummyUserData);
+    });
+
+    it('should not be able to return user', () => {
+      service.getUser('5ca561173f69332cccc3860f').subscribe(Users => {
+        expect(Users.length).toEqual(0);
+        fail
+      });
+
+      const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
+      req.flush([]);
+    });
+
+    it('should return expected user values with various setups', () => {
+      service.getUser('5ca561173f69332cccc3860f').subscribe();
+      service.getUser('5ca561173f69332cccc3860f').subscribe();
+      service.getUser('5ca561173f69332cccc3860f').subscribe(
+        user => expect(user).toEqual(dummyUserData),
+        fail
+      );
+
+      const req = httpTestingController.match(service.apiUrl + '/users/5ca561173f69332cccc3860f');
+      expect(req.length).toEqual(3);
+
+      req[0].flush([]);
+      req[1].flush([{id: 1, name: 'test'}]);
+      req[2].flush(dummyUserData);
+    });
+    
+  });
+
+  describe('#getPost', () => {
+    let dummyPostData: Post;
+
+    beforeEach(() => {
+      service = TestBed.get(ApiService);
+      dummyPostData = [
+        { members:["5c5579075eca471af42544c4","5c93b1ed8b44f40bf8486708"],
+          _id:"5c9af54eb226cd3e0c238190",
+          name:"Test name",
+          bio:"Test bio",}
+      ] as Post[];
+    });
+
+    it('should return expected post (called once)', () => {
+      service.getPost('5c9af54eb226cd3e0c238190').subscribe(Post => {
+        expect(Post.length).toBe(1);
+        expect(Post).toEqual(dummyPostData);
+      });
+
+      const req = httpTestingController.expectOne(service.apiUrl + '/posts/5c9af54eb226cd3e0c238190');
+      expect(req.request.method).toBe("GET");
+
+      req.flush(dummyPostData);
+    });
+
+    it('should not be able to return post', () => {
+      service.getPost('5c9af54eb226cd3e0c238190').subscribe(Post => {
+        expect(Post.length).toEqual(0);
+        fail
+      });
+
+      const req = httpTestingController.expectOne(service.apiUrl + '/posts/5c9af54eb226cd3e0c238190');
+      req.flush([]);
+    });
+
+    it('should return expected post values with various setups', () => {
+      service.getPost('5c9af54eb226cd3e0c238190').subscribe();
+      service.getPost('5c9af54eb226cd3e0c238190').subscribe();
+      service.getPost('5c9af54eb226cd3e0c238190').subscribe(
+        post => expect(post).toEqual(dummyPostData),
+        fail
+      );
+
+      const req = httpTestingController.match(service.apiUrl + '/posts/5c9af54eb226cd3e0c238190');
+      expect(req.length).toEqual(3);
+
+      req[0].flush([]);
+      req[1].flush([{id: 1, name: 'test'}]);
+      req[2].flush(dummyPostData);
+    });
+  });  
 });
 
 
