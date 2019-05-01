@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private auth: AuthService
+    public auth: AuthService
   ) {}
 
   // Variables

@@ -1,5 +1,9 @@
 <div *ngIf="isLoaded" class="container">
   <ul>
+    <li id="id-li" *ngIf="this.auth.isStaff">
+      User ID
+      <span>{{ this.userId }}</span>
+    </li>
     <li id="email-li">
       <span *ngIf="!this.editMode">{{ user.email }}</span>
       <input *ngIf="this.editMode" type="text" />
