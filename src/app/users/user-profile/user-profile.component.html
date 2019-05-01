@@ -8,10 +8,7 @@
       <span *ngIf="!this.editMode">{{ user.full_name }}</span>
       <input *ngIf="this.editMode" type="text" />
     </li>
-    <li id="id-li">
-      <span *ngIf="!this.editMode">{{ this.userId }}</span>
-      <input *ngIf="this.editMode" type="text" />
-    </li>
+
     <div class="team-actions" *ngIf="!this.isSelf">
       <li *ngIf="!this.inTeam">
         <a (click)="createTeam()" href="javascript:void(0);">
