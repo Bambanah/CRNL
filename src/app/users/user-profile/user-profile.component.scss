@@ -8,7 +8,7 @@
   flex-wrap: wrap;
 
   .container-header {
-    color: rgb(119, 119, 119);
+    color: rgb(73, 73, 73);
     font-size: 24px;
   }
 
@@ -16,6 +16,10 @@
     flex: 1 0 100%;
     margin: 50px 0;
     text-align: center;
+
+    #email {
+      color: rgb(80, 78, 78);
+    }
   }
 
   #disclaimer-container {
