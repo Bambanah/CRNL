@@ -1,43 +1,67 @@
 <div *ngIf="isLoaded" class="container">
-  <ul>
-    <li id="id-li" *ngIf="this.auth.isStaff">
-      User ID
-      <span>{{ this.userId }}</span>
-    </li>
-    <li id="email-li">
-      <span *ngIf="!this.editMode">{{ user.email }}</span>
-      <input *ngIf="this.editMode" type="text" />
-    </li>
-    <li id="name-li">
-      <span *ngIf="!this.editMode">{{ user.full_name }}</span>
-      <input *ngIf="this.editMode" type="text" />
-    </li>
-
-    <div class="team-actions" *ngIf="!this.isSelf">
-      <li *ngIf="!this.inTeam">
-        <a (click)="createTeam()" href="javascript:void(0);">
-          Create team with {{ user.full_name }}
-        </a>
-      </li>
-      <li *ngIf="!this.inTeam">
-        <a (click)="addToTeam()" href="javascript:void(0);">
-          Invite {{ user.full_name }} to team
-        </a>
-      </li>
-      <li *ngIf="this.sameTeam">
-        <a (click)="removeFromTeam()" href="javascript:void(0);">
-          Remove from team
-        </a>
-      </li>
-      <li *ngIf="this.inTeam">This user is already in a team.</li>
-      <li *ngIf="this.inTeam">
-        <a (click)="addToTeam()" href="javascript:void(0);">
-          Invite anyway
-        </a>
-      </li>
+  <div class="content">
+    <div id="profile-header">
+      <h1>{{ user.full_name }}</h1>
+      <p>{{ user.email }}</p>
     </div>
-  </ul>
-  <div *ngIf="isSelf" class="change-details">
-    <button (click)="this.toggleEdit()">Edit</button>
+
+    <div id="disclaimer-container">
+      <p>Only details that are in <b>bold</b> are visible to others</p>
+    </div>
+
+    <div id="details-container">
+      <span class="container-header">Details</span>
+      <table>
+        <tr class="details-row">
+          <td class="left-column">Degree</td>
+          <td>Bachelor of Information Technology</td>
+        </tr>
+        <tr class="details-row">
+          <td class="left-column">Major</td>
+          <td>{{ user.major }}</td>
+        </tr>
+        <tr class="details-row">
+          <td class="left-column">Minor(s)</td>
+          <td>{{ user.minor }}</td>
+        </tr>
+        <tr class="details-row">
+          <td class="left-column">GPA</td>
+          <td>5.4</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="skills-container">
+      <span class="container-header">Skills</span>
+      <p>Skills here</p>
+    </div>
+
+    <div id="team-container">
+      <span class="container-header">Team</span>
+      <p>Is this user in a team?</p>
+      <div class="team-actions" *ngIf="!this.isSelf">
+        <li *ngIf="!this.inTeam">
+          <a (click)="createTeam()" href="javascript:void(0);">
+            Create team with {{ user.full_name }}
+          </a>
+        </li>
+        <li *ngIf="!this.inTeam">
+          <a (click)="addToTeam()" href="javascript:void(0);">
+            Invite {{ user.full_name }} to team
+          </a>
+        </li>
+        <li *ngIf="this.sameTeam">
+          <a (click)="removeFromTeam()" href="javascript:void(0);">
+            Remove from team
+          </a>
+        </li>
+        <li *ngIf="this.inTeam">This user is already in a team.</li>
+        <li *ngIf="this.inTeam">
+          <a (click)="addToTeam()" href="javascript:void(0);">
+            Invite anyway
+          </a>
+        </li>
+      </div>
+    </div>
   </div>
 </div>

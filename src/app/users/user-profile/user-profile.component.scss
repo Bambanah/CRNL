@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content {
+  display: flex;
+  flex-wrap: wrap;
+
+  .container-header {
+    color: rgb(119, 119, 119);
+    font-size: 24px;
+  }
+
+  #profile-header {
+    flex: 1 0 100%;
+    margin: 50px 0;
+    text-align: center;
+  }
+
+  #disclaimer-container {
+    flex: 1 0 100%;
+    text-align: center;
+  }
+
+  #details-container {
+    flex: 1 1 50%;
+    border-right: 1px solid rgb(199, 199, 199);
+
+    .details-row {
+      td {
+        &:first-child {
+          text-align: right;
+        }
+        &:last-child {
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+
+  #skills-container {
+    flex: 1 1 50%;
+    padding-left: 2rem;
+  }
+
+  #team-container {
+    flex: 1 1 100%;
+    margin-top: 50px;
+  }
+}
+
+@media (min-width: 1250px) {
+  .content {
+    width: 800px;
+  }
+}

@@ -34,7 +34,9 @@ export class UserProfileComponent implements OnInit {
   // Overwritten with getUserDetails()
   user = {
     email: '',
-    full_name: ''
+    full_name: '',
+    major: '',
+    minor: ''
   };
 
   // Retrieves data of visible user
