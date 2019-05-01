@@ -43,6 +43,7 @@ import { TeamListComponent } from './teams/team-list/team-list.component';
 import { TeamProfileComponent } from './teams/team-profile/team-profile.component';
 import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { UserProfileEditComponent } from './users/user-profile-edit/user-profile-edit.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { LoadingComponent } from './shared/loading/loading.component';
     TeamListComponent,
     TeamProfileComponent,
     StaffDashboardComponent,
-    LoadingComponent
+    LoadingComponent,
+    UserProfileEditComponent
   ],
   imports: [
     BrowserModule,
