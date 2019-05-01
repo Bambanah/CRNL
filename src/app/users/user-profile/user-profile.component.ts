@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
   isLoaded = false;
   isSelf = false;
   inTeam = false;
+  editMode = false;
 
   userId = undefined;
   currentUserId = undefined;
@@ -44,10 +45,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  sameTeam(): Boolean {
+  get sameTeam(): Boolean {
     if (!this.auth.isSelf(this.userId)) {
       return (
-        this.api.getTeamIdFromUser(this.userId()) ==
+        this.api.getTeamIdFromUser(this.userId) ==
         this.api.getTeamIdFromUser(this.auth.currentUserId)
       );
     }
@@ -57,7 +58,7 @@ export class UserProfileComponent implements OnInit {
     const user_id = this.userId;
     const logged_id = this.auth.currentUserId;
 
-    if (this.sameTeam()) {
+    if (this.sameTeam) {
       console.warn('Students are on the same team');
       return;
     } else if (this.inTeam || this.currentUserTeamId != undefined) {
@@ -78,7 +79,7 @@ export class UserProfileComponent implements OnInit {
     if (!this.api.isInTeam(currentId)) {
       console.warn('Current user is not in a team');
       return;
-    } else if (this.sameTeam()) {
+    } else if (this.sameTeam) {
       console.warn('User already in team');
       return;
     } else {
@@ -89,10 +90,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   removeFromTeam() {
-    // TODO: Warning if removing user will delete team (only self left in team)
     const teamId = '' + this.api.getTeamIdFromUser(this.userId);
     this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
+  }
+
+  toggleEdit() {
+    this.editMode = !this.editMode;
   }
 
   ngOnInit() {

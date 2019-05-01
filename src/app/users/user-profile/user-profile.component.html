@@ -1,22 +1,42 @@
 <div *ngIf="isLoaded" class="container">
   <ul>
-    <li>{{ user.email }}</li>
-    <li>{{ user.full_name }}</li>
-    <li>{{ this.userId }}</li>
-    <li *ngIf="!this.isSelf && !this.inTeam">
-      <a (click)="createTeam()" href="javascript:void(0);">
-        Create team with {{ user.full_name }}
-      </a>
+    <li id="email-li">
+      <span *ngIf="!this.editMode">{{ user.email }}</span>
+      <input *ngIf="this.editMode" type="text" />
     </li>
-    <li *ngIf="!this.isSelf && !this.inTeam">
-      <a (click)="addToTeam()" href="javascript:void(0);">
-        Invite {{ user.full_name }} to team
-      </a>
+    <li id="name-li">
+      <span *ngIf="!this.editMode">{{ user.full_name }}</span>
+      <input *ngIf="this.editMode" type="text" />
     </li>
-    <li *ngIf="!this.isSelf && this.sameTeam()">
-      <a (click)="removeFromTeam()" href="">
-        Remove from team
-      </a>
+    <li id="id-li">
+      <span *ngIf="!this.editMode">{{ this.userId }}</span>
+      <input *ngIf="this.editMode" type="text" />
     </li>
+    <div class="team-actions" *ngIf="!this.isSelf">
+      <li *ngIf="!this.inTeam">
+        <a (click)="createTeam()" href="javascript:void(0);">
+          Create team with {{ user.full_name }}
+        </a>
+      </li>
+      <li *ngIf="!this.inTeam">
+        <a (click)="addToTeam()" href="javascript:void(0);">
+          Invite {{ user.full_name }} to team
+        </a>
+      </li>
+      <li *ngIf="this.sameTeam">
+        <a (click)="removeFromTeam()" href="javascript:void(0);">
+          Remove from team
+        </a>
+      </li>
+      <li *ngIf="this.inTeam">This user is already in a team.</li>
+      <li *ngIf="this.inTeam">
+        <a (click)="addToTeam()" href="javascript:void(0);">
+          Invite anyway
+        </a>
+      </li>
+    </div>
   </ul>
+  <div *ngIf="isSelf" class="change-details">
+    <button (click)="this.toggleEdit()">Edit</button>
+  </div>
 </div>
