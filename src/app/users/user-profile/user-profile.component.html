@@ -5,7 +5,8 @@
       <p id="email">{{ user.email }}</p>
     </div>
 
-    <div id="disclaimer-container">
+    <div id="management-container" *ngIf="this.isSelf">
+      <a id="edit-profile-button" href="/profile/edit">Edit Profile</a>
       <p>Only details that are in <b>bold</b> are visible to others</p>
     </div>
 

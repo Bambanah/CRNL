@@ -24,7 +24,6 @@ export class UserProfileComponent implements OnInit {
   isLoaded = false;
   isSelf = false;
   inTeam = false;
-  editMode = false;
 
   userId = undefined;
   currentUserId = undefined;
@@ -97,8 +96,8 @@ export class UserProfileComponent implements OnInit {
     window.location.reload();
   }
 
-  toggleEdit() {
-    this.editMode = !this.editMode;
+  editProfile() {
+    console.log('hey!');
   }
 
   ngOnInit() {
