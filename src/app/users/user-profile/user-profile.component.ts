@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private auth: AuthService
+    public auth: AuthService
   ) {}
 
   // Variables
@@ -33,7 +33,9 @@ export class UserProfileComponent implements OnInit {
   // Overwritten with getUserDetails()
   user = {
     email: '',
-    full_name: ''
+    full_name: '',
+    major: '',
+    minor: ''
   };
 
   // Retrieves data of visible user
@@ -44,10 +46,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  sameTeam(): Boolean {
+  get sameTeam(): Boolean {
     if (!this.auth.isSelf(this.userId)) {
       return (
-        this.api.getTeamIdFromUser(this.userId()) ==
+        this.api.getTeamIdFromUser(this.userId) ==
         this.api.getTeamIdFromUser(this.auth.currentUserId)
       );
     }
@@ -57,7 +59,7 @@ export class UserProfileComponent implements OnInit {
     const user_id = this.userId;
     const logged_id = this.auth.currentUserId;
 
-    if (this.sameTeam()) {
+    if (this.sameTeam) {
       console.warn('Students are on the same team');
       return;
     } else if (this.inTeam || this.currentUserTeamId != undefined) {
@@ -78,7 +80,7 @@ export class UserProfileComponent implements OnInit {
     if (!this.api.isInTeam(currentId)) {
       console.warn('Current user is not in a team');
       return;
-    } else if (this.sameTeam()) {
+    } else if (this.sameTeam) {
       console.warn('User already in team');
       return;
     } else {
@@ -89,10 +91,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   removeFromTeam() {
-    // TODO: Warning if removing user will delete team (only self left in team)
     const teamId = '' + this.api.getTeamIdFromUser(this.userId);
     this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
+  }
+
+  editProfile() {
+    console.log('hey!');
   }
 
   ngOnInit() {

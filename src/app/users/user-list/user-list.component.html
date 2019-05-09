@@ -4,7 +4,11 @@
       <div class="col">
         <a routerLink="/users/{{ student._id }}" class="card-title">
           {{ student.full_name }}
-          <fa-icon [icon]="['fas', 'circle']" [classes]="['circle-class']" size="xs"></fa-icon>
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            [classes]="['circle-class']"
+            size="xs"
+          ></fa-icon>
         </a>
         <p class="card-text major">{{ student.major }}</p>
         <p class="card-text minor">Minors: {{ student.minor }}</p>

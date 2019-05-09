@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { DataSource } from '@angular/cdk/collections';
-import { getMatFormFieldDuplicatedHintError } from '@angular/material';
 
 @Component({
   selector: 'app-post-list',
