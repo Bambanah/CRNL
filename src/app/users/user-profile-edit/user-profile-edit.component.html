@@ -8,15 +8,23 @@
       <table class="content-table">
         <tr>
           <th>Email</th>
-          <td id="email-field">teststudent@test.com</td>
+          <input type="text" id="email-field" value="{{ student.email }}" />
         </tr>
         <tr>
           <th>First Name</th>
-          <td>Test</td>
+          <input
+            type="text"
+            id="first-name-field"
+            value="{{ student.first_name }}"
+          />
         </tr>
         <tr>
           <th>Last Name(s)</th>
-          <td>Student</td>
+          <input
+            type="text"
+            id="last-name-field"
+            value="{{ student.last_name }}"
+          />
         </tr>
       </table>
     </div>
@@ -29,19 +37,19 @@
       <table class="content-table">
         <tr>
           <th>Degree</th>
-          <td id="email-field">Bachelor of Information Technology</td>
+          <input type="text" id="degree-field" value="{{ student.degree }}" />
         </tr>
         <tr>
           <th>Major</th>
-          <td id="email-field">Computer Science</td>
+          <input type="text" id="major-field" value="{{ student.major }}" />
         </tr>
         <tr>
           <th>Minor(s)</th>
-          <td id="email-field">Intelligent Systems</td>
+          <input type="text" id="minors-field" value="{{ student.minor }}" />
         </tr>
         <tr>
           <th>GPA</th>
-          <td id="email-field">5.4</td>
+          <td id="gpa-field">{{ student.gpa }}</td>
         </tr>
       </table>
     </div>
@@ -61,5 +69,8 @@
     <div class="section-content" id="privacy-content">
       <p>Content</p>
     </div>
+  </div>
+  <div id="button-section" class="profile-section">
+    <a id="update-button" href="javascript:void(0);">Update Details</a>
   </div>
 </div>
