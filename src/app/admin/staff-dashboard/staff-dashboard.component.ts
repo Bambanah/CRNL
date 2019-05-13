@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
+import { Parser } from 'json2csv';
+import { saveAs } from'file-saver';
 
 @Component({
   selector: 'app-staff-dashboard',
@@ -31,6 +33,38 @@ export class StaffDashboardComponent implements OnInit {
         console.warn(err);
       }
     )
+  }
+
+  downloadFile(data: any, file_name: string) {
+    var blob = new Blob([data], {type: 'text/csv' })
+    saveAs(blob, file_name + ".csv");
+  } 
+
+  syncParser(data: string){
+    const fields = ['id', 'full_name', 'email', 'major', 'minor', 'team'];
+    const opts = { fields };
+    let csv = '';
+    const parser = new Parser(opts);
+    csv = parser.parse(data);
+    return csv;
+  }
+
+  downloadStudent(id : string) {
+    this.api.getUser(id).subscribe(
+      res => {
+        let csv = '';
+        csv = this.syncParser(res);
+        this.downloadFile(csv, id);
+      },
+      err => {
+        console.warn(err);
+      }
+    );
+  }
+
+  downloadAllStudents() {
+    let csv = this.syncParser(this.students);
+    this.downloadFile(csv, 'Students');
   }
 
 }
