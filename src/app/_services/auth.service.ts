@@ -9,6 +9,7 @@ import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../_models/users/User';
+import { NgForm } from '@angular/forms';
 
 const apiUrl = '/api';
 
@@ -33,7 +34,7 @@ export class AuthService {
     return throwError('Something bad happened; please try again later.');
   }
 
-  login(loginData) {
+  public login(loginData: NgForm) {
     return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
       map(user => {
         // login successful if there's a jwt token in the response
@@ -46,12 +47,12 @@ export class AuthService {
     );
   }
 
-  logout() {
+  public logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
   }
 
-  signup(signupData) {
+  public signup(signupData: NgForm) {
     let url = apiUrl + '/students/';
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
@@ -77,7 +78,11 @@ export class AuthService {
   }
 
   // Test if ID belongs to currently signed in user
-  isSelf(id: string): boolean {
+  public isSelf(id: string): boolean {
     return this.currentUserId === id ? true : false;
+  }
+
+  public get isStaff(): boolean {
+    return this.currentUser.__t === 'Staff';
   }
 }

@@ -1,0 +1,51 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+}
+
+.profile-section {
+  flex: 1 0 100%;
+  display: flex;
+  padding: 3rem 0;
+
+  &:not(:first-of-type) {
+    border-top: 1px solid rgb(177, 177, 177);
+  }
+
+  .section-header {
+    flex: 1 1 auto;
+    text-align: right;
+
+    h1 {
+      font-size: 1.8rem;
+      color: rgb(70, 70, 70);
+    }
+  }
+
+  .section-content {
+    flex: 0 0 75%;
+
+    .content-table {
+      width: 100%;
+      th {
+        text-align: right;
+        color: rgb(77, 77, 77);
+        width: 200px;
+        padding-right: 1rem;
+      }
+    }
+  }
+
+  #skills-content,
+  #privacy-content {
+    text-align: center;
+  }
+}
+
+#button-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
