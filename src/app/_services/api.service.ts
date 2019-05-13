@@ -61,7 +61,6 @@ export class ApiService {
 
   getUser(userId: string): Observable<User> {
     const url = `${this.apiUrl}/users/${userId}`;
-    console.log('yo2:' + url);
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
