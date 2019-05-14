@@ -157,13 +157,23 @@ router.get('/teams/:id', function(req, res, next) {
 router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
   const guestId = req.body.guestId;
+  let teamId;
+
   User.findById(hostId, function(err, user) {
     if (err) return next(err);
 
     Team.findById(user.team, function(err, team) {
       if (err) return next(err);
+
+      teamId = team._id;
       team.addMember(guestId);
     });
+  });
+
+  User.findById(guestId, function(err, user) {
+    if (err) return next(err);
+
+    user.team = teamId;
   });
 
   res.status(202);
@@ -188,6 +198,7 @@ router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
 router.delete('/teams/:id', function(req, res, next) {
   Team.findById(req.params.id, function(err, team) {
     if (err) return next(err);
+
     team.members.forEach(user => {
       User.findById(user, function(err, user) {
         user.team = undefined;
@@ -196,7 +207,7 @@ router.delete('/teams/:id', function(req, res, next) {
     });
   });
 
-  Team.findOneAndDelete(req.params.id, function(err, team) {
+  Team.findOneAndDelete(req.params.id, function(err) {
     if (err) return next(err);
     res.status(202);
   });
@@ -219,24 +230,20 @@ router.get('/users/:userId/team/', function(req, res, next) {
 router.get('/teams/:teamId/members', function(req, res, next) {
   Team.findById(req.params.teamId, function(err, team) {
     if (err) return next(err);
-    if (team.members === undefined || team.members.length === 0) {
-      console.warn('Team has no members');
-      res.status(300); // TODO: Figure out which code to use
+    if (team == null) {
+      res.status(404).json("Team doesn't exist in database");
     } else {
-      const memberArray = [];
+      if (team.members === undefined || team.members.length === 0) {
+        console.warn('Team has no members');
+        res.status(300); // TODO: Figure out which code to use
+      } else {
+        Team.findOne({ _id: req.params.teamId })
+          .populate('members')
+          .exec(function(err, team) {
+            if (err) return next(err);
 
-      for (let i = 0; i < team.members.length; i++) {
-        const memberId = team.members[i];
-
-        User.findById(memberId, function(err, user) {
-          if (err) return next(err);
-
-          memberArray.push(user);
-
-          if (i === team.members.length - 1) {
-            res.status(202).send(memberArray);
-          }
-        });
+            res.status(202).json(team.members);
+          });
       }
     }
   });
@@ -266,7 +273,6 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
-  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,
