@@ -12,19 +12,23 @@
       >
         <!-- Name Column -->
         <ng-container matColumnDef="team-name">
-          <th mat-header-cell *matHeaderCellDef width="25%">Team Name</th>
-          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-        </ng-container>
-
-        <!-- Bio Column -->
-        <ng-container matColumnDef="team-bio">
-          <th mat-header-cell *matHeaderCellDef width="50%">Team Bio</th>
-          <td mat-cell *matCellDef="let row">{{ row.bio }}</td>
+          <th mat-header-cell *matHeaderCellDef width="50%">Team Name</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.name != null && row.name != ''" class="team-name">
+              {{ row.name }}
+            </span>
+            <span
+              *ngIf="row.name == null || row.name == ''"
+              class="team-name-backup"
+            >
+              {{ row.name_backup }}
+            </span>
+          </td>
         </ng-container>
 
         <!-- Members Column -->
         <ng-container matColumnDef="members" class="member-col">
-          <th mat-header-cell *matHeaderCellDef width="25%">Members</th>
+          <th mat-header-cell *matHeaderCellDef width="50%">Members</th>
           <td mat-cell *matCellDef="let row">
             <ul>
               <li *ngFor="let userId of row.members">

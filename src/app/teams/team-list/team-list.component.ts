@@ -13,7 +13,7 @@ import { catchError, map } from 'rxjs/operators';
 export class TeamListComponent implements OnInit {
   constructor(private api: ApiService) {}
 
-  displayedColumns: string[] = ['team-name', 'team-bio', 'members'];
+  displayedColumns: string[] = ['team-name', 'members'];
   teams: Team[];
   val = '';
   loading = true;
