@@ -8,19 +8,26 @@ User.discriminator(
   new Schema({
     major: {
       type: String,
-      enum: ['Computer Science', 'Information Systems', 'Unspecified'],
-      default: 'Unspecified'
+      enum: ['Computer Science', 'Information Systems', ''],
+      default: ''
     },
     minor: {
       type: String,
-      enum: ['Intelligent Systems', 'User Experience', 'Unspecified'],
-      default: 'Unspecified'
+      enum: ['Intelligent Systems', 'User Experience', ''],
+      default: ''
     },
-    tags: {
-      // TODO: Create tag model to hold total number of students using that tag for use in returning most popular tags first
-      type: Array
+    skills: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Skill'
+        }
+      ]
     },
-    team: { type: Schema.Types.ObjectId, ref: 'Team' }
+    team: {
+      type: Schema.Types.ObjectId,
+      ref: 'Team'
+    }
   })
 );
 

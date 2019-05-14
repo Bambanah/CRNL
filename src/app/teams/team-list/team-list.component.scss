@@ -11,6 +11,15 @@
   border-radius: 10px;
   overflow: hidden;
 
+  .team-name-backup {
+    font-style: italic;
+    color: rgb(112, 112, 112);
+  }
+
+  .team-name {
+    font-weight: bold;
+  }
+
   .team-row {
     cursor: pointer;
     height: 60px;
@@ -30,7 +39,4 @@
       padding: 0;
     }
   }
-
 }
-
-

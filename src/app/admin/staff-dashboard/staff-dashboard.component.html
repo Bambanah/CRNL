@@ -1,5 +1,5 @@
-<div class="container">
-  <div class="team-container">
+<div id = "container" class="container">
+  <div id = "team-container" class="team-container">
     <h2>Teams</h2>
     <!-- <span>
       Show
@@ -34,11 +34,21 @@
         <th>
           Team
         </th>
+        <th></th>
+        <th>
+          <button
+            class="btn btn-primary"
+            type="input"
+            (click)="downloadAllStudents()"
+          >
+        
+        Download All Students As CSV
+          </button>
+        </th>
       </tr>
-
+      <!-- routerLink="/users/{{ student._id }}" -->
       <tr
         *ngFor="let student of students"
-        routerLink="/users/{{ student._id }}"
         [ngClass]="{inTeam: student.team}"
       >
         <td>{{ student.full_name }}</td>
@@ -46,6 +56,16 @@
         <ng-container *ngIf="student.team; else elseTemplate">
           <td>{{ student.team }}</td>
         </ng-container>
+        <td>{{ student.team }}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            type="input"
+            (click)="downloadStudent(student.id)"
+          >
+            Download As CSV
+          </button>
+        </td>
         <ng-template #elseTemplate>
           <td>-</td>
         </ng-template>

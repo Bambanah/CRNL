@@ -20,12 +20,11 @@ const httpOptions = {
   })
 };
 
-const apiUrl = '/api';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  apiUrl = '/api';
   constructor(private http: HttpClient, private auth: AuthService) {}
 
   private handleError(error: HttpErrorResponse) {
@@ -38,6 +37,7 @@ export class ApiService {
       console.error(
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
+      return Promise.resolve(error);
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
@@ -49,20 +49,27 @@ export class ApiService {
   }
 
   getUsers() {
-    return this.http.get<User[]>(apiUrl + '/users/');
+    return this.http.get<User[]>(this.apiUrl + '/users/');
   }
 
   getStudents() {
-    return this.http.get<Student[]>(apiUrl + '/students/');
+    return this.http.get<Student[]>(this.apiUrl + '/students/');
   }
 
   getTeams(): Observable<Team[]> {
-    return this.http.get<Team[]>(apiUrl + '/teams/');
+    return this.http.get<Team[]>(this.apiUrl + '/teams/');
+  }
+
+  getTeam(teamId: string): Observable<Team> {
+    const url = `${this.apiUrl}/teams/${teamId}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
   }
 
   getUser(userId: string): Observable<User> {
-    const url = `${apiUrl}/users/${userId}`;
-
+    const url = `${this.apiUrl}/users/${userId}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
@@ -70,7 +77,7 @@ export class ApiService {
   }
 
   getPosts(): Observable<Post> {
-    const url = `${apiUrl}/posts/`;
+    const url = `${this.apiUrl}/posts/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
@@ -78,43 +85,43 @@ export class ApiService {
   }
 
   getPost(postId: string): Observable<Post> {
-    const url = `${apiUrl}/posts/${postId}`;
+    const url = `${this.apiUrl}/posts/${postId}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
     );
   }
 
-  postPost(postData): Observable<Post> {
-    const url = `${apiUrl}/posts/`;
+  postPost(data): Observable<Post> {
+    const url = `${this.apiUrl}/posts/`;
     return this.http
-      .post(url, postData, httpOptions)
+      .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   updatePost(postData): Observable<Post> {
-    const url = `${apiUrl}/posts/`;
+    const url = `${this.apiUrl}/posts/`;
     return this.http
       .put(url, postData, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   deletePost(postId: any | number | string): Observable<any> {
-    const url = `${apiUrl}/posts/${postId}`;
+    const url = `${this.apiUrl}/posts/${postId}`;
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   createTeam(data): Observable<any> {
-    const url = apiUrl + '/teams';
+    const url = this.apiUrl + '/teams';
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   addToTeam(userId: string) {
-    const url = `${apiUrl}/teams/add/`;
+    const url = `${this.apiUrl}/teams/add/`;
     const data = {
       hostId: this.auth.currentUserId,
       guestId: userId
@@ -125,19 +132,19 @@ export class ApiService {
   }
 
   removeFromTeam(teamId: string, userId: string) {
-    const url = `${apiUrl}/teams/${teamId}/remove/${userId}`;
+    const url = `${this.apiUrl}/teams/${teamId}/remove/${userId}`;
     return this.http.post(url, httpOptions).pipe(catchError(this.handleError));
   }
 
   deleteTeam(teamId: string) {
-    const url = `${apiUrl}/teams/${teamId}`;
+    const url = `${this.apiUrl}/teams/${teamId}`;
     return this.http
       .delete(url, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   getTeamIdFromUser(userId: string) {
-    const url = `${apiUrl}/users/${userId}/team/`;
+    const url = `${this.apiUrl}/users/${userId}/team/`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)
@@ -145,7 +152,7 @@ export class ApiService {
   }
 
   getMembersOfTeam(teamId: string) {
-    const url = `${apiUrl}/teams/${teamId}/members`;
+    const url = `${this.apiUrl}/teams/${teamId}/members`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError)

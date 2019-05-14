@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -21,14 +20,21 @@ export class SignupComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  checkPasswords(group: FormGroup) {
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.password_confirm.value;
+
+    return pass === confirmPass ? null : { notSame: true };
+  }
+
   ngOnInit() {
     this.signupForm = this.formBuilder.group({
-      email: [null, Validators.required],
+      email: [null, Validators.email],
       full_name: [null, Validators.required],
-      major: [null, Validators.required],
-      minor: [null, Validators.required],
-      password: [null, Validators.required],
-      password_confirm: [null, Validators.required]
+      major: [''],
+      minor: [''],
+      password: [null, Validators.minLength(8)],
+      password_confirm: [null, { validator: this.checkPasswords }]
     });
 
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

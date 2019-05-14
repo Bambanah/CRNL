@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 const TeamSchema = new Schema(
   {
     name: {
+      type: String,
+      default: null
+    },
+    name_backup: {
       type: String
     },
     bio: String,
@@ -39,11 +43,7 @@ TeamSchema.methods.addMember = function(id) {
 
 TeamSchema.methods.removeMember = function(id) {
   const team = this;
-  if (team.members.length <= 1) {
-    console.warn(
-      'Removing this member would result in the team having zero members. Delete team instead.'
-    );
-  } else if (team.members.indexOf(id) < 0) {
+  if (team.members.indexOf(id) < 0) {
     console.warn(`User (${id}) is not part of team (${team._id})`);
   } else {
     const idIndex = team.members.indexOf(id);

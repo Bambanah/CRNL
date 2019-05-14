@@ -12,6 +12,12 @@ export class PostListComponent implements OnInit {
 
   posts: any;
 
+  getAuthor(userId) {
+    this.api.getUser(userId).subscribe(user => {
+      return user.full_name;
+    });
+  }
+
   ngOnInit() {
     this.api.getPosts().subscribe(
       res => {

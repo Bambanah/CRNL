@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -8,20 +9,29 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  users: any;
-
-  inTeam: false;
-  inSameTeam: false;
-
-  constructor(private api: ApiService, private config: NgbDropdownConfig) {
+  constructor(
+    private api: ApiService,
+    private config: NgbDropdownConfig,
+    private auth: AuthService
+  ) {
     config.placement = 'right-top';
     config.autoClose = true;
   }
 
+  users: any;
+
+  inTeam: boolean;
+
+  inSameTeam(userId): boolean {
+    return false;
+  }
+
   ngOnInit() {
+    this.inTeam = this.auth.currentUser.team != undefined;
+
     this.api.getStudents().subscribe(
       res => {
-        this.users = res;
+        this.users = res.filter(user => user._id != this.auth.currentUserId);
       },
       err => {
         console.error(err);

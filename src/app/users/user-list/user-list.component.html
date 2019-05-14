@@ -4,7 +4,11 @@
       <div class="col">
         <a routerLink="/users/{{ student._id }}" class="card-title">
           {{ student.full_name }}
-          <fa-icon [icon]="['fas', 'circle']" [classes]="['circle-class']" size="xs"></fa-icon>
+          <fa-icon
+            [icon]="['fas', 'circle']"
+            [classes]="['circle-class']"
+            size="xs"
+          ></fa-icon>
         </a>
         <p class="card-text major">{{ student.major }}</p>
         <p class="card-text minor">Minors: {{ student.minor }}</p>
@@ -33,7 +37,7 @@
               <button ngbDropdownItem>Add to team</button>
             </li>
             <li><button ngbDropdownItem>Create Team</button></li>
-            <li *ngIf="this.inTeam && this.inSameTeam">
+            <li *ngIf="this.inTeam && this.inSameTeam()">
               <button ngbDropdownItem>Remove from team</button>
             </li>
           </ul>

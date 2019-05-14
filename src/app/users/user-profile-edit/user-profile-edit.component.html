@@ -1,0 +1,76 @@
+<div class="container">
+  <a href="/profile">&lt; back to profile</a>
+  <div id="personal-details" class="profile-section">
+    <div class="section-header">
+      <h1>Personal</h1>
+    </div>
+    <div class="section-content">
+      <table class="content-table">
+        <tr>
+          <th>Email</th>
+          <input type="text" id="email-field" value="{{ student.email }}" />
+        </tr>
+        <tr>
+          <th>First Name</th>
+          <input
+            type="text"
+            id="first-name-field"
+            value="{{ student.first_name }}"
+          />
+        </tr>
+        <tr>
+          <th>Last Name(s)</th>
+          <input
+            type="text"
+            id="last-name-field"
+            value="{{ student.last_name }}"
+          />
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div id="academic-details" class="profile-section">
+    <div class="section-header">
+      <h1>Academic</h1>
+    </div>
+    <div class="section-content">
+      <table class="content-table">
+        <tr>
+          <th>Degree</th>
+          <input type="text" id="degree-field" value="{{ student.degree }}" />
+        </tr>
+        <tr>
+          <th>Major</th>
+          <input type="text" id="major-field" value="{{ student.major }}" />
+        </tr>
+        <tr>
+          <th>Minor(s)</th>
+          <input type="text" id="minors-field" value="{{ student.minor }}" />
+        </tr>
+        <tr>
+          <th>GPA</th>
+          <td id="gpa-field">{{ student.gpa }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div id="skill-details" class="profile-section">
+    <div class="section-header">
+      <h1>Skills</h1>
+    </div>
+    <div class="section-content" id="skills-content">
+      <p>Content</p>
+    </div>
+  </div>
+  <div id="privacy-details" class="profile-section">
+    <div class="section-header">
+      <h1>Privacy</h1>
+    </div>
+    <div class="section-content" id="privacy-content">
+      <p>Content</p>
+    </div>
+  </div>
+  <div id="button-section" class="profile-section">
+    <a id="update-button" href="javascript:void(0);">Update Details</a>
+  </div>
+</div>

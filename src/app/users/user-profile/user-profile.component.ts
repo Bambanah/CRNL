@@ -17,23 +17,29 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
-    private auth: AuthService
+    public auth: AuthService
   ) {}
 
   // Variables
-  isLoaded = false;
-  isSelf = false;
-  inTeam = false;
+  userId = this.route.snapshot.params['id'];
+  currentUserId = this.auth.currentUserId;
+  currentUserTeamId: string;
 
-  userId = undefined;
-  currentUserId = undefined;
-  currentUserTeamId = undefined;
+  isSelf = this.auth.isSelf(this.userId);
+
+  inTeam: boolean;
+  selfInTeam: boolean;
+
+  isLoaded = false;
 
   // Placeholder user object
   // Overwritten with getUserDetails()
   user = {
     email: '',
-    full_name: ''
+    full_name: '',
+    major: '',
+    minor: '',
+    team: ''
   };
 
   // Retrieves data of visible user
@@ -44,10 +50,10 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  sameTeam(): Boolean {
+  get sameTeam(): Boolean {
     if (!this.auth.isSelf(this.userId)) {
       return (
-        this.api.getTeamIdFromUser(this.userId()) ==
+        this.api.getTeamIdFromUser(this.userId) ==
         this.api.getTeamIdFromUser(this.auth.currentUserId)
       );
     }
@@ -57,10 +63,10 @@ export class UserProfileComponent implements OnInit {
     const user_id = this.userId;
     const logged_id = this.auth.currentUserId;
 
-    if (this.sameTeam()) {
+    if (this.sameTeam) {
       console.warn('Students are on the same team');
       return;
-    } else if (this.inTeam || this.currentUserTeamId != undefined) {
+    } else if (this.inTeam || this.selfInTeam) {
       console.warn('One or more students are already in a team');
       return;
     } else {
@@ -73,27 +79,27 @@ export class UserProfileComponent implements OnInit {
   }
 
   addToTeam() {
-    const userId = this.userId();
-    const currentId = this.auth.currentUserId;
-    if (!this.api.isInTeam(currentId)) {
+    if (!this.selfInTeam) {
       console.warn('Current user is not in a team');
       return;
-    } else if (this.sameTeam()) {
-      console.warn('User already in team');
+    } else if (this.sameTeam) {
+      console.warn('Users already in same team');
       return;
     } else {
-      this.api.addToTeam(userId).subscribe(err => {
+      this.api.addToTeam(this.userId).subscribe(err => {
         console.error(err);
       });
+      window.location.reload();
     }
   }
 
   removeFromTeam() {
-    // TODO: Warning if removing user will delete team (only self left in team)
     const teamId = '' + this.api.getTeamIdFromUser(this.userId);
     this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
   }
+
+  editProfile() {}
 
   ngOnInit() {
     if (this.route.snapshot.data.self === true) {
@@ -107,12 +113,17 @@ export class UserProfileComponent implements OnInit {
       });
 
       this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
-        this.currentUserTeamId = teamId;
+        if (teamId != undefined) {
+          this.currentUserTeamId = JSON.stringify(teamId);
+          this.selfInTeam = true;
+        } else {
+          this.selfInTeam = false;
+        }
       });
     }
 
-    this.isSelf = this.auth.isSelf(this.userId);
-
-    this.getUserDetails();
+    if (!this.isSelf) {
+      this.getUserDetails();
+    }
   }
 }

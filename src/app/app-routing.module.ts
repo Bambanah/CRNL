@@ -11,6 +11,7 @@ import { TeamProfileComponent } from './teams/team-profile/team-profile.componen
 import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { UserProfileEditComponent } from './users/user-profile-edit/user-profile-edit.component';
 
 const routes: Routes = [
   {
@@ -50,7 +51,14 @@ const routes: Routes = [
     data: { self: true }
   },
   {
+    path: 'profile/edit',
+    component: UserProfileEditComponent,
+    canActivate: [AuthGuard],
+    data: { self: true }
+  },
+  {
     path: 'teams',
+    pathMatch: 'full',
     component: TeamListComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Student', 'Staff'] }
