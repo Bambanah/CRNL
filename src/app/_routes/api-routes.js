@@ -117,10 +117,6 @@ router.post('/teams/', function(req, res) {
   // Create new team
   const newTeam = new Team();
 
-  // Temporary
-  newTeam.name = 'Test name';
-  newTeam.bio = 'Test bio';
-
   // Add student IDs to team document
   const studentId1 = req.body[0];
   const studentId2 = req.body[1];
@@ -147,10 +143,15 @@ router.post('/teams/', function(req, res) {
 
 // Get Team
 router.get('/teams/:id', function(req, res, next) {
-  Team.findById(req.params.id, function(err, team) {
-    if (err) return next(err);
-    res.status(202).json(team);
-  });
+  Team.findById(req.params.id)
+    .populate('members', 'full_name')
+    .exec(function(err, team) {
+      if (err) return next(err);
+      console.log(team);
+
+      team.name = team.members.map(a => a.full_name);
+      res.status(202).json(team);
+    });
 });
 
 // Add member to team
