@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Team } from '../../_models/Team';
 import { User } from '../../_models/users/User';
 import { catchError, map } from 'rxjs/operators';
@@ -16,12 +16,11 @@ export class TeamListComponent implements OnInit {
   displayedColumns: string[] = ['team-name', 'team-bio', 'members'];
   teams: Team[];
   val = '';
+  loading = true;
 
   getNameOfUser(userId) {
-    console.log('hey');
     return this.api.getUser(userId).pipe(
       map(user => {
-        console.log('sup');
         user.full_name;
       })
     );
@@ -30,6 +29,7 @@ export class TeamListComponent implements OnInit {
   ngOnInit() {
     this.api.getTeams().subscribe(res => {
       this.teams = res;
+      this.loading = false;
     });
   }
 }
