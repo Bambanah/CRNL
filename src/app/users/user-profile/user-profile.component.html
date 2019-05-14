@@ -39,7 +39,9 @@
 
     <div id="team-container">
       <span class="container-header">Team</span>
-      <p>Is this user in a team?</p>
+      <!-- TODO: Display team details -->
+      <p *ngIf="this.inTeam">This user is currently in team {{ user.team }}.</p>
+      <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
       <div class="team-actions" *ngIf="!this.isSelf">
         <li *ngIf="!this.inTeam">
           <a (click)="createTeam()" href="javascript:void(0);">
