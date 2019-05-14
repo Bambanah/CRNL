@@ -2,3 +2,17 @@
   cursor: pointer;
   color: rgb(12, 114, 231);
 }
+
+.team-name-backup {
+  color: rgb(119, 119, 119);
+  font-style: italic;
+}
+
+.tooltip-wrapper {
+  width: 130px;
+  display: inline-block;
+
+  button {
+    width: 100%;
+  }
+}

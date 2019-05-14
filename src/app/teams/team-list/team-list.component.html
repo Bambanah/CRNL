@@ -1,41 +1,57 @@
 <div class="container">
-  <table
-    mat-table
-    [dataSource]="teams"
-    class="team-table mat-elevation-z2"
-    matSort
-  >
-    <!-- Name Column -->
-    <ng-container matColumnDef="team-name">
-      <th mat-header-cell *matHeaderCellDef width="25%">Team Name</th>
-      <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-    </ng-container>
-
-    <!-- Bio Column -->
-    <ng-container matColumnDef="team-bio">
-      <th mat-header-cell *matHeaderCellDef width="50%">Team Bio</th>
-      <td mat-cell *matCellDef="let row">{{ row.bio }}</td>
-    </ng-container>
-
-    <!-- Members Column -->
-    <ng-container matColumnDef="members" class="member-col">
-      <th mat-header-cell *matHeaderCellDef width="25%">Members</th>
-      <td mat-cell *matCellDef="let row">
-        <ul>
-          <li *ngFor="let userId of row.members">
-            <span class="userId">
-              {{ val }}
+  <ng-container *ngIf="this.loading; else loadedTemplate">
+    <app-loading></app-loading>
+  </ng-container>
+  <ng-template #loadedTemplate>
+    <ng-container *ngIf="this.teams.length > 0; else elseTemplate">
+      <table
+        mat-table
+        [dataSource]="teams"
+        class="team-table mat-elevation-z2"
+        matSort
+      >
+        <!-- Name Column -->
+        <ng-container matColumnDef="team-name">
+          <th mat-header-cell *matHeaderCellDef width="50%">Team Name</th>
+          <td mat-cell *matCellDef="let row">
+            <span *ngIf="row.name != null && row.name != ''" class="team-name">
+              {{ row.name }}
             </span>
-          </li>
-        </ul>
-      </td>
+            <span
+              *ngIf="row.name == null || row.name == ''"
+              class="team-name-backup"
+            >
+              {{ row.name_backup }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Members Column -->
+        <ng-container matColumnDef="members" class="member-col">
+          <th mat-header-cell *matHeaderCellDef width="50%">Members</th>
+          <td mat-cell *matCellDef="let row">
+            <ul>
+              <li *ngFor="let member of row.members">
+                <span class="userId">
+                  {{ member.full_name }}
+                </span>
+              </li>
+            </ul>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          class="team-row"
+          *matRowDef="let row; columns: displayedColumns"
+          routerLink="/teams/{{ row._id }}"
+        ></tr>
+      </table>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr
-      mat-row
-      class="team-row"
-      *matRowDef="let row; columns: displayedColumns"
-    ></tr>
-  </table>
+    <ng-template #elseTemplate>
+      <h3>There are no teams to display!</h3>
+    </ng-template>
+  </ng-template>
 </div>

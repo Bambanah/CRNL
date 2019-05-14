@@ -37,6 +37,7 @@ export class ApiService {
       console.error(
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
+      return Promise.resolve(error);
     }
     // return an observable with a user-facing error message
     return throwError('Something bad happened; please try again later.');
@@ -57,6 +58,14 @@ export class ApiService {
 
   getTeams(): Observable<Team[]> {
     return this.http.get<Team[]>(this.apiUrl + '/teams/');
+  }
+
+  getTeam(teamId: string): Observable<Team> {
+    const url = `${this.apiUrl}/teams/${teamId}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
   }
 
   getUser(userId: string): Observable<User> {

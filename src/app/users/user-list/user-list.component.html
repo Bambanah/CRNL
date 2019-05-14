@@ -37,7 +37,7 @@
               <button ngbDropdownItem>Add to team</button>
             </li>
             <li><button ngbDropdownItem>Create Team</button></li>
-            <li *ngIf="this.inTeam && this.inSameTeam">
+            <li *ngIf="this.inTeam && this.inSameTeam()">
               <button ngbDropdownItem>Remove from team</button>
             </li>
           </ul>
