@@ -10,6 +10,7 @@
   </ng-container>
   <ng-template #elseTemplate>
     <div class="container">
+      <h1>{{ this.team.name }}</h1>
       <h2>Members</h2>
       <ul>
         <li *ngFor="let member of members">
@@ -19,25 +20,48 @@
             href="javascript:void(0);"
             class="link"
             (click)="removeUser(member._id)"
-            class="btn btn-outline-secondary mr-2"
-            placement="top"
-            ngbTooltip="Tooltip on top"
             >Remove User</a
           >
         </li>
       </ul>
 
       <div class="action-buttons">
-        <button href="javascript:void(0);" (click)="leaveTeam()">
-          Leave Team
-        </button>
         <button
           href="javascript:void(0);"
+          (click)="leaveTeam()"
+          class="btn btn-outline-primary mr-2"
+        >
+          Leave Team
+        </button>
+
+        <!-- Team has more than one member -->
+        <button
+          *ngIf="this.members.length <= 1"
+          href="javascript:void(0);"
           (click)="deleteTeam()"
-          [attr.disabled]="this.members.length > 1 ? 'true' : 'null'"
+          class="btn btn-outline-primary mr-2"
+          placement="top"
+          ngbTooltip="This action is permanent"
         >
           Delete Team
         </button>
+
+        <!-- Team has only one member - can be deleted -->
+        <div
+          class="tooltip-wrapper"
+          *ngIf="this.members.length > 1"
+          placement="top"
+          ngbTooltip="Cannot delete team with more than one member. Leave team instead."
+        >
+          <button
+            href="javascript:void(0);"
+            (click)="deleteTeam()"
+            disabled="true"
+            class="btn btn-outline-secondary mr-2"
+          >
+            Delete Team
+          </button>
+        </div>
       </div>
     </div>
   </ng-template>
