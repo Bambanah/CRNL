@@ -10,8 +10,22 @@
   </ng-container>
   <ng-template #elseTemplate>
     <div class="container">
-      <h1>{{ this.team.name }}</h1>
-      <h2>Members</h2>
+      <h2
+        *ngIf="this.team.name != null && this.team.name != ''"
+        class="team-name"
+      >
+        {{ this.team.name }}
+      </h2>
+      <h2
+        *ngIf="this.team.name == null || this.team.name == ''"
+        class="team-name-backup"
+      >
+        {{ this.team.name_backup }}
+      </h2>
+
+      <br />
+
+      <h3>Members</h3>
       <ul>
         <li *ngFor="let member of members">
           {{ member.full_name }}

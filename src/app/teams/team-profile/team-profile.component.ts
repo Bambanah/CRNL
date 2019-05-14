@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { TeamListComponent } from '../team-list/team-list.component';
 
+import Team from '../../_models/Team.js';
+
 @Component({
   selector: 'app-team-profile',
   templateUrl: './team-profile.component.html',
@@ -22,7 +24,8 @@ export class TeamProfileComponent implements OnInit {
   error = null;
 
   teamId = this.route.snapshot.params['id'];
-  members = [] as {};
+  team: Team;
+  members: any;
 
   handleError(err) {
     if (err['status'] == 404) {
@@ -78,5 +81,9 @@ export class TeamProfileComponent implements OnInit {
 
   ngOnInit() {
     this.getMembers();
+    this.api.getTeam(this.teamId).subscribe(res => {
+      console.log(res);
+      this.team = res;
+    });
   }
 }
