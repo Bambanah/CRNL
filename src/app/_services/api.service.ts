@@ -60,6 +60,14 @@ export class ApiService {
     return this.http.get<Team[]>(this.apiUrl + '/teams/');
   }
 
+  getTeam(teamId: string): Observable<Team> {
+    const url = `${this.apiUrl}/teams/${teamId}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError)
+    );
+  }
+
   getUser(userId: string): Observable<User> {
     const url = `${this.apiUrl}/users/${userId}`;
     return this.http.get(url, httpOptions).pipe(
