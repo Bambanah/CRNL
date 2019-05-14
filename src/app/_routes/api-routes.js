@@ -106,10 +106,18 @@ router.post('/users/', function(req, res) {
 
 // Get all teams
 router.get('/teams/', function(req, res, next) {
-  Team.find(function(err, teams) {
-    if (err) return next(err);
-    res.json(teams);
-  });
+  Team.find()
+    .populate('members', 'full_name')
+    .exec(function(err, teams) {
+      if (err) return next(err);
+
+      teams.forEach(team => {
+        name_backup = team.members.map(a => a.full_name);
+        team.name_backup = name_backup.join(', ');
+      });
+
+      res.status(202).json(teams);
+    });
 });
 
 // Create Team with two members
@@ -144,12 +152,13 @@ router.post('/teams/', function(req, res) {
 // Get Team
 router.get('/teams/:id', function(req, res, next) {
   Team.findById(req.params.id)
-    .populate('members', 'full_name')
+    .populate('members')
     .exec(function(err, team) {
       if (err) return next(err);
-      console.log(team);
 
-      team.name = team.members.map(a => a.full_name);
+      name_backup = team.members.map(a => a.full_name);
+      team.name_backup = name_backup.join(', ');
+
       res.status(202).json(team);
     });
 });
