@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-create-single-post',
-  templateUrl: './create-single-post.component.html',
-  styleUrls: ['./create-single-post.component.scss']
+  selector: 'app-create-student-post',
+  templateUrl: './create-student-post.component.html',
+  styleUrls: ['./create-student-post.component.scss']
 })
-export class CreateSinglePostComponent implements OnInit {
+export class CreateStudentPostComponent implements OnInit {
   @Output() componentIsOpen: EventEmitter<boolean> = new EventEmitter();
 
   constructor() {}

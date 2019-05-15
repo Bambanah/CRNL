@@ -22,14 +22,14 @@ export class PostCreateComponent implements OnInit {
   ) {}
 
   teamPostOpen = false;
-  singlePostOpen = false;
+  studentPostOpen = false;
 
   teamPostHandler(isOpen: boolean) {
     this.teamPostOpen = false;
   }
 
-  singlePostHandler(isOpen: boolean) {
-    this.singlePostOpen = false;
+  studentPostHandler(isOpen: boolean) {
+    this.studentPostOpen = false;
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card mat-elevation-z2">
     <!-- Request creation of post here -->
-    <div class="card-body" *ngIf="!this.teamPostOpen && !this.singlePostOpen">
+    <div class="card-body" *ngIf="!this.teamPostOpen && !this.studentPostOpen">
       <div class="row row-title">
         <div class="col col-title">
           <h5 class="card-title">Make Request For:</h5>
@@ -13,9 +13,9 @@
             Team
           </button>
         </div>
-        <div class="col col-single">
-          <button class="btn btn-warning" (click)="this.singlePostOpen = true">
-            Single
+        <div class="col col-student">
+          <button class="btn btn-warning" (click)="this.studentPostOpen = true">
+            Student
           </button>
         </div>
       </div>
@@ -26,9 +26,9 @@
       (componentIsOpen)="teamPostHandler($event)"
     ></app-create-team-post>
 
-    <app-create-single-post
-      *ngIf="this.singlePostOpen"
-      (componentIsOpen)="singlePostHandler($event)"
-    ></app-create-single-post>
+    <app-create-student-post
+      *ngIf="this.studentPostOpen"
+      (componentIsOpen)="studentPostHandler($event)"
+    ></app-create-student-post>
   </div>
 </div>

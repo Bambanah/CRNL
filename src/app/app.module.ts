@@ -45,7 +45,7 @@ import { StaffDashboardComponent } from './admin/staff-dashboard/staff-dashboard
 import { LoadingComponent } from './shared/loading/loading.component';
 import { UserProfileEditComponent } from './users/user-profile-edit/user-profile-edit.component';
 import { CreateTeamPostComponent } from './posts/create-team-post/create-team-post.component';
-import { CreateSinglePostComponent } from './posts/create-single-post/create-single-post.component';
+import { CreateStudentPostComponent } from './posts/create-student-post/create-student-post.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,7 @@ import { CreateSinglePostComponent } from './posts/create-single-post/create-sin
     LoadingComponent,
     UserProfileEditComponent,
     CreateTeamPostComponent,
-    CreateSinglePostComponent
+    CreateStudentPostComponent
   ],
   imports: [
     BrowserModule,
