@@ -16,7 +16,6 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.api.getPosts().subscribe(
       res => {
-        console.log(res);
         this.posts = res;
         this.posts.forEach(post => {
           let date = new Date(post.createdAt);
