@@ -1,35 +1,34 @@
 <div class="container">
   <div class="card mat-elevation-z2">
-    <div class="card-body">
-      <h5 class="card-title">Create New Post</h5>
-      <form
-        [formGroup]="postCreateForm"
-        (ngSubmit)="onFormSubmit(postCreateForm.value)"
-      >
-        <div class="form-group">
-          <input
-            class="form-control form-control-lg"
-            type="text"
-            placeholder="Title"
-            formControlName="title"
-          />
+    <!-- Request creation of post here -->
+    <div class="card-body" *ngIf="!this.teamPostOpen && !this.singlePostOpen">
+      <div class="row row-title">
+        <div class="col col-title">
+          <h5 class="card-title">Make Request For:</h5>
         </div>
-        <div class="form-group">
-          <textarea
-            class="form-control"
-            placeholder="Write your message"
-            rows="3"
-            formControlName="content"
-          ></textarea>
+      </div>
+      <div class="row row-actions">
+        <div class="col col-team">
+          <button class="btn btn-primary" (click)="this.teamPostOpen = true">
+            Team
+          </button>
         </div>
-        <button
-          type="submit"
-          [disabled]="!postCreateForm.valid"
-          class="btn btn-primary"
-        >
-          Submit
-        </button>
-      </form>
+        <div class="col col-single">
+          <button class="btn btn-warning" (click)="this.singlePostOpen = true">
+            Single
+          </button>
+        </div>
+      </div>
     </div>
+
+    <app-create-team-post
+      *ngIf="this.teamPostOpen"
+      (componentIsOpen)="teamPostHandler($event)"
+    ></app-create-team-post>
+
+    <app-create-single-post
+      *ngIf="this.singlePostOpen"
+      (componentIsOpen)="singlePostHandler($event)"
+    ></app-create-single-post>
   </div>
 </div>

@@ -15,6 +15,21 @@
   .card-title {
     font-family: 'Titillium Web', sans-serif;
     font-weight: 700;
+    margin: 0;
+  }
+
+  .col-team {
+    text-align: right;
+  }
+
+  .row-title {
+    .col-title {
+      text-align: center;
+    }
+  }
+
+  .row-actions {
+    margin-top: 3rem;
   }
 
   form {

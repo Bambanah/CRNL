@@ -21,6 +21,17 @@ export class PostCreateComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  teamPostOpen = false;
+  singlePostOpen = false;
+
+  teamPostHandler(isOpen: boolean) {
+    this.teamPostOpen = false;
+  }
+
+  singlePostHandler(isOpen: boolean) {
+    this.singlePostOpen = false;
+  }
+
   ngOnInit() {
     this.postCreateForm = this.formBuilder.group({
       title: [null, Validators.required],
