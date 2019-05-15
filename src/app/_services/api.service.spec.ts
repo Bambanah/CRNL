@@ -546,32 +546,5 @@ describe('ApiService', () => {
         expect(req.request.method).toBe("GET");
         req.flush(dummyUserData['team']);
       });
-
-    // it('should not be able to return user', () => {
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe(Users => {
-    //     expect(Users.length).toEqual(0);
-    //     fail
-    //   });
-
-    //   const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-    //   req.flush([]);
-    // });
-
-    // it('should return expected user values with various setups', () => {
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe();
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe();
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe(
-    //     user => expect(user).toEqual(dummyUserData),
-    //     fail
-    //   );
-
-    //   const req = httpTestingController.match(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-    //   expect(req.length).toEqual(3);
-
-    //   req[0].flush([]);
-    //   req[1].flush([{id: 1, name: 'test'}]);
-    //   req[2].flush(dummyUserData);
-    // });
-
   });
 });
