@@ -10,71 +10,81 @@
   </ng-container>
   <ng-template #elseTemplate>
     <div class="container">
-      <h2
-        *ngIf="this.team.name != null && this.team.name != ''"
-        class="team-name"
-      >
-        {{ this.team.name }}
-      </h2>
-      <h2
-        *ngIf="this.team.name == null || this.team.name == ''"
-        class="team-name-backup"
-      >
-        {{ this.team.name_backup }}
-      </h2>
-
-      <br />
-
-      <h3>Members</h3>
-      <ul>
-        <li *ngFor="let member of members">
-          {{ member.full_name }}
-          <a
-            *ngIf="member._id != this.auth.currentUserId"
-            href="javascript:void(0);"
-            class="link"
-            (click)="removeUser(member._id)"
-            >Remove User</a
+      <div class="row">
+        <div class="col">
+          <h2
+            *ngIf="this.team.name != null && this.team.name != ''"
+            class="team-name"
           >
-        </li>
-      </ul>
+            {{ this.team.name }}
+          </h2>
+          <h2
+            *ngIf="this.team.name == null || this.team.name == ''"
+            class="team-name-backup"
+          >
+            {{ this.team.name_backup }}
+          </h2>
+        </div>
+      </div>
+      <div class="row row-members">
+        <div class="col-6">
+          <h3 class="title-members">Members</h3>
+        </div>
 
-      <div class="action-buttons">
-        <button
-          href="javascript:void(0);"
-          (click)="leaveTeam()"
-          class="btn btn-outline-primary mr-2"
-        >
-          Leave Team
-        </button>
+        <div class="col-6">
+          <ul>
+            <li *ngFor="let member of members">
+              {{ member.full_name }}
+              <a
+                *ngIf="member._id != this.auth.currentUserId"
+                href="javascript:void(0);"
+                class="link"
+                (click)="removeUser(member._id)"
+                >Remove User</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <!-- Team has more than one member -->
-        <button
-          *ngIf="this.members.length <= 1"
-          href="javascript:void(0);"
-          (click)="deleteTeam()"
-          class="btn btn-outline-primary mr-2"
-          placement="top"
-          ngbTooltip="This action is permanent"
-        >
-          Delete Team
-        </button>
-
-        <!-- Team has only one member - can be deleted -->
-        <div
-          class="tooltip-wrapper"
-          *ngIf="this.members.length > 1"
-          placement="top"
-          ngbTooltip="Cannot delete team with more than one member. Leave team instead."
-        >
+      <div class="row action-buttons">
+        <div class="col">
           <button
             href="javascript:void(0);"
+            (click)="leaveTeam()"
+            class="btn btn-outline-primary mr-2"
+          >
+            Leave Team
+          </button>
+
+          <!-- Team has more than one member -->
+          <button
+            *ngIf="this.members.length <= 1"
+            href="javascript:void(0);"
             (click)="deleteTeam()"
-            disabled="true"
-            class="btn btn-outline-secondary mr-2"
+            class="btn btn-outline-primary mr-2"
+            placement="top"
+            ngbTooltip="This action is permanent"
           >
             Delete Team
           </button>
+
+          <!-- Team has only one member - can be deleted -->
+          <div
+            class="tooltip-wrapper"
+            *ngIf="this.members.length > 1"
+            placement="top"
+            ngbTooltip="Cannot delete team with more than one member. Leave team instead."
+          >
+            <button
+              href="javascript:void(0);"
+              (click)="deleteTeam()"
+              disabled="true"
+              class="btn btn-outline-secondary mr-2"
+            >
+              Delete Team
+            </button>
+          </div>
         </div>
       </div>
     </div>
