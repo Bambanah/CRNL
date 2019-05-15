@@ -113,7 +113,7 @@ router.get('/teams/', function(req, res, next) {
 
       teams.forEach(team => {
         nameBackup = team.members.map(a => a.full_name);
-        team.name_backup = name_backup.join(', ');
+        team.name_backup = nameBackup.join(', ');
       });
 
       res.status(202).json(teams);
