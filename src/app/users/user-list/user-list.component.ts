@@ -20,7 +20,15 @@ export class UserListComponent implements OnInit {
 
   users: any;
 
+  inTeam: boolean;
+
+  inSameTeam(userId): boolean {
+    return false;
+  }
+
   ngOnInit() {
+    this.inTeam = this.auth.currentUser.team != undefined;
+
     this.api.getStudents().subscribe(
       res => {
         this.users = res.filter(user => user._id != this.auth.currentUserId);

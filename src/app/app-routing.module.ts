@@ -58,6 +58,7 @@ const routes: Routes = [
   },
   {
     path: 'teams',
+    pathMatch: 'full',
     component: TeamListComponent,
     canActivate: [AuthGuard],
     data: { roles: ['Student', 'Staff'] }

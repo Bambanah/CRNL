@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {SignupComponent} from './signup.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {ReactiveFormsModule} from '@angular/forms';
+import { SignupComponent } from './signup.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -19,22 +19,24 @@ describe('SignupComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        ReactiveFormsModule,
-      ],
-    }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(SignupComponent);
-      component = fixture.componentInstance;
-      de = fixture.debugElement.query(By.css('form'));
-      el = de.nativeElement;
-      fixture.detectChanges();
-  });
-}));
+        ReactiveFormsModule
+      ]
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(SignupComponent);
+        component = fixture.componentInstance;
+        de = fixture.debugElement.query(By.css('form'));
+        el = de.nativeElement;
+        fixture.detectChanges();
+      });
+  }));
 
-  it('should create', async(()  => {
+  it('should create', async(() => {
     expect(component).toBeTruthy();
   }));
 
-  it(`should have submit button be unable to sumbit without compete form`, async(()  => {
+  it(`should have submit button be unable to sumbit without compete form`, async(() => {
     spyOn(component, 'onSubmit');
     el = fixture.debugElement.nativeElement.querySelector('button');
     el.click;
@@ -43,14 +45,14 @@ describe('SignupComponent', () => {
     });
   }));
 
-  it(`should have submit button be able to sumbit with compete form`, ()   => {
+  it(`should have submit button be able to sumbit with compete form`, () => {
     component.ngOnInit;
     component.signupForm.controls['email'].setValue('test@test.com');
     component.signupForm.controls['full_name'].setValue('Bill');
     component.signupForm.controls['major'].setValue('Computer Science');
     component.signupForm.controls['minor'].setValue('minor');
-    component.signupForm.controls['password'].setValue('password')
-    component.signupForm.controls['password_confirm'].setValue('password')
+    component.signupForm.controls['password'].setValue('password');
+    component.signupForm.controls['password_confirm'].setValue('password');
     spyOn(component, 'onSubmit');
     el = fixture.debugElement.nativeElement.querySelector('button');
     el.click;
@@ -59,25 +61,26 @@ describe('SignupComponent', () => {
     });
   }); //only works when not async for some reason?
 
-  it(`should have signupForm be invalid with empty form`, async(()  => {
+  it(`should have signupForm be invalid with empty form`, async(() => {
     component.ngOnInit;
     expect(component.signupForm.valid).toBeFalsy();
   }));
 
-  it(`should have signupForm be valid with completed form`, async(()  => {
+  it(`should have signupForm be valid with completed form`, async(() => {
     component.ngOnInit;
     component.signupForm.controls['email'].setValue('test@test.com');
     component.signupForm.controls['full_name'].setValue('Bill');
     component.signupForm.controls['major'].setValue('Computer Science');
     component.signupForm.controls['minor'].setValue('minor');
-    component.signupForm.controls['password'].setValue('password')
-    component.signupForm.controls['password_confirm'].setValue('password_conf')
+    component.signupForm.controls['password'].setValue('password');
+    component.signupForm.controls['password_confirm'].setValue('password_conf');
     expect(component.signupForm.valid).toBeTruthy();
   }));
 
   it(`login link should route to login page when pressed`, async(() => {
-    let href = fixture.debugElement.query(By.css('a')).nativeElement
-    .getAttribute('href');
+    let href = fixture.debugElement
+      .query(By.css('a'))
+      .nativeElement.getAttribute('href');
     expect(href).toEqual('/auth/login');
   }));
 
@@ -93,8 +96,7 @@ describe('SignupComponent', () => {
   //   });
   // });
 
-  
-  it(`should have signupForm's email reflect form conponent #email`, () =>{
+  it(`should have signupForm's email reflect form conponent #email`, () => {
     el = fixture.debugElement.query(By.css('#email')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -103,7 +105,7 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's full_name reflect form component #full_name`, () =>{
+  it(`should have signupForm's full_name reflect form component #full_name`, () => {
     el = fixture.debugElement.query(By.css('#full_name')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -112,7 +114,7 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's password reflect form conponent #password`, () =>{
+  it(`should have signupForm's password reflect form conponent #password`, () => {
     el = fixture.debugElement.query(By.css('#password')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -121,7 +123,7 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's major reflect form component #major`, () =>{
+  it(`should have signupForm's major reflect form component #major`, () => {
     el = fixture.debugElement.query(By.css('#major')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -130,7 +132,7 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's minor reflect form conponent #minor`, () =>{
+  it(`should have signupForm's minor reflect form conponent #minor`, () => {
     el = fixture.debugElement.query(By.css('#minor')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();

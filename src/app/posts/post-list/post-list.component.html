@@ -1,14 +1,21 @@
 <div class="container">
-  <div class="card mat-elevation-z1" *ngFor="let post of posts">
-    <div class="card-body">
-      <h5 class="card-title">{{ post.title }}</h5>
-      <p class="card-text">{{ post.content }}</p>
-      <p class="card-text">
-        <small class="text-muted"
-          >Created at: {{ post.createdAt }} by
-          {{ post.author.full_name }}</small
-        >
-      </p>
+  <ng-container *ngIf="this.loading; else elseTemplate">
+    <app-loading></app-loading>
+  </ng-container>
+  <ng-template #elseTemplate>
+    <div class="card mat-elevation-z1" *ngFor="let post of posts">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">
+          <small class="text-muted"
+            >Posted {{ post.createdAt }} by
+            <a href="/users/{{ post.author._id }}">{{
+              post.author.full_name
+            }}</a></small
+          >
+        </p>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>
