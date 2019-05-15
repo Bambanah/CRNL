@@ -10,18 +10,19 @@ import { DataSource } from '@angular/cdk/collections';
 export class PostListComponent implements OnInit {
   constructor(private api: ApiService) {}
 
+  loading = true;
   posts: any;
-
-  getAuthor(userId) {
-    this.api.getUser(userId).subscribe(user => {
-      return user.full_name;
-    });
-  }
 
   ngOnInit() {
     this.api.getPosts().subscribe(
       res => {
+        console.log(res);
         this.posts = res;
+        this.posts.forEach(post => {
+          let date = new Date(post.createdAt);
+          post.createdAt = date.toDateString();
+        });
+        this.loading = false;
       },
       err => {
         console.error(err);
