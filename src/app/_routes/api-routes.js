@@ -112,7 +112,7 @@ router.get('/teams/', function(req, res, next) {
       if (err) return next(err);
 
       teams.forEach(team => {
-        name_backup = team.members.map(a => a.full_name);
+        nameBackup = team.members.map(a => a.full_name);
         team.name_backup = name_backup.join(', ');
       });
 
@@ -156,7 +156,7 @@ router.get('/teams/:id', function(req, res, next) {
     .exec(function(err, team) {
       if (err) return next(err);
 
-      name_backup = team.members.map(a => a.full_name);
+      nameBackup = team.members.map(a => a.full_name);
       team.name_backup = name_backup.join(', ');
 
       res.status(202).json(team);
