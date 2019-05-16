@@ -15,13 +15,12 @@ export class PostCreateComponent implements OnInit {
   content: string;
 
   constructor(
-    private router: Router,
     private api: ApiService,
     private formBuilder: FormBuilder,
     private auth: AuthService
   ) {}
 
-  teamPostOpen = false;
+  teamPostOpen = true;
   studentPostOpen = false;
 
   teamPostHandler(isOpen: boolean) {

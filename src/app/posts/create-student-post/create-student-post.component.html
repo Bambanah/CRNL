@@ -1,4 +1,20 @@
 <div class="card-body">
-  Guess it worked
-  <button (click)="this.closeComponent()">Close</button>
+  <a
+    (click)="this.closeComponent()"
+    class="close-btn"
+    href="javascript:void(0);"
+    >&lt; Close</a
+  >
+  <form>
+    <div class="form-group">
+      <label for="descriptionInput">Describe Your Ideal Team</label>
+      <input
+        type="text"
+        class="form-control"
+        id="descriptionInput"
+        placeholder="description"
+      />
+    </div>
+    <div class="form-group"></div>
+  </form>
 </div>

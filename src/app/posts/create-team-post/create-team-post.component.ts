@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-team-post',
@@ -10,6 +11,22 @@ export class CreateTeamPostComponent implements OnInit {
 
   constructor() {}
 
+  // Font Awesome Icon
+  faPlus = faPlus;
+
+  // Mock skills
+  skills = [
+    { name: 'JavaScript', type: 'language' },
+    { name: 'HTML', type: 'language' },
+    { name: 'C#', type: 'language' },
+    { name: 'CSS', type: 'language' },
+    { name: 'Angular', type: 'framework' },
+    { name: 'Node.js', type: 'framework' },
+    { name: 'Maven', type: 'framework' },
+    { name: 'Other', type: 'other' }
+  ];
+
+  // Close creation and go back to selection
   closeComponent() {
     this.componentIsOpen.emit(false);
   }
