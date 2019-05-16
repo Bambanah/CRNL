@@ -1,16 +1,17 @@
 <div class="card-body">
-  <a
-    (click)="this.closeComponent()"
-    class="close-btn"
-    href="javascript:void(0);"
-    >&lt; Close</a
-  >
   <form>
     <div class="row">
       <div class="col">
         <label for="descriptionInput" class="section-title"
           >Describe Your Ideal Team</label
         >
+        <a
+          (click)="this.closeComponent()"
+          class="close-btn"
+          href="javascript:void(0);"
+        >
+          <fa-icon [icon]="faTimes" size="lg"> </fa-icon
+        ></a>
         <textarea
           rows="3"
           class="form-control"

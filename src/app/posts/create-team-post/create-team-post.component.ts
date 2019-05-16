@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-team-post',
@@ -13,6 +13,7 @@ export class CreateTeamPostComponent implements OnInit {
 
   // Font Awesome Icon
   faPlus = faPlus;
+  faTimes = faTimes;
 
   // Mock skills
   skills = [

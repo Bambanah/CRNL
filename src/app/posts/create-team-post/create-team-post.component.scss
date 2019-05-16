@@ -10,6 +10,12 @@ $color-framework: rgb(183, 39, 39);
     font-weight: 600;
   }
 
+  .close-btn {
+    position: absolute;
+    right: 20px;
+    color: rgb(189, 22, 22);
+  }
+
   #descriptionInput {
     resize: vertical;
   }
