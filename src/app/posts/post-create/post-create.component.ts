@@ -21,13 +21,13 @@ export class PostCreateComponent implements OnInit {
   ) {}
 
   teamPostOpen = false;
-  studentPostOpen = false;
+  studentPostOpen = true;
 
-  teamPostHandler(isOpen: boolean) {
+  teamPostHandler() {
     this.teamPostOpen = false;
   }
 
-  studentPostHandler(isOpen: boolean) {
+  studentPostHandler() {
     this.studentPostOpen = false;
   }
 

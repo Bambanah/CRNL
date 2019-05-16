@@ -1,1 +1,75 @@
 @import '../../../variables';
+
+$color-language: rgb(38, 123, 185);
+$color-framework: rgb(183, 39, 39);
+
+.card-body {
+  .section-title {
+    font-family: $font-family-2;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .close-btn {
+    position: absolute;
+    right: 20px;
+    color: rgb(189, 22, 22);
+  }
+
+  #descriptionInput {
+    resize: vertical;
+  }
+
+  .disclaimer-text {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    padding-left: 20px;
+  }
+
+  .btn-row {
+    margin-top: 20px;
+
+    .btn-col {
+      text-align: center;
+    }
+  }
+
+  .skill-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+
+    .skill-card {
+      flex: 0 0 auto;
+      border-radius: 2px;
+      display: inline-block;
+      padding: 0 10px;
+      margin-bottom: 5px;
+      cursor: pointer;
+
+      span {
+        font-family: $font-family-2;
+        font-weight: 600;
+      }
+
+      &.type-language {
+        background-color: #09568d;
+        color: white;
+      }
+
+      &.type-framework {
+        background-color: #b72727;
+        color: white;
+      }
+
+      &.type-other {
+        background-color: rgb(240, 228, 61);
+        color: rgb(0, 0, 0);
+      }
+    }
+  }
+}
