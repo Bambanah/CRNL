@@ -53,7 +53,6 @@ export class AuthService {
 
   public signup(signupData: NgForm) {
     let url = this.apiUrl + '/students/';
-    console.log(url);
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 
