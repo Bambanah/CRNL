@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       email: [null, Validators.required],
       password: [null, Validators.required]
     });
-    
+
     // reset login status
     this.auth.logout();
 
@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-            this.router.navigate([this.returnUrl]);
+          this.returnUrl = this.returnUrl || '';
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           console.warn(error);

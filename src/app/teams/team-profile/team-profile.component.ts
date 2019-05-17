@@ -82,7 +82,6 @@ export class TeamProfileComponent implements OnInit {
   ngOnInit() {
     this.getMembers();
     this.api.getTeam(this.teamId).subscribe(res => {
-      console.log(res);
       this.team = res;
     });
   }

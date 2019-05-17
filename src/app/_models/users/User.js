@@ -11,7 +11,10 @@ const options = {
 
 const UserSchema = new Schema(
   {
-    full_name: String,
+    name: {
+      first: String,
+      last: String
+    },
     posts: {
       type: [
         {
@@ -56,6 +59,11 @@ UserSchema.pre('save', function(next) {
   } else {
     return next();
   }
+});
+
+UserSchema.virtual('full_name').get(function() {
+  // eslint-disable-next-line no-invalid-this
+  return this.name.first + ' ' + this.name.last;
 });
 
 UserSchema.methods.comparePassword = function(password, cb) {

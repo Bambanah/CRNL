@@ -1,5 +1,5 @@
-<div id = "container" class="container">
-  <div id = "team-container" class="team-container">
+<div id="container" class="container">
+  <div id="team-container" class="team-container">
     <h2>Teams</h2>
     <!-- <span>
       Show
@@ -41,16 +41,12 @@
             type="input"
             (click)="downloadAllStudents()"
           >
-        
-        Download All Students As CSV
+            Download All Students As CSV
           </button>
         </th>
       </tr>
       <!-- routerLink="/users/{{ student._id }}" -->
-      <tr
-        *ngFor="let student of students"
-        [ngClass]="{inTeam: student.team}"
-      >
+      <tr *ngFor="let student of students" [ngClass]="{ inTeam: student.team }">
         <td>{{ student.full_name }}</td>
 
         <ng-container *ngIf="student.team; else elseTemplate">

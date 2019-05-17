@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
 import { Parser } from 'json2csv';
-import { saveAs } from'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-staff-dashboard',
@@ -9,11 +9,10 @@ import { saveAs } from'file-saver';
   styleUrls: ['./staff-dashboard.component.scss']
 })
 export class StaffDashboardComponent implements OnInit {
-
   students: any;
   teams: any;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService) {}
 
   ngOnInit() {
     this.api.getStudents().subscribe(
@@ -32,15 +31,15 @@ export class StaffDashboardComponent implements OnInit {
       err => {
         console.warn(err);
       }
-    )
+    );
   }
 
   downloadFile(data: any, file_name: string) {
-    var blob = new Blob([data], {type: 'text/csv' })
-    saveAs(blob, file_name + ".csv");
-  } 
+    var blob = new Blob([data], { type: 'text/csv' });
+    saveAs(blob, file_name + '.csv');
+  }
 
-  syncParser(data: string){
+  syncParser(data: string) {
     const fields = ['id', 'full_name', 'email', 'major', 'minor', 'team'];
     const opts = { fields };
     let csv = '';
@@ -49,7 +48,7 @@ export class StaffDashboardComponent implements OnInit {
     return csv;
   }
 
-  downloadStudent(id : string) {
+  downloadStudent(id: string) {
     this.api.getUser(id).subscribe(
       res => {
         let csv = '';
@@ -66,5 +65,4 @@ export class StaffDashboardComponent implements OnInit {
     let csv = this.syncParser(this.students);
     this.downloadFile(csv, 'Students');
   }
-
 }

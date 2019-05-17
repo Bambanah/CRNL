@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { ApiService } from '../../_services/api.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -20,6 +20,17 @@ export class PostCreateComponent implements OnInit {
     private auth: AuthService
   ) {}
 
+  teamPostOpen = true;
+  studentPostOpen = false;
+
+  teamPostHandler() {
+    this.teamPostOpen = false;
+  }
+
+  studentPostHandler() {
+    this.studentPostOpen = false;
+  }
+
   ngOnInit() {
     this.postCreateForm = this.formBuilder.group({
       title: [null, Validators.required],
@@ -31,6 +42,8 @@ export class PostCreateComponent implements OnInit {
     const data = [form, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
       console.error(err);
+
+      window.location.reload();
     });
   }
 }

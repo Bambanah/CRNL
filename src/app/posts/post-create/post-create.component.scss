@@ -12,16 +12,24 @@
 .card {
   width: 40rem;
 
-  .card-title {
-    font-family: 'Titillium Web', sans-serif;
-    font-weight: 700;
-  }
+  .row-title {
+    margin: 3rem 0;
 
-  form {
-    width: 100%;
+    .col-title {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-    textarea {
-      resize: none;
+      .card-title {
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 700;
+        margin: 0;
+      }
+    }
+
+    .col-team {
+      text-align: right;
     }
   }
 }

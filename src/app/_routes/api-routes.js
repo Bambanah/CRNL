@@ -88,6 +88,12 @@ router.post('/users/authenticate/', function(req, res) {
 
 // Sign up new student
 router.post('/students/', function(req, res) {
+  const studentData = req.body;
+  studentData.name = { first: String, last: String };
+  studentData.name.first = studentData.first_name;
+  delete studentData.first_name;
+  studentData.name.last = studentData.last_name;
+  delete studentData.last_name;
   const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
@@ -112,8 +118,8 @@ router.get('/teams/', function(req, res, next) {
       if (err) return next(err);
 
       teams.forEach(team => {
-        name_backup = team.members.map(a => a.full_name);
-        team.name_backup = name_backup.join(', ');
+        nameBackup = team.members.map(a => a.full_name);
+        team.name_backup = nameBackup.join(', ');
       });
 
       res.status(202).json(teams);
@@ -156,10 +162,14 @@ router.get('/teams/:id', function(req, res, next) {
     .exec(function(err, team) {
       if (err) return next(err);
 
-      name_backup = team.members.map(a => a.full_name);
-      team.name_backup = name_backup.join(', ');
+      if (team != null) {
+        nameBackup = team.members.map(a => a.full_name);
+        team.name_backup = nameBackup.join(', ');
 
-      res.status(202).json(team);
+        res.status(202).json(team);
+      } else {
+        res.status(404).json("Team doesn't exist");
+      }
     });
 });
 
@@ -211,8 +221,10 @@ router.delete('/teams/:id', function(req, res, next) {
 
     team.members.forEach(user => {
       User.findById(user, function(err, user) {
-        user.team = undefined;
-        user.save();
+        if (user != null) {
+          user.team = undefined;
+          user.save();
+        }
       });
     });
   });
@@ -266,6 +278,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
 // Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
+    .populate('author', 'full_name')
     .sort('-updatedAt')
     .exec(function(err, posts) {
       if (err) return next(err);
@@ -283,6 +296,7 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
+  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,
