@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto|Titillium+Web|Montserrat|Comfortaa|Open+Sans:400,600|Patua+One');
-
-$font-family-1: 'Open Sans', 'HelveticaNeue-Light', 'Helvetica Neue Light',
-  'Helvetica Neue', 'Roboto', sans-serif;
-
-$color-primary: rgb(0, 59, 113);
-$color-secondary: rgb(142, 144, 144);
-$color-dark: rgb(86, 91, 95);
-$color-support: rgb(0, 134, 117);
+@import 'variables';
 
 * {
   font-family: $font-family-1;
