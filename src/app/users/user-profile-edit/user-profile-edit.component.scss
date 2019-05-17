@@ -4,6 +4,10 @@
   align-content: stretch;
 }
 
+form {
+  width: 100%;
+}
+
 .profile-section {
   flex: 1 0 100%;
   display: flex;
@@ -25,6 +29,12 @@
 
   .section-content {
     flex: 0 0 75%;
+
+    label {
+      text-align: right;
+      font-weight: 600;
+      color: rgb(70, 70, 70);
+    }
 
     .content-table {
       width: 100%;

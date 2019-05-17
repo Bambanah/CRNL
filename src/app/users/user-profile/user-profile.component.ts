@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit {
   currentUserId = this.auth.currentUserId;
   currentUserTeamId: string;
 
-  isSelf = this.auth.isSelf(this.userId);
+  isSelf = this.route.snapshot.data.self;
 
   inTeam: boolean;
   selfInTeam: boolean;
@@ -122,8 +122,6 @@ export class UserProfileComponent implements OnInit {
       });
     }
 
-    if (!this.isSelf) {
-      this.getUserDetails();
-    }
+    this.getUserDetails();
   }
 }
