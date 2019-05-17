@@ -1,0 +1,118 @@
+<div class="card-body">
+  <form (ngSubmit)="onSubmit()" [formGroup]="teamPostForm">
+    <div class="row">
+      <div class="col"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-11 form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="titleInput"
+          formControlName="title"
+          placeholder="Title Your Post"
+          required
+        />
+      </div>
+      <div class="col-1">
+        <a
+          (click)="this.closeComponent()"
+          class="close-btn"
+          href="javascript:void(0);"
+        >
+          <fa-icon [icon]="faTimes" size="lg"></fa-icon>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <label for="contentInput" class="section-title">
+          Describe Your Ideal Team
+        </label>
+        <textarea
+          rows="3"
+          class="form-control"
+          id="contentInput"
+          formControlName="content"
+          placeholder="Description"
+          required
+        ></textarea>
+      </div>
+    </div>
+    <div class="row disclaimer-text">
+      <div class="col">
+        <small>
+          The following skills and preferences will be saved to your profile.
+        </small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-6">
+        <h3 class="section-title">Your Preferred Industries</h3>
+        <ul class="industry-list">
+          <li class="industry-item" *ngFor="let industry of industries">
+            {{ industry }}
+          </li>
+        </ul>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="industryInput"
+            placeholder="Add Industry"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary">
+              <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col col-6">
+        <h3 class="section-title">Your Skills</h3>
+        <div class="skill-list">
+          <a
+            class="skill-card type-{{ skill.type }}"
+            *ngFor="let skill of skills"
+            routerLink="/tags/{{ skill.type }}/{{ skill.name }}"
+          >
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+          </a>
+        </div>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="skillInput"
+            placeholder="Add Skill"
+          />
+          <select class="skill-type-select">
+            <option selected>Type</option>
+            <option value="language">Language</option>
+            <option value="framework">Framework</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary">
+              <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row btn-row">
+      <div class="col btn-col">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!teamPostForm.valid"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
