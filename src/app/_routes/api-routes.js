@@ -296,6 +296,7 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
+  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,

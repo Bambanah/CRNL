@@ -20,8 +20,8 @@ export class PostCreateComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  teamPostOpen = false;
-  studentPostOpen = true;
+  teamPostOpen = true;
+  studentPostOpen = false;
 
   teamPostHandler() {
     this.teamPostOpen = false;
