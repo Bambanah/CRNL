@@ -8,14 +8,29 @@
       <div class="form-group">
         <input
           type="text"
-          id="full_name"
-          formControlName="full_name"
+          id="first_name"
+          formControlName="first_name"
           class="form-control"
-          placeholder="Full Name"
+          placeholder="First Name"
           [ngClass]="{
             invalid:
-              !signupForm.get('full_name').valid &&
-              signupForm.get('full_name').touched
+              !signupForm.get('first_name').valid &&
+              signupForm.get('first_name').touched
+          }"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          id="last_name"
+          formControlName="last_name"
+          class="form-control"
+          placeholder="Last Name"
+          [ngClass]="{
+            invalid:
+              !signupForm.get('last_name').valid &&
+              signupForm.get('last_name').touched
           }"
           required
         />
