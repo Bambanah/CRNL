@@ -19,8 +19,9 @@ User.discriminator(
     skills: {
       type: [
         {
-          type: Schema.Types.ObjectId,
-          ref: 'Skill'
+          type: Schema.Types.Array,
+          ref: 'Skill',
+          default: undefined
         }
       ]
     },
