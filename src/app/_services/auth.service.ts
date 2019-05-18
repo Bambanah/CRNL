@@ -11,12 +11,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../_models/users/User';
 import { NgForm } from '@angular/forms';
 
-const apiUrl = '/api';
-
 const helper = new JwtHelperService();
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  apiUrl = '/api';
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
@@ -35,7 +34,7 @@ export class AuthService {
   }
 
   public login(loginData: NgForm) {
-    return this.http.post<any>(apiUrl + '/users/authenticate', loginData).pipe(
+    return this.http.post<any>(this.apiUrl + '/users/authenticate', loginData).pipe(
       map(user => {
         // login successful if there's a jwt token in the response
         if (user && user.token) {
@@ -53,7 +52,7 @@ export class AuthService {
   }
 
   public signup(signupData: NgForm) {
-    let url = apiUrl + '/students/';
+    let url = this.apiUrl + '/students/';
     return this.http.post(url, signupData).pipe(catchError(this.handleError));
   }
 

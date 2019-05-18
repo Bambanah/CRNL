@@ -76,6 +76,13 @@ export class ApiService {
     );
   }
 
+ updateUser(userId: string, userData): Observable<User> {
+    const url = `${this.apiUrl}/users/${userId}`;
+    return this.http
+      .put(url, userData, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   getPosts(): Observable<Post> {
     const url = `${this.apiUrl}/posts/`;
     return this.http.get(url, httpOptions).pipe(
