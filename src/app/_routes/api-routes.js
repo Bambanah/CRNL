@@ -47,13 +47,12 @@ router.get('/users/:id', function(req, res, next) {
 
 // Update single user
 router.put('/users/:id', function(req, res, next) {
-  Student.findByIdAndUpdate(
-    req.params.id, 
-    req.body,
-    { new: true}, 
-    function(err, Student) {
-      if (err) return next(err);
-      res.json(Student);
+  Student.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(
+    err,
+    Student
+  ) {
+    if (err) return next(err);
+    res.json(Student);
   });
 });
 
