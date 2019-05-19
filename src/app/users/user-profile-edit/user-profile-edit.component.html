@@ -101,7 +101,19 @@
         <h1>Skills</h1>
       </div>
       <div class="section-content" id="skills-content">
-        <p>Content</p>
+        <table class="content-table">
+          <tr>
+            <th></th>
+            <th>Content</th>
+            <input type="text" id="major-field" value="{{ student.skills }}" />
+          </tr>
+          <tr>
+            <button id="skillBtn" type="input" (click)="addSkills()">
+              Add
+            </button>
+            <input id="skillAdd" type="text" value="" />
+          </tr>
+        </table>
       </div>
     </div>
     <div id="privacy-details" class="profile-section">
