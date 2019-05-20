@@ -15,11 +15,21 @@ export class PostCreateComponent implements OnInit {
   content: string;
 
   constructor(
-    private router: Router,
     private api: ApiService,
     private formBuilder: FormBuilder,
     private auth: AuthService
   ) {}
+
+  teamPostOpen = true;
+  studentPostOpen = false;
+
+  teamPostHandler() {
+    this.teamPostOpen = false;
+  }
+
+  studentPostHandler() {
+    this.studentPostOpen = false;
+  }
 
   ngOnInit() {
     this.postCreateForm = this.formBuilder.group({

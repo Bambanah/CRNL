@@ -47,13 +47,12 @@ router.get('/users/:id', function(req, res, next) {
 
 // Update single user
 router.put('/users/:id', function(req, res, next) {
-  Student.findByIdAndUpdate(
-    req.params.id, 
-    req.body,
-    { new: true}, 
-    function(err, Student) {
-      if (err) return next(err);
-      res.json(Student);
+  Student.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(
+    err,
+    Student
+  ) {
+    if (err) return next(err);
+    res.json(Student);
   });
 });
 
@@ -100,6 +99,12 @@ router.post('/users/authenticate/', function(req, res) {
 
 // Sign up new student
 router.post('/students/', function(req, res) {
+  const studentData = req.body;
+  studentData.name = { first: String, last: String };
+  studentData.name.first = studentData.first_name;
+  delete studentData.first_name;
+  studentData.name.last = studentData.last_name;
+  delete studentData.last_name;
   const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
@@ -168,10 +173,14 @@ router.get('/teams/:id', function(req, res, next) {
     .exec(function(err, team) {
       if (err) return next(err);
 
-      nameBackup = team.members.map(a => a.full_name);
-      team.name_backup = name_backup.join(', ');
+      if (team != null) {
+        nameBackup = team.members.map(a => a.full_name);
+        team.name_backup = nameBackup.join(', ');
 
-      res.status(202).json(team);
+        res.status(202).json(team);
+      } else {
+        res.status(404).json("Team doesn't exist");
+      }
     });
 });
 
@@ -223,8 +232,10 @@ router.delete('/teams/:id', function(req, res, next) {
 
     team.members.forEach(user => {
       User.findById(user, function(err, user) {
-        user.team = undefined;
-        user.save();
+        if (user != null) {
+          user.team = undefined;
+          user.save();
+        }
       });
     });
   });
@@ -296,6 +307,7 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
+  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,
