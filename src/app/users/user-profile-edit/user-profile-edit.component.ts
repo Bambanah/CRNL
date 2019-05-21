@@ -14,28 +14,38 @@ export class UserProfileEditComponent implements OnInit {
 
   constructor(private api: ApiService, private auth: AuthService) {}
 
+  loading = true;
+
   userId: string;
   student: Student;
 
-  ngOnInit() {
-    // this.student.find({ full_name: 'Test Student'});
-    this.userId = this.auth.currentUserId;
-    this.student = this.auth.currentUser;
-    console.log(this.student.skills);
-  }
-
-  addSkills(){
-    let skills = (<HTMLInputElement>document.getElementById('skillAdd')).value;
-    this.student.skills.push(skills);
-    const data = {skills: this.student.skills};
-    console.log(data);
-    skills = "";
-    this.api.updateUser(this.student.id, data)
-      .subscribe(err => {
+  getStudentDetails() {
+    this.api.getUser(this.userId).subscribe(
+      data => {
+        this.student = data;
+        this.loading = false;
+      },
+      err => {
         console.error(err);
       }
     );
-    
-    console.log(this.student.id + "::" + data);
+  }
+
+  ngOnInit() {
+    this.userId = this.auth.currentUserId;
+    this.getStudentDetails();
+  }
+
+  addSkills() {
+    let skills = (<HTMLInputElement>document.getElementById('skillAdd')).value;
+    this.student.skills.push(skills);
+    const data = { skills: this.student.skills };
+
+    this.api.updateUser(this.student.id, data).subscribe(
+      data => {},
+      err => {
+        console.error(err);
+      }
+    );
   }
 }
