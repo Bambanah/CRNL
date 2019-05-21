@@ -1,12 +1,13 @@
 <div class="container">
   <ng-container *ngIf="!this.loading; else elseTemplate">
     <a href="/profile">&lt; back to profile</a>
-    <form>
-      <div id="personal-details" class="profile-section">
-        <div class="section-header">
-          <h1>Personal</h1>
-        </div>
-        <div class="section-content">
+
+    <div id="personal-details" class="profile-section">
+      <div class="section-header">
+        <h1>Personal</h1>
+      </div>
+      <div class="section-content">
+        <form>
           <div class="form-group row">
             <label for="email-field" class="col-4 col-form-label">
               Email
@@ -40,13 +41,16 @@
               value="{{ student.last_name }}"
             />
           </div>
-        </div>
+        </form>
       </div>
-      <div id="academic-details" class="profile-section">
-        <div class="section-header">
-          <h1>Academic</h1>
-        </div>
-        <div class="section-content">
+    </div>
+
+    <div id="academic-details" class="profile-section">
+      <div class="section-header">
+        <h1>Academic</h1>
+      </div>
+      <div class="section-content">
+        <form>
           <div class="form-group row">
             <label for="degree-field" class="col-4 col-form-label">
               Degree
@@ -95,45 +99,70 @@
               value="5.4{{ student.gpa }}"
             />
           </div>
+        </form>
+      </div>
+    </div>
+    <div id="skill-details" class="profile-section">
+      <div class="section-header">
+        <h1>Skills</h1>
+      </div>
+      <div class="section-content" id="skills-content">
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col">
+            <div class="skill-list" *ngIf="skills.length > 0">
+              <a
+                class="skill-card type-{{ skill.type }}"
+                *ngFor="let skill of skills"
+                routerLink="/tags/{{ skill.type }}/{{ skill.name }}"
+              >
+                <span class="skill-name">
+                  {{ skill.name }}
+                </span>
+              </a>
+            </div>
+            <div *ngIf="skills.length == 0">
+              You currently have no skills. Add some below!
+            </div>
+            <form (ngSubmit)="this.addSkill()">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="skill-input"
+                  placeholder="Add Skill"
+                  required
+                  aria-required="true"
+                />
+                <select id="skill-type-select" required aria-required="true">
+                  <option></option>
+                  <option value="language">Language</option>
+                  <option value="framework">Framework</option>
+                  <option value="other">Other</option>
+                </select>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit">
+                    <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-      <div id="skill-details" class="profile-section">
-        <div class="section-header">
-          <h1>Skills</h1>
-        </div>
-        <div class="section-content" id="skills-content">
-          <table class="content-table">
-            <tr>
-              <th></th>
-              <th>Content</th>
-              <input
-                type="text"
-                id="major-field"
-                value="{{ student.skills }}"
-              />
-            </tr>
-            <tr>
-              <button id="skillBtn" type="input" (click)="addSkills()">
-                Add
-              </button>
-              <input id="skillAdd" type="text" value="" />
-            </tr>
-          </table>
-        </div>
+    </div>
+    <div id="privacy-details" class="profile-section">
+      <div class="section-header">
+        <h1>Privacy</h1>
       </div>
-      <div id="privacy-details" class="profile-section">
-        <div class="section-header">
-          <h1>Privacy</h1>
-        </div>
-        <div class="section-content" id="privacy-content">
-          <p>Content</p>
-        </div>
+      <div class="section-content" id="privacy-content">
+        <p>Content</p>
       </div>
+    </div>
 
-      <div id="button-section" class="profile-section">
-        <a id="update-button" href="javascript:void(0);">Update Details</a>
-      </div>
-    </form>
+    <div id="button-section" class="profile-section">
+      <a id="update-button" href="javascript:void(0);">Update Details</a>
+    </div>
   </ng-container>
   <ng-template #elseTemplate>
     <app-loading></app-loading>

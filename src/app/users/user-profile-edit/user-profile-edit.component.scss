@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .container {
   display: flex;
   flex-wrap: wrap;
@@ -45,6 +47,50 @@ form {
         padding-right: 1rem;
       }
     }
+  }
+
+  #skills-content {
+    text-align: right;
+
+    .skill-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+
+      .skill-card {
+        flex: 0 0 auto;
+        border-radius: 2px;
+        display: inline-block;
+        padding: 0 10px;
+        margin-bottom: 5px;
+        cursor: pointer;
+
+        span {
+          font-family: $font-family-2;
+          font-weight: 600;
+        }
+
+        &.type-language {
+          background-color: #09568d;
+          color: white;
+        }
+
+        &.type-framework {
+          background-color: #b72727;
+          color: white;
+        }
+
+        &.type-other {
+          background-color: rgb(240, 228, 61);
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
+  }
+
+  #skill-details {
+    border-top: 1px solid rgb(177, 177, 177);
   }
 
   #skills-content,
