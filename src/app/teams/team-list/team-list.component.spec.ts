@@ -4,6 +4,7 @@ import { TeamListComponent } from './team-list.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatTableModule } from '@angular/material';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 
 describe('TeamListComponent', () => {
   let component: TeamListComponent;
@@ -11,7 +12,7 @@ describe('TeamListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TeamListComponent],
+      declarations: [TeamListComponent, LoadingComponent],
       imports: [RouterTestingModule, MatTableModule, HttpClientTestingModule]
     }).compileComponents();
   }));

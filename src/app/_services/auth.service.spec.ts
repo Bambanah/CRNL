@@ -1,17 +1,25 @@
-import {TestBed, async, ComponentFixture, inject, getTestBed } from '@angular/core/testing';
-import { HttpClient} from '@angular/common/http';
-import {AuthService} from './auth.service';
-import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {
+  TestBed,
+  async,
+  ComponentFixture,
+  inject,
+  getTestBed
+} from '@angular/core/testing';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { User } from '../_models/users/User';
 import { first } from 'rxjs/operators';
-
+const jwt = require('jsonwebtoken');
 
 describe('AuthService', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let service: AuthService;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,7 +30,6 @@ describe('AuthService', () => {
     httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(AuthService);
-    
   }));
 
   afterEach(() => {
@@ -35,19 +42,20 @@ describe('AuthService', () => {
   });
 
   describe('#getPosts', () => {
-    let form: NgForm; 
+    let form: NgForm;
     let formBuilder: FormBuilder;
-    
-    beforeEach(() => {
-    });
+
+    beforeEach(() => {});
 
     it('login should return expected url, data is ignored', () => {
       service.login(form).subscribe(value => {
         expect(value.length).toBe(1);
       });
 
-      const req = httpTestingController.expectOne(service.apiUrl + '/users/authenticate');
-      expect(req.request.method).toBe("POST");
+      const req = httpTestingController.expectOne(
+        service.apiUrl + '/users/authenticate'
+      );
+      expect(req.request.method).toBe('POST');
     });
 
     it('signup should return expected url, data is ignored', () => {
@@ -55,18 +63,20 @@ describe('AuthService', () => {
         expect(value.toString).toBe(1);
       });
 
-      const req = httpTestingController.expectOne(service.apiUrl +  '/students/');
-      expect(req.request.method).toBe("POST");
+      const req = httpTestingController.expectOne(
+        service.apiUrl + '/students/'
+      );
+      expect(req.request.method).toBe('POST');
     });
 
     it('logout is successful', () => {
-      localStorage.setItem('currentUser', 'test');
+      localStorage.setItem('currentUser', JSON.stringify('test'));
       service.logout();
       expect(localStorage.getItem('currentUser')).toEqual(null);
     });
 
     it('isAuthenticated is successful', () => {
-      localStorage.setItem('currentUser', 'test');
+      localStorage.setItem('currentUser', JSON.stringify('test'));
       expect(service.isAuthenticated).toEqual(true);
       service.logout();
     });
@@ -77,8 +87,11 @@ describe('AuthService', () => {
     });
 
     it('has a current user is unsuccessful', () => {
-      localStorage.setItem('currentUser', 'test');
-      expect(service.currentUser()).toEqual('test');
+      localStorage.setItem(
+        'currentUser',
+        jwt.sign(JSON.stringify('test'), 'random')
+      );
+      expect(service.currentUser).toEqual('test');
     });
 
     // it('should return expected user (called once)', () => {
@@ -88,7 +101,7 @@ describe('AuthService', () => {
     //     password: ["password"]
     //   });
     //   expect('yo').toEqual(formGroup.value);
-    //   service      
+    //   service
     //     .login(formGroup.value)
     //     .pipe(first())
     //     .subscribe(

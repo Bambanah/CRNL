@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateTeamPostComponent } from './create-team-post.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 
 describe('CreateTeamPostComponent', () => {
   let component: CreateTeamPostComponent;
@@ -8,9 +13,14 @@ describe('CreateTeamPostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateTeamPostComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateTeamPostComponent, LoadingComponent],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientModule,
+        FontAwesomeModule
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

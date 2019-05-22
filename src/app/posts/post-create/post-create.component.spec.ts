@@ -1,9 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostCreateComponent } from './post-create.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CreateStudentPostComponent } from '../create-student-post/create-student-post.component';
+import { CreateTeamPostComponent } from '../create-team-post/create-team-post.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 
 describe('PostCreateComponent', () => {
   let component: PostCreateComponent;
@@ -11,11 +15,18 @@ describe('PostCreateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PostCreateComponent],
+      declarations: [
+        PostCreateComponent,
+        CreateStudentPostComponent,
+        CreateTeamPostComponent,
+        LoadingComponent
+      ],
       imports: [
         ReactiveFormsModule,
+        FormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        FontAwesomeModule
       ]
     }).compileComponents();
   }));

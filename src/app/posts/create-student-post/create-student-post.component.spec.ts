@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentPostComponent } from './create-student-post.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CreateStudentPostComponent', () => {
   let component: CreateStudentPostComponent;
@@ -8,7 +11,8 @@ describe('CreateStudentPostComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateStudentPostComponent]
+      declarations: [CreateStudentPostComponent],
+      imports: [FontAwesomeModule, RouterTestingModule, HttpClientModule]
     }).compileComponents();
   }));
 
