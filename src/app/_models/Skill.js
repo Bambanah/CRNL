@@ -9,7 +9,7 @@ const SkillSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ['Skill', 'Language', 'Talent', 'Other'],
+      enum: ['language', 'framework', 'talent', 'other'],
       required: true
     },
     // TODO: Maybe add this in later

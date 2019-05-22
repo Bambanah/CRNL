@@ -114,7 +114,7 @@
               <a
                 class="skill-card type-{{ skill.type }}"
                 *ngFor="let skill of skills"
-                routerLink="/tags/{{ skill.type }}/{{ skill.name }}"
+                (click)="this.removeSkill()"
               >
                 <span class="skill-name">
                   {{ skill.name }}
@@ -135,10 +135,9 @@
                   aria-required="true"
                 />
                 <select id="skill-type-select" required aria-required="true">
-                  <option></option>
+                  <option value="other">Other</option>
                   <option value="language">Language</option>
                   <option value="framework">Framework</option>
-                  <option value="other">Other</option>
                 </select>
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="submit">

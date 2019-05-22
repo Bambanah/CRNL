@@ -76,10 +76,17 @@ export class ApiService {
     );
   }
 
- updateUser(userId: string, userData): Observable<User> {
+  updateUser(userId: string, userData): Observable<User> {
     const url = `${this.apiUrl}/users/${userId}`;
     return this.http
       .put(url, userData, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addSkillToStudent(userId: string, skillData) {
+    const url = `${this.apiUrl}/users/${userId}/add-skills`;
+    return this.http
+      .put(url, skillData, httpOptions)
       .pipe(catchError(this.handleError));
   }
 

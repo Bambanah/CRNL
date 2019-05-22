@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import Student from 'src/app/_models/users/Student.js';
 
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { NgControlStatusGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile-edit',
@@ -56,11 +57,15 @@ export class UserProfileEditComponent implements OnInit {
 
     this.skills.push(skillData);
 
-    // this.api.updateUser(this.student.id, data).subscribe(
-    //   data => {},
-    //   err => {
-    //     console.error(err);
-    //   }
-    // );
+    this.api.addSkillToStudent(this.student.id, skillData).subscribe(
+      data => {
+        console.log('Skill added');
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
+
+  removeSkill() {}
 }

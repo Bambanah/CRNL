@@ -7,6 +7,7 @@ const Post = require('../_models/Post');
 const User = require('../_models/users/User');
 const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
+const Skill = require('../_models/Skill');
 
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
@@ -55,6 +56,50 @@ router.put('/users/:id', function(req, res, next) {
   ) {
     if (err) return next(err);
     res.json(Student);
+  });
+});
+
+router.put('/users/:id/add-skills', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    const skillToAdd = req.body;
+
+    // Get count of documents matching provided type and name.
+    // If document is found, add it. Otherwise create a new one and add that.
+    Skill.countDocuments(
+      { name: skillToAdd.name, type: skillToAdd.type },
+      function(err, count) {
+        if (err) return next(err);
+
+        if (count == 0) {
+          // If no existing skills are found, create new
+          Skill.create(skillToAdd, function(err, createdSkill) {
+            if (err) return next(err);
+            if (!student.skills.includes(createdSkill._id)) {
+              student.skills.push(createdSkill._id);
+              student.save();
+              res.json(student);
+            } else {
+              console.warn('Skill already added to student');
+            }
+          });
+        } else {
+          // If existing skill is found, add that skill
+          Skill.findOne({ name: skillToAdd.name }, function(err, foundSkill) {
+            if (err) return next(err);
+
+            if (!student.skills.includes(foundSkill._id)) {
+              student.skills.push(foundSkill._id);
+              student.save();
+              res.json(student);
+            } else {
+              console.warn('Skill already added to student');
+            }
+          });
+        }
+      }
+    );
   });
 });
 
