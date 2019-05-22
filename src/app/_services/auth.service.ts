@@ -34,16 +34,18 @@ export class AuthService {
   }
 
   public login(loginData: NgForm) {
-    return this.http.post<any>(this.apiUrl + '/users/authenticate', loginData).pipe(
-      map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
-      })
-    );
+    return this.http
+      .post<any>(this.apiUrl + '/users/authenticate', loginData)
+      .pipe(
+        map(user => {
+          // login successful if there's a jwt token in the response
+          if (user && user.token) {
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+          }
+          return user;
+        })
+      );
   }
 
   public logout() {
@@ -69,11 +71,14 @@ export class AuthService {
   }
 
   public get currentUserId(): string {
-    const decodedToken = helper.decodeToken(
-      localStorage.getItem('currentUser')
-    );
+    if (localStorage.getItem('currentUser')) {
+      const decodedToken = helper.decodeToken(
+        localStorage.getItem('currentUser')
+      );
 
-    return decodedToken._id;
+      return decodedToken._id;
+    }
+    return undefined;
   }
 
   // Test if ID belongs to currently signed in user
