@@ -19,6 +19,7 @@ export class MainNavComponent {
   ) {}
 
   isCollapsed = true;
+
   currentUser = {
     email: '',
     full_name: '',
@@ -40,8 +41,9 @@ export class MainNavComponent {
   }
 
   ngOnInit() {
-    if (this.auth.isAuthenticated) {
-      this.currentUser = this.auth.currentUser;
-    }
+    this.currentUser = this.auth.currentUser;
+    this.auth.getCurrentUser.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 }
