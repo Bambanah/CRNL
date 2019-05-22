@@ -32,16 +32,9 @@ export class CreateTeamPostComponent implements OnInit {
   faTimes = faTimes;
 
   // Mock skills
-  skills = [
-    { name: 'JavaScript', type: 'language' },
-    { name: 'HTML', type: 'language' },
-    { name: 'C#', type: 'language' },
-    { name: 'CSS', type: 'language' },
-    { name: 'Angular', type: 'framework' },
-    { name: 'Node.js', type: 'framework' },
-    { name: 'Maven', type: 'framework' },
-    { name: 'Other', type: 'other' }
-  ];
+  loading = true;
+  student: any;
+  skills = [];
 
   industries = ['Design', 'Full-Stack Development', 'Finance'];
 
@@ -71,6 +64,16 @@ export class CreateTeamPostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.api.getUser(this.auth.currentUserId).subscribe(
+      data => {
+        this.student = data;
+        this.skills = data.skills;
+        this.loading = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
     this.teamPostForm = this.formBuilder.group({
       title: [null, Validators.required],
       content: [null, Validators.required]

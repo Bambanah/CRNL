@@ -20,7 +20,7 @@ export class PostCreateComponent implements OnInit {
     private auth: AuthService
   ) {}
 
-  teamPostOpen = true;
+  teamPostOpen = false;
   studentPostOpen = false;
 
   teamPostHandler() {
