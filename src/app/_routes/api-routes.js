@@ -372,7 +372,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
 // Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
-    .populate('author', 'full_name')
+    .populate('author')
     .sort('-updatedAt')
     .exec(function(err, posts) {
       if (err) return next(err);
