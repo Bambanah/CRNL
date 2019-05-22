@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <form (ngSubmit)="this.personalSubmit()" [formGroup]="personalForm">
+    <form (ngSubmit)="this.personalSubmit()" [formGroup]="profileForm">
       <div id="personal-details" class="profile-section">
         <div class="section-header">
           <h1>Personal</h1>
@@ -191,7 +191,7 @@
         <div class="col">
           <button
             type="submit"
-            [disabled]="!personalForm.valid || !personalForm.dirty"
+            [disabled]="!profileForm.valid || !profileForm.dirty"
           >
             Update Details
           </button>

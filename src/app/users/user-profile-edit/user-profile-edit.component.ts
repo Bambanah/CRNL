@@ -26,7 +26,7 @@ export class UserProfileEditComponent implements OnInit {
   studentId: string;
   student: Student;
   skills = [];
-  personalForm: FormGroup;
+  profileForm: FormGroup;
 
   ngOnInit() {
     this.studentId = this.auth.currentUserId;
@@ -39,7 +39,7 @@ export class UserProfileEditComponent implements OnInit {
         this.student = data;
         this.skills = data.skills;
 
-        this.personalForm = new FormGroup({
+        this.profileForm = new FormGroup({
           email: new FormControl(this.student.email),
           firstName: new FormControl(this.student.name.first),
           lastName: new FormControl(this.student.name.last),
@@ -90,16 +90,23 @@ export class UserProfileEditComponent implements OnInit {
   }
 
   personalSubmit() {
-    const email = this.personalForm.value.email;
+    const form = this.profileForm.value;
+
+    const email = form.email;
     const name = {
-      first: this.personalForm.value.firstName,
-      last: this.personalForm.value.lastName
+      first: form.firstName,
+      last: form.lastName
     };
-    const data = { email, name };
+    const major = form.major;
+    const minors = {
+      first: form.firstMinor,
+      second: form.secondMinor
+    };
+    const data = { email, name, major, minors };
 
     this.api.updateUser(this.studentId, data).subscribe(data => {
       console.log(data);
     });
-    console.log(this.personalForm.value);
+    console.log(this.profileForm.value);
   }
 }

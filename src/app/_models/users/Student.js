@@ -13,13 +13,8 @@ User.discriminator(
       default: ''
     },
     minors: {
-      type: [
-        {
-          type: String,
-          default: ''
-        }
-      ],
-      validate: [arrayLimit, 'Can only have maximum two (2) minors']
+      first: String,
+      second: String
     },
     skills: {
       type: [
@@ -35,10 +30,5 @@ User.discriminator(
     }
   })
 );
-
-// eslint-disable-next-line require-jsdoc
-function arrayLimit(val) {
-  return val.length <= 2;
-}
 
 module.exports = mongoose.model('Student');
