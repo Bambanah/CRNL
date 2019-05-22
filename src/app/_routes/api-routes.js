@@ -119,7 +119,6 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   Student.findById(req.params.id, function(err, student) {
     if (err) return next(err);
 
-    console.log(req.body._id);
     const skillIdToRemove = req.body._id;
 
     Skill.findById(skillIdToRemove, function(err, skill) {
@@ -131,13 +130,11 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
       });
       student.save();
 
-      console.log('skill.members: ', skill.members.length);
-      // Remove student as an ownder of this skill
+      // Remove student as an owner of this skill
       skill.members = skill.members.filter(function(studentId) {
         return !studentId.equals(student._id);
       });
       skill.save();
-      console.log('skill.members: ', skill.members.length);
     });
   });
 });
