@@ -24,7 +24,7 @@ export class MainNavComponent {
     email: '',
     full_name: '',
     __t: ''
-  };
+  } as {};
 
   signupRedirect() {}
 
