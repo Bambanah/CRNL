@@ -5,7 +5,7 @@ import {
   inject,
   getTestBed
 } from '@angular/core/testing';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpBackend } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -529,7 +529,7 @@ describe('ApiService', () => {
           minor: 'Intelligent Systems',
           full_name: 'Test Student 2',
           email: 'teststudent@test.com',
-          id: '5c7cce688ea80f18b47d5976',
+          _id: '5c7cce688ea80f18b47d5976',
           team: '5c9325a54ee482318cfff623'
         }
       ] as User;
@@ -547,28 +547,26 @@ describe('ApiService', () => {
       });
 
       const req = httpTestingController.expectOne(
-        `${service.apiUrl}/users/${dummyUserData[0].id}/team/`
+        `${service.apiUrl}/users/${dummyUserData[0]._id}/team/`
       );
       expect(req.request.method).toBe('GET');
-      req.flush(dummyUserData['team']);
+      req.flush(dummyUserData);
     });
   });
 
   describe('#getMembersOfTeam', () => {
-    let dummyUserData: User;
+    let dummyTeamData: Team;
 
     beforeEach(() => {
       service = TestBed.get(ApiService);
-      dummyUserData = [
+
+      dummyTeamData = [
         {
-          major: 'Computer Science',
-          minor: 'Intelligent Systems',
-          full_name: 'Test Student 2',
-          email: 'teststudent@test.com',
-          id: '5c7cce688ea80f18b47d5976',
-          team: '5c9325a54ee482318cfff623'
+          name: 'Test',
+          _id: '5c9325a54ee482318cfff625',
+          members: ['5c7cce688ea80f18b47d5976']
         }
-      ] as User;
+      ] as Team;
     });
 
     it('should be created', () => {
@@ -577,45 +575,15 @@ describe('ApiService', () => {
     });
 
     it('should return expected users (called once)', () => {
-      dummyUserData.validate(function(err) {
-        expect(err.errors.name).toBeNull;
-      });
-      service.getMembersOfTeam('5c7cce688ea80f18b47d5976').subscribe(Team => {
-        // expect(Team.length).toBe(1);
-        expect(Team).toEqual(dummyUserData, '5c9325a54ee482318cfff623');
-      });
+      service
+        .getMembersOfTeam('5c9325a54ee482318cfff625')
+        .subscribe(members => {
+          expect(members).toEqual(dummyTeamData, '5c7cce688ea80f18b47d5976');
+        });
 
-      const req = httpTestingController.expectOne(
-        `${service.apiUrl}/teams/${dummyUserData[0].id}/members`
-      );
-      expect(req.request.method).toBe('GET');
-      req.flush(dummyUserData['team']);
+      httpTestingController
+        .expectOne(`${service.apiUrl}/teams/${dummyTeamData[0]._id}/members`)
+        .flush(dummyTeamData);
     });
-
-    // it('should not be able to return user', () => {
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe(Users => {
-    //     expect(Users.length).toEqual(0);
-    //     fail
-    //   });
-
-    //   const req = httpTestingController.expectOne(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-    //   req.flush([]);
-    // });
-
-    // it('should return expected user values with various setups', () => {
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe();
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe();
-    //   service.getUser('5ca561173f69332cccc3860f').subscribe(
-    //     user => expect(user).toEqual(dummyUserData),
-    //     fail
-    //   );
-
-    //   const req = httpTestingController.match(service.apiUrl + '/users/5ca561173f69332cccc3860f');
-    //   expect(req.length).toEqual(3);
-
-    //   req[0].flush([]);
-    //   req[1].flush([{id: 1, name: 'test'}]);
-    //   req[2].flush(dummyUserData);
-    // });
   });
 });

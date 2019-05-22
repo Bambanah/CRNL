@@ -48,7 +48,8 @@ describe('SignupComponent', () => {
   it(`should have submit button be able to sumbit with compete form`, () => {
     component.ngOnInit;
     component.signupForm.controls['email'].setValue('test@test.com');
-    component.signupForm.controls['full_name'].setValue('Bill');
+    component.signupForm.controls['first_name'].setValue('Bill');
+    component.signupForm.controls['last_name'].setValue('Gates');
     component.signupForm.controls['major'].setValue('Computer Science');
     component.signupForm.controls['minor'].setValue('minor');
     component.signupForm.controls['password'].setValue('password');
@@ -69,7 +70,8 @@ describe('SignupComponent', () => {
   it(`should have signupForm be valid with completed form`, async(() => {
     component.ngOnInit;
     component.signupForm.controls['email'].setValue('test@test.com');
-    component.signupForm.controls['full_name'].setValue('Bill');
+    component.signupForm.controls['first_name'].setValue('Bill');
+    component.signupForm.controls['last_name'].setValue('Gates');
     component.signupForm.controls['major'].setValue('Computer Science');
     component.signupForm.controls['minor'].setValue('minor');
     component.signupForm.controls['password'].setValue('password');
@@ -105,12 +107,21 @@ describe('SignupComponent', () => {
     });
   });
 
-  it(`should have signupForm's full_name reflect form component #full_name`, () => {
-    el = fixture.debugElement.query(By.css('#full_name')).nativeElement;
+  it(`should have signupForm's first_name reflect form component #first_name`, () => {
+    el = fixture.debugElement.query(By.css('#first_name')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(component.signupForm.get('full_name').value).toEqual('');
+      expect(component.signupForm.get('first_name').value).toEqual('');
+    });
+  });
+
+  it(`should have signupForm's last_name reflect form component #last_name`, () => {
+    el = fixture.debugElement.query(By.css('#last_name')).nativeElement;
+    el.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.signupForm.get('last_name').value).toEqual('');
     });
   });
 

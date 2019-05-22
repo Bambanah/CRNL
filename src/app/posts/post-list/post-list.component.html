@@ -8,12 +8,12 @@
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.content }}</p>
         <p class="card-text">
-          <small class="text-muted"
-            >Posted {{ post.createdAt }} by
-            <a href="/users/{{ post.author._id }}">{{
-              post.author.full_name
-            }}</a></small
-          >
+          <small class="text-muted">
+            Posted {{ post.createdAt }} by
+            <a href="/users/{{ post.author._id }}">
+              {{ post.author.full_name }}
+            </a>
+          </small>
         </p>
       </div>
     </div>

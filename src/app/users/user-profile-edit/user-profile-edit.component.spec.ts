@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfileEditComponent } from './user-profile-edit.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('UserProfileEditComponent', () => {
   let component: UserProfileEditComponent;
@@ -8,7 +13,14 @@ describe('UserProfileEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [UserProfileEditComponent]
+      declarations: [UserProfileEditComponent, LoadingComponent],
+      imports: [
+        FontAwesomeModule,
+        ReactiveFormsModule,
+        FormsModule,
+        RouterTestingModule,
+        HttpClientModule
+      ]
     }).compileComponents();
   }));
 

@@ -27,7 +27,9 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.inTeam = this.auth.currentUser.team != undefined;
+    if (this.auth.currentUser) {
+      this.inTeam = this.auth.currentUser.team != undefined;
+    }
 
     this.api.getStudents().subscribe(
       res => {

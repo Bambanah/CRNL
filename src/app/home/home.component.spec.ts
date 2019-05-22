@@ -15,6 +15,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostListComponent } from '../posts/post-list/post-list.component';
 import { PostCreateComponent } from '../posts/post-create/post-create.component';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { CreateTeamPostComponent } from '../posts/create-team-post/create-team-post.component';
+import { CreateStudentPostComponent } from '../posts/create-student-post/create-student-post.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -26,7 +30,10 @@ describe('HomeComponent', () => {
         HomeComponent,
         SearchBarComponent,
         PostListComponent,
-        PostCreateComponent
+        PostCreateComponent,
+        LoadingComponent,
+        CreateTeamPostComponent,
+        CreateStudentPostComponent
       ],
       imports: [
         RouterTestingModule,
@@ -38,7 +45,8 @@ describe('HomeComponent', () => {
         MatTableModule,
         HttpClientTestingModule,
         BrowserAnimationsModule,
-        MatIconModule
+        MatIconModule,
+        FontAwesomeModule
       ]
     }).compileComponents();
   }));

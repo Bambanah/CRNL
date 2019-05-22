@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const SkillSchema = new mongoose.Schema(
+const SkillSchema = new Schema(
   {
     name: {
       type: String,
@@ -8,13 +9,14 @@ const SkillSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ['Skill', 'Language', 'Talent', 'Other'],
+      enum: ['language', 'framework', 'talent', 'other'],
       required: true
     },
-    description: {
-      type: String,
-      required: false
-    },
+    // TODO: Maybe add this in later
+    // description: {
+    //   type: String,
+    //   required: false
+    // },
     members: {
       type: [
         {

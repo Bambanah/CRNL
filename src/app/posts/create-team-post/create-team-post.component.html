@@ -29,6 +29,10 @@
       <div class="col form-group">
         <label for="contentInput" class="section-title">
           Describe Your Ideal Team
+          <ul id="team-description-list">
+            <li>What kind of project do you want?</li>
+            <li>What mark are you aiming for?</li>
+          </ul>
         </label>
         <textarea
           rows="3"
@@ -40,69 +44,7 @@
         ></textarea>
       </div>
     </div>
-    <div class="row disclaimer-text">
-      <div class="col">
-        <small>
-          The following skills and preferences will be saved to your profile.
-        </small>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col col-6">
-        <h3 class="section-title">Your Preferred Industries</h3>
-        <ul class="industry-list">
-          <li class="industry-item" *ngFor="let industry of industries">
-            {{ industry }}
-          </li>
-        </ul>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="industryInput"
-            placeholder="Add Industry"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary">
-              <fa-icon [icon]="faPlus" size="sm"></fa-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="col col-6">
-        <h3 class="section-title">Your Skills</h3>
-        <div class="skill-list">
-          <a
-            class="skill-card type-{{ skill.type }}"
-            *ngFor="let skill of skills"
-            routerLink="/tags/{{ skill.type }}/{{ skill.name }}"
-          >
-            <span class="skill-name">
-              {{ skill.name }}
-            </span>
-          </a>
-        </div>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="skillInput"
-            placeholder="Add Skill"
-          />
-          <select class="skill-type-select">
-            <option selected>Type</option>
-            <option value="language">Language</option>
-            <option value="framework">Framework</option>
-            <option value="other">Other</option>
-          </select>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary">
-              <fa-icon [icon]="faPlus" size="sm"></fa-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="row btn-row">
       <div class="col btn-col">
         <button
@@ -115,4 +57,74 @@
       </div>
     </div>
   </form>
+
+  <hr />
+
+  <div class="row disclaimer-text">
+    <div class="col">
+      <small>
+        The following skills and preferences will be saved to your profile.
+      </small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-6">
+      <h3 class="section-title">Your Preferred Industries</h3>
+      <ul class="industry-list">
+        <li class="industry-item" *ngFor="let industry of industries">
+          {{ industry }}
+        </li>
+      </ul>
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          id="industryInput"
+          placeholder="Add Industry"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary">
+            <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col col-6">
+      <ng-container *ngIf="!this.loading; else elseTemplate">
+        <h3 class="section-title">Your Skills</h3>
+        <div class="skill-list">
+          <a
+            class="skill-card type-{{ skill.type }}"
+            *ngFor="let skill of skills"
+            (click)="this.removeSkill(skill)"
+          >
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+          </a>
+        </div>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            id="skill-input"
+            placeholder="Add Skill"
+          />
+          <select id="skill-type-select">
+            <option value="language">Language</option>
+            <option value="framework">Framework</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" (click)="this.addSkill()">
+              <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <app-loading></app-loading>
+      </ng-template>
+    </div>
+  </div>
 </div>

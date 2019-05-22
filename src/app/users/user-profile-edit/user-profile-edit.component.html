@@ -1,120 +1,206 @@
-<div class="container">
-  <a href="/profile">&lt; back to profile</a>
-  <form>
-    <div id="personal-details" class="profile-section">
-      <div class="section-header">
-        <h1>Personal</h1>
-      </div>
-      <div class="section-content">
-        <div class="form-group row">
-          <label for="email-field" class="col-4 col-form-label">
-            Email
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="email-field"
-            value="{{ student.email }}"
-          />
-        </div>
-        <div class="form-group row">
-          <label for="first-name-field" class="col-4 col-form-label">
-            First Name
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="first-name-field"
-            value="{{ student.first_name }}"
-          />
-        </div>
-        <div class="form-group row">
-          <label for="last-name-field" class="col-4 col-form-label">
-            Last Name
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="last-name-field"
-            value="{{ student.last_name }}"
-          />
-        </div>
-      </div>
-    </div>
-    <div id="academic-details" class="profile-section">
-      <div class="section-header">
-        <h1>Academic</h1>
-      </div>
-      <div class="section-content">
-        <div class="form-group row">
-          <label for="degree-field" class="col-4 col-form-label">
-            Degree
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="degree-field"
-            value="{{ student.degree }}"
-          />
-        </div>
-
-        <div class="form-group row">
-          <label for="major-field" class="col-4 col-form-label">
-            Major
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="major-field"
-            value="{{ student.major }}"
-          />
-        </div>
-
-        <div class="form-group row">
-          <label for="minor-field" class="col-4 col-form-label">
-            Minor(s)
-          </label>
-          <input
-            type="text"
-            class="form-control col-8"
-            id="minor-field"
-            value="{{ student.minor }}"
-          />
-        </div>
-
-        <div class="form-group row">
-          <label for="gpa-field" class="col-4 col-form-label">
-            GPA
-          </label>
-          <input
-            type="text"
-            readonly
-            class="form-control-plaintext col-8"
-            id="gpa-field"
-            value="5.4{{ student.gpa }}"
-          />
-        </div>
-      </div>
-    </div>
+<ng-container *ngIf="!this.loading; else elseTemplate">
+  <div class="container">
+    <a href="/profile">&lt; back to profile</a>
     <div id="skill-details" class="profile-section">
       <div class="section-header">
         <h1>Skills</h1>
       </div>
       <div class="section-content" id="skills-content">
-        <p>Content</p>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col">
+            <div class="skill-list" *ngIf="skills.length > 0">
+              <a
+                class="skill-card type-{{ skill.type }}"
+                *ngFor="let skill of skills"
+                (click)="this.removeSkill(skill)"
+              >
+                <span class="skill-name">
+                  {{ skill.name }}
+                </span>
+              </a>
+            </div>
+            <div *ngIf="skills.length == 0">
+              You currently have no skills. Add some below!
+            </div>
+            <form (ngSubmit)="this.addSkill()">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="skill-input"
+                  placeholder="Add Skill"
+                  required
+                  aria-required="true"
+                />
+                <select id="skill-type-select" required aria-required="true">
+                  <option value="other">Other</option>
+                  <option value="language">Language</option>
+                  <option value="framework">Framework</option>
+                </select>
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="submit">
+                    <fa-icon [icon]="faPlus" size="sm"></fa-icon>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    <div id="privacy-details" class="profile-section">
-      <div class="section-header">
-        <h1>Privacy</h1>
+    <form (ngSubmit)="this.personalSubmit()" [formGroup]="profileForm">
+      <div id="personal-details" class="profile-section">
+        <div class="section-header">
+          <h1>Personal</h1>
+        </div>
+        <div class="section-content">
+          <div class="form-group row">
+            <label class="col-4 col-form-label">
+              Academic Email
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              readonly
+              value="{{
+                student.name.first +
+                  '.' +
+                  student.name.last +
+                  '@connect.qut.edu.au'
+              }}"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="email-field" class="col-4 col-form-label">
+              Contact Email
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="email-field"
+              formControlName="email"
+              required
+            />
+          </div>
+          <div class="form-group row">
+            <label for="first-name-field" class="col-4 col-form-label">
+              First Name
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="first-name-field"
+              formControlName="firstName"
+              required
+            />
+          </div>
+          <div class="form-group row">
+            <label for="last-name-field" class="col-4 col-form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="last-name-field"
+              formControlName="lastName"
+              required
+            />
+          </div>
+        </div>
       </div>
-      <div class="section-content" id="privacy-content">
-        <p>Content</p>
-      </div>
-    </div>
 
-    <div id="button-section" class="profile-section">
-      <a id="update-button" href="javascript:void(0);">Update Details</a>
-    </div>
-  </form>
-</div>
+      <div id="academic-details" class="profile-section">
+        <div class="section-header">
+          <h1>Academic</h1>
+        </div>
+        <div class="section-content">
+          <div class="form-group row">
+            <label for="degree-field" class="col-4 col-form-label">
+              Degree
+            </label>
+            <input
+              type="text"
+              readonly
+              class="form-control col-8"
+              id="degree-field"
+              value="Information Technology"
+            />
+          </div>
+
+          <div class="form-group row">
+            <label for="major-field" class="col-4 col-form-label">
+              Major
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="major-field"
+              value="{{ student.major }}"
+              formControlName="major"
+            />
+          </div>
+
+          <div class="form-group row">
+            <label for="minor-field" class="col-4 col-form-label">
+              Minor(s)
+            </label>
+            <div class="input-group col-8">
+              <input
+                type="text"
+                class="form-control"
+                id="minor-field"
+                value="{{ student.minors.first }}"
+                formControlName="firstMinor"
+              />
+              <input
+                type="text"
+                class="form-control"
+                id="minor-field"
+                value="{{ student.minors.second }}"
+                formControlName="secondMinor"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="gpa-field" class="col-4 col-form-label">
+              GPA
+            </label>
+            <input
+              type="text"
+              readonly
+              class="form-control-plaintext col-8"
+              id="gpa-field"
+              value="5.4{{ student.gpa }}"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="privacy-details" class="profile-section">
+        <div class="section-header">
+          <h1>Privacy</h1>
+        </div>
+        <div class="section-content" id="privacy-content">
+          <p>Content</p>
+        </div>
+      </div>
+
+      <div class="row btn-row">
+        <div class="col">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!profileForm.valid || !profileForm.dirty"
+          >
+            Update Details
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <app-loading></app-loading>
+</ng-template>

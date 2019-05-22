@@ -48,21 +48,21 @@ describe('StaffDashboardComponent', () => {
     console.log(component['api'].getStudents());
   });
 
-  it('should see what happens', async(() => {
-    const students = ['Bob', 'Mark'];
-    fixture
-      .whenStable()
-      .then(() => {
-        expect(component.students).toBeDefined();
-        expect(component.students.length).toEqual(0);
-        // setTimeout( () => api.next( students ), 3000 );
-        return fixture.whenStable();
-      })
-      .then(() => {
-        expect(component.students.length).toEqual(2);
-        expect(component.students).toEqual(students);
-      });
-  }));
+  // it('should see what happens', async(() => {
+  //   const students = ['Bob', 'Mark'];
+  //   fixture
+  //     .whenStable()
+  //     .then(() => {
+  //       expect(component.students).toBeDefined();
+  //       expect(component.students.length).toEqual(0);
+  //       // setTimeout( () => api.next( students ), 3000 );
+  //       return fixture.whenStable();
+  //     })
+  //     .then(() => {
+  //       expect(component.students.length).toEqual(2);
+  //       expect(component.students).toEqual(students);
+  //     });
+  // }));
 
   it('should see what happensg', () => {
     var container = document.getElementById('container');
