@@ -59,7 +59,7 @@ router.put('/users/:id', function(req, res, next) {
   });
 });
 
-router.put('/users/:id/add-skills', function(req, res, next) {
+router.put('/users/:id/skills/add', function(req, res, next) {
   Student.findById(req.params.id, function(err, student) {
     if (err) return next(err);
 
@@ -74,25 +74,37 @@ router.put('/users/:id/add-skills', function(req, res, next) {
 
         if (count == 0) {
           // If no existing skills are found, create new
-          Skill.create(skillToAdd, function(err, createdSkill) {
+          Skill.create(skillToAdd, function(err, skill) {
             if (err) return next(err);
-            if (!student.skills.includes(createdSkill._id)) {
-              student.skills.push(createdSkill._id);
+            if (!student.skills.includes(skill._id)) {
+              student.skills.push(skill._id);
               student.save();
-              res.json(student);
+
+              if (!skill.members.includes(student._id)) {
+                skill.members.push(student._id);
+                skill.save();
+              }
+
+              res.json(skill);
             } else {
               console.warn('Skill already added to student');
             }
           });
         } else {
           // If existing skill is found, add that skill
-          Skill.findOne({ name: skillToAdd.name }, function(err, foundSkill) {
+          Skill.findOne({ name: skillToAdd.name }, function(err, skill) {
             if (err) return next(err);
 
-            if (!student.skills.includes(foundSkill._id)) {
-              student.skills.push(foundSkill._id);
+            if (!student.skills.includes(skill._id)) {
+              student.skills.push(skill._id);
               student.save();
-              res.json(student);
+
+              if (!skill.members.includes(student._id)) {
+                skill.members.push(student._id);
+                skill.save();
+              }
+
+              res.json(skill);
             } else {
               console.warn('Skill already added to student');
             }
@@ -100,6 +112,33 @@ router.put('/users/:id/add-skills', function(req, res, next) {
         }
       }
     );
+  });
+});
+
+router.put('/users/:id/skills/remove', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    console.log(req.body._id);
+    const skillIdToRemove = req.body._id;
+
+    Skill.findById(skillIdToRemove, function(err, skill) {
+      if (err) return next(err);
+
+      // Remove skill from student document
+      student.skills = student.skills.filter(function(skillId) {
+        return !skillId.equals(skillIdToRemove);
+      });
+      student.save();
+
+      console.log('skill.members: ', skill.members.length);
+      // Remove student as an ownder of this skill
+      skill.members = skill.members.filter(function(studentId) {
+        return !studentId.equals(student._id);
+      });
+      skill.save();
+      console.log('skill.members: ', skill.members.length);
+    });
   });
 });
 

@@ -114,7 +114,7 @@
               <a
                 class="skill-card type-{{ skill.type }}"
                 *ngFor="let skill of skills"
-                (click)="this.removeSkill()"
+                (click)="this.removeSkill(skill)"
               >
                 <span class="skill-name">
                   {{ skill.name }}

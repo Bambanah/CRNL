@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/_services/auth.service';
 import Student from 'src/app/_models/users/Student.js';
 
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { NgControlStatusGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile-edit',
@@ -33,7 +32,6 @@ export class UserProfileEditComponent implements OnInit {
         this.student = data;
         this.skills = data.skills;
         this.loading = false;
-        console.log(this.skills);
       },
       err => {
         console.error(err);
@@ -55,11 +53,9 @@ export class UserProfileEditComponent implements OnInit {
 
     const skillData = { name: skillName, type: skillType };
 
-    this.skills.push(skillData);
-
     this.api.addSkillToStudent(this.student.id, skillData).subscribe(
       data => {
-        console.log('Skill added');
+        this.skills.push(data);
       },
       err => {
         console.error(err);
@@ -67,5 +63,17 @@ export class UserProfileEditComponent implements OnInit {
     );
   }
 
-  removeSkill() {}
+  removeSkill(skill: any) {
+    this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
+      data => {
+        console.log('Skill removed');
+      },
+      err => {
+        console.error(err);
+      }
+    );
+    this.skills = this.skills.filter(function(arraySkill) {
+      return arraySkill._id != skill._id;
+    });
+  }
 }
