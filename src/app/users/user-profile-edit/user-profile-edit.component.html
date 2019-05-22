@@ -1,107 +1,6 @@
 <div class="container">
   <ng-container *ngIf="!this.loading; else elseTemplate">
     <a href="/profile">&lt; back to profile</a>
-
-    <div id="personal-details" class="profile-section">
-      <div class="section-header">
-        <h1>Personal</h1>
-      </div>
-      <div class="section-content">
-        <form>
-          <div class="form-group row">
-            <label for="email-field" class="col-4 col-form-label">
-              Email
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="email-field"
-              value="{{ student.email }}"
-            />
-          </div>
-          <div class="form-group row">
-            <label for="first-name-field" class="col-4 col-form-label">
-              First Name
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="first-name-field"
-              value="{{ student.name.first }}"
-            />
-          </div>
-          <div class="form-group row">
-            <label for="last-name-field" class="col-4 col-form-label">
-              Last Name
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="last-name-field"
-              value="{{ student.name.last }}"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div id="academic-details" class="profile-section">
-      <div class="section-header">
-        <h1>Academic</h1>
-      </div>
-      <div class="section-content">
-        <form>
-          <div class="form-group row">
-            <label for="degree-field" class="col-4 col-form-label">
-              Degree
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="degree-field"
-              value="{{ student.degree }}"
-            />
-          </div>
-
-          <div class="form-group row">
-            <label for="major-field" class="col-4 col-form-label">
-              Major
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="major-field"
-              value="{{ student.major }}"
-            />
-          </div>
-
-          <div class="form-group row">
-            <label for="minor-field" class="col-4 col-form-label">
-              Minor(s)
-            </label>
-            <input
-              type="text"
-              class="form-control col-8"
-              id="minor-field"
-              value="{{ student.minor }}"
-            />
-          </div>
-
-          <div class="form-group row">
-            <label for="gpa-field" class="col-4 col-form-label">
-              GPA
-            </label>
-            <input
-              type="text"
-              readonly
-              class="form-control-plaintext col-8"
-              id="gpa-field"
-              value="5.4{{ student.gpa }}"
-            />
-          </div>
-        </form>
-      </div>
-    </div>
     <div id="skill-details" class="profile-section">
       <div class="section-header">
         <h1>Skills</h1>
@@ -150,18 +49,155 @@
         </div>
       </div>
     </div>
-    <div id="privacy-details" class="profile-section">
-      <div class="section-header">
-        <h1>Privacy</h1>
+    <form (ngSubmit)="this.personalSubmit()" [formGroup]="personalForm">
+      <div id="personal-details" class="profile-section">
+        <div class="section-header">
+          <h1>Personal</h1>
+        </div>
+        <div class="section-content">
+          <div class="form-group row">
+            <label class="col-4 col-form-label">
+              Academic Email
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              readonly
+              value="{{
+                student.name.first +
+                  '.' +
+                  student.name.last +
+                  '@connect.qut.edu.au'
+              }}"
+            />
+          </div>
+          <div class="form-group row">
+            <label for="email-field" class="col-4 col-form-label">
+              Contact Email
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="email-field"
+              formControlName="email"
+              required
+            />
+          </div>
+          <div class="form-group row">
+            <label for="first-name-field" class="col-4 col-form-label">
+              First Name
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="first-name-field"
+              formControlName="firstName"
+              required
+            />
+          </div>
+          <div class="form-group row">
+            <label for="last-name-field" class="col-4 col-form-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="last-name-field"
+              formControlName="lastName"
+              required
+            />
+          </div>
+        </div>
       </div>
-      <div class="section-content" id="privacy-content">
-        <p>Content</p>
-      </div>
-    </div>
 
-    <div id="button-section" class="profile-section">
-      <a id="update-button" href="javascript:void(0);">Update Details</a>
-    </div>
+      <div id="academic-details" class="profile-section">
+        <div class="section-header">
+          <h1>Academic</h1>
+        </div>
+        <div class="section-content">
+          <div class="form-group row">
+            <label for="degree-field" class="col-4 col-form-label">
+              Degree
+            </label>
+            <input
+              type="text"
+              readonly
+              class="form-control col-8"
+              id="degree-field"
+              value="Information Technology"
+            />
+          </div>
+
+          <div class="form-group row">
+            <label for="major-field" class="col-4 col-form-label">
+              Major
+            </label>
+            <input
+              type="text"
+              class="form-control col-8"
+              id="major-field"
+              value="{{ student.major }}"
+              formControlName="major"
+            />
+          </div>
+
+          <div class="form-group row">
+            <label for="minor-field" class="col-4 col-form-label">
+              Minor(s)
+            </label>
+            <div class="input-group col-8">
+              <input
+                type="text"
+                class="form-control"
+                id="minor-field"
+                value="{{ student.minors.first }}"
+                formControlName="firstMinor"
+              />
+              <input
+                type="text"
+                class="form-control"
+                id="minor-field"
+                value="{{ student.minors.second }}"
+                formControlName="secondMinor"
+              />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="gpa-field" class="col-4 col-form-label">
+              GPA
+            </label>
+            <input
+              type="text"
+              readonly
+              class="form-control-plaintext col-8"
+              id="gpa-field"
+              value="5.4{{ student.gpa }}"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div id="privacy-details" class="profile-section">
+        <div class="section-header">
+          <h1>Privacy</h1>
+        </div>
+        <div class="section-content" id="privacy-content">
+          <p>Content</p>
+        </div>
+      </div>
+
+      <div class="row btn-row">
+        <div class="col">
+          <button
+            type="submit"
+            [disabled]="!personalForm.valid || !personalForm.dirty"
+          >
+            Update Details
+          </button>
+        </div>
+      </div>
+    </form>
   </ng-container>
   <ng-template #elseTemplate>
     <app-loading></app-loading>
