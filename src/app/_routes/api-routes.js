@@ -7,6 +7,7 @@ const Post = require('../_models/Post');
 const User = require('../_models/users/User');
 const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
+const Skill = require('../_models/Skill');
 
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
@@ -39,10 +40,12 @@ router.get('/users/', function(req, res, next) {
 
 // Get single user
 router.get('/users/:id', function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
-    if (err) return next(err);
-    res.json(user);
-  });
+  Student.findById(req.params.id)
+    .populate('skills')
+    .exec(function(err, user) {
+      if (err) return next(err);
+      res.json(user);
+    });
 });
 
 // Update single user
@@ -53,6 +56,86 @@ router.put('/users/:id', function(req, res, next) {
   ) {
     if (err) return next(err);
     res.json(Student);
+  });
+});
+
+router.put('/users/:id/skills/add', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    const skillToAdd = req.body;
+
+    // Get count of documents matching provided type and name.
+    // If document is found, add it. Otherwise create a new one and add that.
+    Skill.countDocuments(
+      { name: skillToAdd.name, type: skillToAdd.type },
+      function(err, count) {
+        if (err) return next(err);
+
+        if (count == 0) {
+          // If no existing skills are found, create new
+          Skill.create(skillToAdd, function(err, skill) {
+            if (err) return next(err);
+            if (!student.skills.includes(skill._id)) {
+              student.skills.push(skill._id);
+              student.save();
+
+              if (!skill.members.includes(student._id)) {
+                skill.members.push(student._id);
+                skill.save();
+              }
+
+              res.json(skill);
+            } else {
+              console.warn('Skill already added to student');
+            }
+          });
+        } else {
+          // If existing skill is found, add that skill
+          Skill.findOne({ name: skillToAdd.name }, function(err, skill) {
+            if (err) return next(err);
+
+            if (!student.skills.includes(skill._id)) {
+              student.skills.push(skill._id);
+              student.save();
+
+              if (!skill.members.includes(student._id)) {
+                skill.members.push(student._id);
+                skill.save();
+              }
+
+              res.json(skill);
+            } else {
+              console.warn('Skill already added to student');
+            }
+          });
+        }
+      }
+    );
+  });
+});
+
+router.put('/users/:id/skills/remove', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    const skillIdToRemove = req.body._id;
+
+    Skill.findById(skillIdToRemove, function(err, skill) {
+      if (err) return next(err);
+
+      // Remove skill from student document
+      student.skills = student.skills.filter(function(skillId) {
+        return !skillId.equals(skillIdToRemove);
+      });
+      student.save();
+
+      // Remove student as an owner of this skill
+      skill.members = skill.members.filter(function(studentId) {
+        return !studentId.equals(student._id);
+      });
+      skill.save();
+    });
   });
 });
 
@@ -289,7 +372,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
 // Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
-    .populate('author', 'full_name')
+    .populate('author')
     .sort('-updatedAt')
     .exec(function(err, posts) {
       if (err) return next(err);

@@ -32,16 +32,9 @@ export class CreateTeamPostComponent implements OnInit {
   faTimes = faTimes;
 
   // Mock skills
-  skills = [
-    { name: 'JavaScript', type: 'language' },
-    { name: 'HTML', type: 'language' },
-    { name: 'C#', type: 'language' },
-    { name: 'CSS', type: 'language' },
-    { name: 'Angular', type: 'framework' },
-    { name: 'Node.js', type: 'framework' },
-    { name: 'Maven', type: 'framework' },
-    { name: 'Other', type: 'other' }
-  ];
+  loading = true;
+  student: any;
+  skills = [];
 
   industries = ['Design', 'Full-Stack Development', 'Finance'];
 
@@ -70,7 +63,50 @@ export class CreateTeamPostComponent implements OnInit {
     });
   }
 
+  addSkill() {
+    let skillName = (<HTMLInputElement>document.getElementById('skill-input'))
+      .value;
+    let skillType = (<HTMLInputElement>(
+      document.getElementById('skill-type-select')
+    )).value;
+
+    const skillData = { name: skillName, type: skillType };
+
+    this.api.addSkillToStudent(this.student.id, skillData).subscribe(
+      data => {
+        this.skills.push(data);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  removeSkill(skill: any) {
+    this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
+      data => {
+        console.log('Skill removed');
+      },
+      err => {
+        console.error(err);
+      }
+    );
+    this.skills = this.skills.filter(function(arraySkill) {
+      return arraySkill._id != skill._id;
+    });
+  }
+
   ngOnInit() {
+    this.api.getUser(this.auth.currentUserId).subscribe(
+      data => {
+        this.student = data;
+        this.skills = data.skills;
+        this.loading = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
     this.teamPostForm = this.formBuilder.group({
       title: [null, Validators.required],
       content: [null, Validators.required]

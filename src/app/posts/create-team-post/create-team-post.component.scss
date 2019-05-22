@@ -39,7 +39,6 @@ $color-framework: rgb(183, 39, 39);
 
   .skill-list {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
     padding-bottom: 20px;
 
@@ -50,6 +49,7 @@ $color-framework: rgb(183, 39, 39);
       padding: 0 10px;
       margin-bottom: 5px;
       cursor: pointer;
+      margin: 3px 5px;
 
       span {
         font-family: $font-family-2;

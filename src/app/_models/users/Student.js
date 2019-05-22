@@ -1,4 +1,5 @@
 const User = require('./User');
+require('../Skill');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -11,17 +12,15 @@ User.discriminator(
       enum: ['Computer Science', 'Information Systems', ''],
       default: ''
     },
-    minor: {
-      type: String,
-      enum: ['Intelligent Systems', 'User Experience', ''],
-      default: ''
+    minors: {
+      first: String,
+      second: String
     },
     skills: {
       type: [
         {
-          type: Schema.Types.Array,
-          ref: 'Skill',
-          default: undefined
+          type: Schema.Types.ObjectId,
+          ref: 'Skill'
         }
       ]
     },
