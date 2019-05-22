@@ -63,6 +63,39 @@ export class CreateTeamPostComponent implements OnInit {
     });
   }
 
+  addSkill() {
+    let skillName = (<HTMLInputElement>document.getElementById('skill-input'))
+      .value;
+    let skillType = (<HTMLInputElement>(
+      document.getElementById('skill-type-select')
+    )).value;
+
+    const skillData = { name: skillName, type: skillType };
+
+    this.api.addSkillToStudent(this.student.id, skillData).subscribe(
+      data => {
+        this.skills.push(data);
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  removeSkill(skill: any) {
+    this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
+      data => {
+        console.log('Skill removed');
+      },
+      err => {
+        console.error(err);
+      }
+    );
+    this.skills = this.skills.filter(function(arraySkill) {
+      return arraySkill._id != skill._id;
+    });
+  }
+
   ngOnInit() {
     this.api.getUser(this.auth.currentUserId).subscribe(
       data => {
