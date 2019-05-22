@@ -48,7 +48,7 @@ export class UserProfileEditComponent implements OnInit {
           secondMinor: new FormControl(this.student.minors.second)
         });
 
-        this.loading = false;
+        // this.loading = false;
       },
       err => {
         console.error(err);

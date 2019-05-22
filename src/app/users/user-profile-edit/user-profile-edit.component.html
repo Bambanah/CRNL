@@ -1,5 +1,5 @@
-<div class="container">
-  <ng-container *ngIf="!this.loading; else elseTemplate">
+<ng-container *ngIf="!this.loading; else elseTemplate">
+  <div class="container">
     <a href="/profile">&lt; back to profile</a>
     <div id="skill-details" class="profile-section">
       <div class="section-header">
@@ -199,8 +199,8 @@
         </div>
       </div>
     </form>
-  </ng-container>
-  <ng-template #elseTemplate>
-    <app-loading></app-loading>
-  </ng-template>
-</div>
+  </div>
+</ng-container>
+<ng-template #elseTemplate>
+  <app-loading></app-loading>
+</ng-template>

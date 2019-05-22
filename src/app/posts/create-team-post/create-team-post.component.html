@@ -85,8 +85,8 @@
         </div>
       </div>
     </div>
-    <ng-container *ngIf="!this.loading; else elseTemplate">
-      <div class="col col-6">
+    <div class="col col-6">
+      <ng-container *ngIf="!this.loading; else elseTemplate">
         <h3 class="section-title">Your Skills</h3>
         <div class="skill-list">
           <a
@@ -117,10 +117,10 @@
             </button>
           </div>
         </div>
-      </div>
-    </ng-container>
-    <ng-template #elseTemplate>
-      <app-loading></app-loading>
-    </ng-template>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <app-loading></app-loading>
+      </ng-template>
+    </div>
   </div>
 </div>
