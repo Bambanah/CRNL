@@ -49,24 +49,33 @@
         </p>
         <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
         <div class="team-actions" *ngIf="!this.isSelf">
-          <li *ngIf="!this.inTeam && !this.selfInTeam">
-            <a (click)="createTeam()" href="javascript:void(0);">
-              Create team with {{ user.full_name }}
-            </a>
-          </li>
-          <li *ngIf="!this.inTeam && this.selfInTeam">
-            <a (click)="addToTeam()" href="javascript:void(0);">
-              Invite {{ user.full_name }} to team
-            </a>
-          </li>
-          <li *ngIf="this.sameTeam">
-            <a (click)="removeFromTeam()" href="javascript:void(0);">
-              Remove from team
-            </a>
-          </li>
+          <button
+            class="btn btn-primary"
+            (click)="inviteToTeam('create')"
+            href="javascript:void(0);"
+            *ngIf="!this.inTeam && !this.selfInTeam"
+          >
+            Create team with {{ user.full_name }}
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="inviteToTeam('add')"
+            href="javascript:void(0);"
+            *ngIf="!this.inTeam && this.selfInTeam"
+          >
+            Invite {{ user.full_name }} to team
+          </button>
+          <button
+            class="btn btn-primary"
+            (click)="removeFromTeam()"
+            href="javascript:void(0);"
+            *ngIf="this.sameTeam"
+          >
+            Remove from team
+          </button>
           <li *ngIf="this.inTeam">This user is already in a team.</li>
           <li *ngIf="this.inTeam">
-            <a (click)="addToTeam()" href="javascript:void(0);">
+            <a (click)="inviteToTeam('add')" href="javascript:void(0);">
               Invite anyway
             </a>
           </li>

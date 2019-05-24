@@ -145,6 +145,19 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  inviteToTeam(userId: string, invitationType: string) {
+    const url = `${this.apiUrl}/users/invite`;
+    const data = {
+      hostId: this.auth.currentUserId,
+      guestId: userId,
+      invitationType: invitationType
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   addToTeam(userId: string) {
     const url = `${this.apiUrl}/teams/add/`;
     const data = {

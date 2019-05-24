@@ -148,6 +148,32 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   });
 });
 
+router.post('/users/invite', function(req, res, next) {
+  const { hostId, guestId, invitationType } = req.body;
+  console.log(req.body);
+
+  if (invitationType == 'create' || invitationType == 'add') {
+    // Invite student to create a team
+
+    Student.findById(guestId, function(err, student) {
+      if (err) return next(err);
+
+      if (
+        student.invitations.filter(x =>
+          x.invitedById.toString().includes(hostId)
+        )
+      ) {
+        res.status(300).json('Student already has an identical invitation');
+      } else {
+        student.inviteTeam(invitationType, hostId);
+        res.status(201).json('User invited to create team');
+      }
+    });
+  } else {
+    res.status(300).json('No invitation type specified');
+  }
+});
+
 //
 //  Authentication
 //

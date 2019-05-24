@@ -59,37 +59,43 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  createTeam() {
-    const user_id = this.userId;
-    const logged_id = this.auth.currentUserId;
+  // TODO: Remove this function once inviteToTeam is implemented
+  //
+  // createTeam() {
+  //   const user_id = this.userId;
+  //   const logged_id = this.auth.currentUserId;
 
-    if (this.sameTeam) {
-      console.warn('Students are on the same team');
-      return;
-    } else if (this.inTeam || this.selfInTeam) {
-      console.warn('One or more students are already in a team');
-      return;
-    } else {
-      const data = [user_id, logged_id];
-      this.api.createTeam(data).subscribe(team => {
-        const teamId = team._id;
-        this.router.navigate([`/teams/${teamId}`]);
-      });
-    }
-  }
+  //   if (this.sameTeam) {
+  //     console.warn('Students are on the same team');
+  //     return;
+  //   } else if (this.inTeam || this.selfInTeam) {
+  //     console.warn('One or more students are already in a team');
+  //     return;
+  //   } else {
+  //     const data = [user_id, logged_id];
+  //     this.api.createTeam(data).subscribe(team => {
+  //       const teamId = team._id;
+  //       this.router.navigate([`/teams/${teamId}`]);
+  //     });
+  //   }
+  // }
 
-  addToTeam() {
-    if (!this.selfInTeam) {
+  inviteToTeam(invitationType: string) {
+    if (!this.selfInTeam && invitationType != 'create') {
       console.warn('Current user is not in a team');
       return;
     } else if (this.sameTeam) {
       console.warn('Users already in same team');
       return;
     } else {
-      this.api.addToTeam(this.userId).subscribe(err => {
-        console.error(err);
-      });
-      window.location.reload();
+      this.api.inviteToTeam(this.userId, invitationType).subscribe(
+        data => {
+          console.log(data);
+        },
+        err => {
+          console.error(err);
+        }
+      );
     }
   }
 
