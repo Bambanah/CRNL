@@ -9,6 +9,15 @@ const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
 const Skill = require('../_models/Skill');
 
+// router.get('/validate/', function(req, res, next) {
+//   const students = Student.find();
+//   const teams = Team.find();
+
+//   students.forEach(student => {
+//     console.log(student);
+//   });
+// });
+
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
   res.send('API Test');
@@ -137,6 +146,32 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
       skill.save();
     });
   });
+});
+
+router.post('/users/invite', function(req, res, next) {
+  const { hostId, guestId, invitationType } = req.body;
+  console.log(req.body);
+
+  if (invitationType == 'create' || invitationType == 'add') {
+    // Invite student to create a team
+
+    Student.findById(guestId, function(err, student) {
+      if (err) return next(err);
+
+      if (
+        student.invitations.filter(x =>
+          x.invitedById.toString().includes(hostId)
+        )
+      ) {
+        res.status(300).json('Student already has an identical invitation');
+      } else {
+        student.inviteTeam(invitationType, hostId);
+        res.status(201).json('User invited to create team');
+      }
+    });
+  } else {
+    res.status(300).json('No invitation type specified');
+  }
 });
 
 //
@@ -273,6 +308,15 @@ router.post('/teams/add/', function(req, res, next) {
   const guestId = req.body.guestId;
   let teamId;
 
+  User.findById(guestId, function(err, user) {
+    if (err) return next(err);
+    if (user.team != undefined) {
+      res.status(300).json('This user is already in a team');
+    } else {
+      user.team = teamId;
+    }
+  });
+
   User.findById(hostId, function(err, user) {
     if (err) return next(err);
 
@@ -284,12 +328,6 @@ router.post('/teams/add/', function(req, res, next) {
     });
   });
 
-  User.findById(guestId, function(err, user) {
-    if (err) return next(err);
-
-    user.team = teamId;
-  });
-
   res.status(202);
 });
 
@@ -298,6 +336,7 @@ router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
   Team.findById(req.params.teamId, function(err, team) {
     if (err) return next(err);
     team.removeMember(req.params.userId);
+    team.save();
   });
 
   User.findById(req.params.userId, function(err, user) {

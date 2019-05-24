@@ -48,6 +48,10 @@ export class ApiService {
     return body || {};
   }
 
+  // validateData() {
+  //   return this.http.get(this.apiUrl + '/validate/');
+  // }
+
   getUsers() {
     return this.http.get<User[]>(this.apiUrl + '/users/');
   }
@@ -136,6 +140,19 @@ export class ApiService {
 
   createTeam(data): Observable<any> {
     const url = this.apiUrl + '/teams';
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  inviteToTeam(userId: string, invitationType: string) {
+    const url = `${this.apiUrl}/users/invite`;
+    const data = {
+      hostId: this.auth.currentUserId,
+      guestId: userId,
+      invitationType: invitationType
+    };
+
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));

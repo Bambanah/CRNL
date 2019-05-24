@@ -114,4 +114,23 @@ UserSchema.methods.getTeamId = function() {
   }
 };
 
+UserSchema.methods.inviteTeam = function(type, invitedById) {
+  if (this.__t != 'Student') {
+    return 'User is not a student';
+  } else if (type == 'create' || type == 'add') {
+    const invitation = {
+      invitedById: invitedById,
+      invitationType: type
+    };
+
+    this.invitations.push(invitation);
+    this.save();
+
+    return true;
+  } else {
+    console.warn('No invitation type specified');
+    return false;
+  }
+};
+
 module.exports = mongoose.model('User', UserSchema);
