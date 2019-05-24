@@ -48,6 +48,10 @@ export class ApiService {
     return body || {};
   }
 
+  // validateData() {
+  //   return this.http.get(this.apiUrl + '/validate/');
+  // }
+
   getUsers() {
     return this.http.get<User[]>(this.apiUrl + '/users/');
   }
