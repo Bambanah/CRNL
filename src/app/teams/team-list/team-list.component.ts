@@ -15,16 +15,7 @@ export class TeamListComponent implements OnInit {
 
   displayedColumns: string[] = ['team-name', 'members'];
   teams: Team[];
-  val = '';
   loading = true;
-
-  getNameOfUser(userId) {
-    return this.api.getUser(userId).pipe(
-      map(user => {
-        user.full_name;
-      })
-    );
-  }
 
   ngOnInit() {
     this.api.getTeams().subscribe(res => {
