@@ -279,6 +279,8 @@ router.post('/teams/', function(req, res) {
 
   // Add student IDs to team document
   const { studentId1, studentId2 } = req.body;
+  let studentName1;
+  let studentName2;
 
   newTeam.members.push(studentId1);
   newTeam.members.push(studentId2);
@@ -288,12 +290,19 @@ router.post('/teams/', function(req, res) {
     if (err) return next(err);
     student.team = newTeam._id;
     student.save();
+
+    studentName1 = student.name.first;
   });
   Student.findById(studentId2, function(err, student) {
     if (err) return next(err);
     student.team = newTeam._id;
     student.save();
+
+    studentName2 = student.name.first;
   });
+
+  // Set default name as names of first two members
+  newTeam.name = `${studentName1}, ${studentName2}`;
 
   // Save team
   newTeam.save();
