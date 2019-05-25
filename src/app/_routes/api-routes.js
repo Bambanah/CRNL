@@ -277,21 +277,21 @@ router.post('/teams/', function(req, res) {
   const newTeam = new Team();
 
   // Add student IDs to team document
-  const studentId1 = req.body[0];
-  const studentId2 = req.body[1];
+  const { studentId1, studentId2 } = req.body;
+
   newTeam.members.push(studentId1);
   newTeam.members.push(studentId2);
 
   // Add team id to student documents
-  User.findById(req.body[0], function(err, user) {
+  Student.findById(studentId1, function(err, student) {
     if (err) return next(err);
-    user.team = newTeam._id;
-    user.save();
+    student.team = newTeam._id;
+    student.save();
   });
-  User.findById(req.body[1], function(err, user) {
+  Student.findById(studentId2, function(err, student) {
     if (err) return next(err);
-    user.team = newTeam._id;
-    user.save();
+    student.team = newTeam._id;
+    student.save();
   });
 
   // Save team

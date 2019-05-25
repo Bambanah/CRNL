@@ -45,7 +45,11 @@ export class UserProfileComponent implements OnInit {
     },
     major: '',
     minor: '',
-    team: ''
+    team: '',
+    invitations: {
+      invitedById: '',
+      invitationType: ''
+    }
   };
 
   ngOnInit() {
@@ -96,27 +100,6 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  // TODO: Remove this function once inviteToTeam is implemented
-  //
-  // createTeam() {
-  //   const user_id = this.userId;
-  //   const logged_id = this.auth.currentUserId;
-
-  //   if (this.sameTeam) {
-  //     console.warn('Students are on the same team');
-  //     return;
-  //   } else if (this.inTeam || this.selfInTeam) {
-  //     console.warn('One or more students are already in a team');
-  //     return;
-  //   } else {
-  //     const data = [user_id, logged_id];
-  //     this.api.createTeam(data).subscribe(team => {
-  //       const teamId = team._id;
-  //       this.router.navigate([`/teams/${teamId}`]);
-  //     });
-  //   }
-  // }
-
   inviteToTeam(invitationType: string) {
     if (!this.selfInTeam && invitationType != 'create') {
       console.warn('Current user is not in a team');
@@ -134,6 +117,10 @@ export class UserProfileComponent implements OnInit {
         }
       );
     }
+  }
+
+  acceptInvitation(invitationId: string) {
+    this.api.acceptInvitation(this.userId, invitationId);
   }
 
   dismissInvitation() {

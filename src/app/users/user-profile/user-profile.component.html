@@ -44,52 +44,70 @@
       <div id="team-container">
         <span class="container-header">Team</span>
         <!-- TODO: Display team details -->
-        <p *ngIf="this.inTeam">
-          This user is currently in team {{ user.team }}.
-        </p>
-        <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
-        <div class="team-actions" *ngIf="!this.isSelf">
-          <div class="invited row" *ngIf="this.invitedToTeam && !this.inTeam">
-            <div class="col">
-              <p>
-                <b>Invitation Sent</b>
-              </p>
-              <a href="javascript:void(0);" (click)="this.dismissInvitation()">
-                Cancel Invitation
-              </a>
-            </div>
-          </div>
+        <div *ngIf="this.isSelf">
+          <ul>
+            <li *ngFor="let invitation of user.invitations">
+              {{ invitation.invitedById }}
+              <a
+                href="javascript:void(0)"
+                (click)="this.acceptInvitation(invitation._id)"
+                >Accept</a
+              >
+            </li>
+          </ul>
+        </div>
 
-          <button
-            class="btn btn-primary"
-            (click)="inviteToTeam('create')"
-            href="javascript:void(0);"
-            *ngIf="!this.inTeam && !this.selfInTeam && !this.invitedToTeam"
-          >
-            Invite {{ user.name.first }} to Create Team
-          </button>
-          <button
-            class="btn btn-primary"
-            (click)="inviteToTeam('add')"
-            href="javascript:void(0);"
-            *ngIf="!this.inTeam && this.selfInTeam"
-          >
-            Invite {{ user.name.first }} to Join Team
-          </button>
-          <button
-            class="btn btn-primary"
-            (click)="removeFromTeam()"
-            href="javascript:void(0);"
-            *ngIf="this.sameTeam"
-          >
-            Remove from team
-          </button>
-          <li *ngIf="this.inTeam">This user is already in a team.</li>
-          <li *ngIf="this.inTeam">
-            <a (click)="inviteToTeam('add')" href="javascript:void(0);">
-              Invite anyway
-            </a>
-          </li>
+        <div *ngIf="!this.isSelf">
+          <p *ngIf="this.inTeam">
+            This user is currently in team {{ user.team }}.
+          </p>
+          <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
+          <div class="team-actions">
+            <div class="invited row" *ngIf="this.invitedToTeam && !this.inTeam">
+              <div class="col">
+                <p>
+                  <b>Invitation Sent</b>
+                </p>
+                <a
+                  href="javascript:void(0);"
+                  (click)="this.dismissInvitation()"
+                >
+                  Cancel Invitation
+                </a>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-primary"
+              (click)="inviteToTeam('create')"
+              href="javascript:void(0);"
+              *ngIf="!this.inTeam && !this.selfInTeam && !this.invitedToTeam"
+            >
+              Invite {{ user.name.first }} to Create Team
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="inviteToTeam('add')"
+              href="javascript:void(0);"
+              *ngIf="!this.inTeam && this.selfInTeam"
+            >
+              Invite {{ user.name.first }} to Join Team
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="removeFromTeam()"
+              href="javascript:void(0);"
+              *ngIf="this.sameTeam"
+            >
+              Remove from team
+            </button>
+            <li *ngIf="this.inTeam">This user is already in a team.</li>
+            <li *ngIf="this.inTeam">
+              <a (click)="inviteToTeam('add')" href="javascript:void(0);">
+                Invite anyway
+              </a>
+            </li>
+          </div>
         </div>
       </div>
     </div>
