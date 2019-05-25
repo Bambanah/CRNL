@@ -7,6 +7,7 @@ import {
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Student } from '../../_models/users/Student.js';
 
 @Component({
   selector: 'app-user-profile',
@@ -36,21 +37,22 @@ export class UserProfileComponent implements OnInit {
 
   // Placeholder user object
   // Overwritten with getUserDetails()
-  user = {
-    email: '',
-    full_name: '',
-    name: {
-      first: '',
-      last: ''
-    },
-    major: '',
-    minor: '',
-    team: '',
-    invitations: {
-      invitedById: '',
-      invitationType: ''
-    }
-  };
+  user: Student;
+  //  = {
+  //   email: '',
+  //   full_name: '',
+  //   name: {
+  //     first: '',
+  //     last: ''
+  //   },
+  //   major: '',
+  //   minor: '',
+  //   team: '',
+  //   invitations: {
+  //     invitedById: '',
+  //     invitationType: ''
+  //   }
+  // };
 
   ngOnInit() {
     if (this.route.snapshot.data.self === true) {
