@@ -26,8 +26,14 @@
             <td>{{ user.major }}</td>
           </tr>
           <tr class="details-row">
-            <td class="left-column">Minor(s)</td>
-            <td>{{ user.minor }}</td>
+            <td class="left-column">
+              Minor<span *ngIf="user.minors.second != ''">s</span>
+            </td>
+            <td>{{ user.minors.first }}</td>
+          </tr>
+          <tr *ngIf="user.minors.second != ''" class="details-row">
+            <td></td>
+            <td>{{ user.minors.second }}</td>
           </tr>
           <tr class="details-row">
             <td class="left-column">GPA</td>
@@ -45,6 +51,8 @@
         <span class="container-header">Team</span>
         <!-- TODO: Display team details -->
         <div *ngIf="this.isSelf">
+          {{ user.team.name }}
+
           <ul>
             <li *ngFor="let invitation of user.invitations">
               {{ invitation.invitedById }}
