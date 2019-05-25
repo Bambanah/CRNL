@@ -145,8 +145,8 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  inviteToTeam(userId: string, invitationType: string) {
-    const url = `${this.apiUrl}/users/invite`;
+  sendInvitation(userId: string, invitationType: string) {
+    const url = `${this.apiUrl}/invite/send`;
     const data = {
       hostId: this.auth.currentUserId,
       guestId: userId,
@@ -158,10 +158,48 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  addToTeam(userId: string) {
+  acceptInvitation(userId: string, invitationId: string) {
+    this.getUser(userId).subscribe(data => {
+      const student = data;
+
+      const invitation = student.invitations.filter(x =>
+        x._id.toString().includes(invitationId)
+      );
+      if (invitation.length > 0) {
+        this.addToTeam(userId, invitation.invitedById);
+        this.dismissInvitation(userId, invitation.invitedById);
+      }
+    });
+
+    const url = `${this.apiUrl}/invite/accept`;
+
+    const data = {
+      userId,
+      invitationId
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  dismissInvitation(userId: string, invitedById: string) {
+    const url = `${this.apiUrl}/invite/dismiss`;
+
+    const data = {
+      invitedId: userId,
+      invitedById: invitedById
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addToTeam(userId: string, hostId: string) {
     const url = `${this.apiUrl}/teams/add/`;
     const data = {
-      hostId: this.auth.currentUserId,
+      hostId,
       guestId: userId
     };
     return this.http

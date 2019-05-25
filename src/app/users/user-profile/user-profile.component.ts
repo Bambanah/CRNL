@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,6 +30,7 @@ export class UserProfileComponent implements OnInit {
 
   inTeam: boolean;
   selfInTeam: boolean;
+  invitedToTeam: boolean;
 
   isLoaded = false;
 
@@ -37,10 +39,45 @@ export class UserProfileComponent implements OnInit {
   user = {
     email: '',
     full_name: '',
+    name: {
+      first: '',
+      last: ''
+    },
     major: '',
     minor: '',
     team: ''
   };
+
+  ngOnInit() {
+    if (this.route.snapshot.data.self === true) {
+      this.userId = this.auth.currentUserId;
+    } else {
+      this.userId = this.route.snapshot.params['id'];
+      this.currentUserId = this.auth.currentUserId;
+
+      this.api.getUser(this.userId).subscribe(user => {
+        this.inTeam = user.team != undefined;
+        if (
+          user.invitations.filter(x =>
+            x.invitedById.toString().includes(this.currentUserId)
+          ).length > 0
+        ) {
+          this.invitedToTeam = true;
+        }
+      });
+
+      this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
+        if (teamId != undefined) {
+          this.currentUserTeamId = JSON.stringify(teamId);
+          this.selfInTeam = true;
+        } else {
+          this.selfInTeam = false;
+        }
+      });
+    }
+
+    this.getUserDetails();
+  }
 
   // Retrieves data of visible user
   getUserDetails() {
@@ -88,9 +125,9 @@ export class UserProfileComponent implements OnInit {
       console.warn('Users already in same team');
       return;
     } else {
-      this.api.inviteToTeam(this.userId, invitationType).subscribe(
-        data => {
-          console.log(data);
+      this.api.sendInvitation(this.userId, invitationType).subscribe(
+        (data: Object) => {
+          this.invitedToTeam = true;
         },
         err => {
           console.error(err);
@@ -99,35 +136,20 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  dismissInvitation() {
+    this.api.dismissInvitation(this.userId, this.currentUserId).subscribe(
+      data => {
+        this.invitedToTeam = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
   removeFromTeam() {
     const teamId = '' + this.api.getTeamIdFromUser(this.userId);
     this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
-  }
-
-  editProfile() {}
-
-  ngOnInit() {
-    if (this.route.snapshot.data.self === true) {
-      this.userId = this.auth.currentUserId;
-    } else {
-      this.userId = this.route.snapshot.params['id'];
-      this.currentUserId = this.auth.currentUserId;
-
-      this.api.getUser(this.userId).subscribe(user => {
-        this.inTeam = user.team != undefined;
-      });
-
-      this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
-        if (teamId != undefined) {
-          this.currentUserTeamId = JSON.stringify(teamId);
-          this.selfInTeam = true;
-        } else {
-          this.selfInTeam = false;
-        }
-      });
-    }
-
-    this.getUserDetails();
   }
 }

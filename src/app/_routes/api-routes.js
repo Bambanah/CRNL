@@ -148,9 +148,8 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   });
 });
 
-router.post('/users/invite', function(req, res, next) {
+router.post('/invite/send', function(req, res, next) {
   const { hostId, guestId, invitationType } = req.body;
-  console.log(req.body);
 
   if (invitationType == 'create' || invitationType == 'add') {
     // Invite student to create a team
@@ -161,7 +160,7 @@ router.post('/users/invite', function(req, res, next) {
       if (
         student.invitations.filter(x =>
           x.invitedById.toString().includes(hostId)
-        )
+        ).length > 0
       ) {
         res.status(300).json('Student already has an identical invitation');
       } else {
@@ -172,6 +171,23 @@ router.post('/users/invite', function(req, res, next) {
   } else {
     res.status(300).json('No invitation type specified');
   }
+});
+
+router.post('/invite/dismiss', function(req, res, next) {
+  const { invitedId, invitedById } = req.body;
+
+  Student.findById(invitedId, function(err, student) {
+    if (err) return next(err);
+    console.log('student', student);
+    // console.log('invitations before', student.invitations);
+    student.invitations = student.invitations.filter(
+      x => x.invitedById != invitedById
+    );
+    student.save();
+
+    // console.log('invitations after', student.invitations);
+    res.status(200).json('Dismissed invitation');
+  });
 });
 
 //
