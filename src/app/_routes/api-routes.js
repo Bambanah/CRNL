@@ -51,6 +51,7 @@ router.get('/users/', function(req, res, next) {
 router.get('/users/:id', function(req, res, next) {
   Student.findById(req.params.id)
     .populate('skills')
+    .populate('team')
     .exec(function(err, user) {
       if (err) return next(err);
       res.json(user);
