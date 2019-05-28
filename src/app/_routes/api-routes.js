@@ -259,7 +259,7 @@ router.post('/users/', function(req, res) {
 // Get all teams
 router.get('/teams/', function(req, res, next) {
   Team.find()
-    .populate('members', 'full_name')
+    .populate('members')
     .exec(function(err, teams) {
       if (err) return next(err);
 
@@ -292,22 +292,26 @@ router.post('/teams/', function(req, res) {
     student.save();
 
     studentName1 = student.name.first;
+    console.log('studentName1: ', studentName1);
+
+    Student.findById(studentId2, function(err, student) {
+      if (err) return next(err);
+      student.team = newTeam._id;
+      student.save();
+
+      studentName2 = student.name.first;
+      console.log('studentName2: ', studentName2);
+
+      // Set default name as names of first two members
+      newTeam.name = `${studentName1}, ${studentName2}`;
+      console.log('newTeam.name: ', newTeam.name);
+
+      // Save team
+      newTeam.save();
+
+      res.status(201).json(newTeam);
+    });
   });
-  Student.findById(studentId2, function(err, student) {
-    if (err) return next(err);
-    student.team = newTeam._id;
-    student.save();
-
-    studentName2 = student.name.first;
-  });
-
-  // Set default name as names of first two members
-  newTeam.name = `${studentName1}, ${studentName2}`;
-
-  // Save team
-  newTeam.save();
-
-  res.status(201).json(newTeam);
 });
 
 // Get Team
@@ -362,7 +366,6 @@ router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
   Team.findById(req.params.teamId, function(err, team) {
     if (err) return next(err);
     team.removeMember(req.params.userId);
-    team.save();
   });
 
   User.findById(req.params.userId, function(err, user) {
@@ -386,11 +389,11 @@ router.delete('/teams/:id', function(req, res, next) {
         }
       });
     });
-  });
 
-  Team.findOneAndDelete(req.params.id, function(err) {
-    if (err) return next(err);
-    res.status(202);
+    Team.findOneAndDelete(req.params.id, function(err) {
+      if (err) return next(err);
+      res.status(202);
+    });
   });
 });
 
