@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit {
 
     this.api.getStudents().subscribe(
       res => {
-        console.log(res);
         this.users = res.filter(user => user._id != this.auth.currentUserId);
       },
       err => {
