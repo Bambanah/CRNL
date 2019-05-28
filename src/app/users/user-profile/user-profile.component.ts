@@ -32,27 +32,13 @@ export class UserProfileComponent implements OnInit {
   inTeam: boolean;
   selfInTeam: boolean;
   invitedToTeam: boolean;
+  invitedBy: boolean;
 
   isLoaded = false;
 
   // Placeholder user object
   // Overwritten with getUserDetails()
   user: Student;
-  //  = {
-  //   email: '',
-  //   full_name: '',
-  //   name: {
-  //     first: '',
-  //     last: ''
-  //   },
-  //   major: '',
-  //   minor: '',
-  //   team: '',
-  //   invitations: {
-  //     invitedById: '',
-  //     invitationType: ''
-  //   }
-  // };
 
   ngOnInit() {
     if (this.route.snapshot.data.self === true) {
@@ -87,6 +73,14 @@ export class UserProfileComponent implements OnInit {
 
   // Retrieves data of visible user
   getUserDetails() {
+    this.api.getUser(this.currentUserId).subscribe(student => {
+      const invitation = student.invitations.filter(x =>
+        x.invitedById.toString().includes(this.userId)
+      )[0];
+
+      this.invitedBy = typeof invitation !== 'undefined';
+    });
+
     this.api.getUser(this.userId).subscribe(data => {
       this.user = data;
       this.isLoaded = true;

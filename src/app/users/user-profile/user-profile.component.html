@@ -86,7 +86,10 @@
           </p>
           <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
           <div class="team-actions">
-            <div class="invited row" *ngIf="this.invitedToTeam && !this.inTeam">
+            <div
+              class="invited row"
+              *ngIf="this.invitedToTeam && !this.inTeam && !this.invitedBy"
+            >
               <div class="col">
                 <p>
                   <b>Invitation Sent</b>
@@ -98,6 +101,10 @@
                   Cancel Invitation
                 </a>
               </div>
+            </div>
+
+            <div *ngIf="!this.inTeam && this.invitedBy">
+              You have an invitation to join a team from this person.
             </div>
 
             <button

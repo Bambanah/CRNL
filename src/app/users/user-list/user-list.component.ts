@@ -22,10 +22,6 @@ export class UserListComponent implements OnInit {
 
   inTeam: boolean;
 
-  inSameTeam(userId): boolean {
-    return false;
-  }
-
   ngOnInit() {
     if (this.auth.currentUser) {
       this.inTeam = this.auth.currentUser.team != undefined;

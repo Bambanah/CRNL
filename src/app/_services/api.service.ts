@@ -173,7 +173,6 @@ export class ApiService {
         x._id.toString().includes(invitationId)
       )[0];
 
-      console.log(invitation ? true : false);
       if (invitation) {
         console.log(invitation);
 
