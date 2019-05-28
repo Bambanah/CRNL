@@ -11,7 +11,16 @@
           ></fa-icon>
         </a>
         <p class="card-text major">{{ student.major }}</p>
-        <p class="card-text minor">Minors: {{ student.minor }}</p>
+        <p
+          class="card-text minor"
+          *ngIf="student.minors.first != '' && student.minors.second != ''"
+        >
+          Minor<span *ngIf="student.minors.second != ''">s</span>:
+          {{ student.minors.first
+          }}<span *ngIf="student.minors.second != ''"
+            >, {{ student.minors.second }}</span
+          >
+        </p>
       </div>
 
       <div ngbDropdown class="btn-group dropright menu-buttons">

@@ -12,8 +12,14 @@ User.discriminator(
       default: ''
     },
     minors: {
-      first: String,
-      second: String
+      first: {
+        type: String,
+        default: ''
+      },
+      second: {
+        type: String,
+        default: ''
+      }
     },
     skills: {
       type: [
