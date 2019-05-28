@@ -14,7 +14,7 @@
         <p>Only details that are in <b>bold</b> are visible to others</p>
       </div>
 
-      <div id="details-container">
+      <div id="details-container" class="col-6">
         <span class="container-header">Details</span>
         <table>
           <tr class="details-row">
@@ -42,9 +42,18 @@
         </table>
       </div>
 
-      <div id="skills-container">
+      <div id="skills-container" class="col-6">
         <span class="container-header">Skills</span>
-        <p>Skills here</p>
+        <div class="skill-list" *ngIf="user.skills.length > 0">
+          <a
+            class="skill-card type-{{ skill.type }}"
+            *ngFor="let skill of user.skills"
+          >
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+          </a>
+        </div>
       </div>
 
       <div id="team-container">
