@@ -51,7 +51,9 @@
         <span class="container-header">Team</span>
         <!-- TODO: Display team details -->
         <div *ngIf="this.isSelf">
-          {{ user.team.name }}
+          <div *ngIf="user.team != null || user.team != undefined">
+            {{ user.team.name }}
+          </div>
 
           <ul>
             <li *ngFor="let invitation of user.invitations">
@@ -63,6 +65,10 @@
               >
             </li>
           </ul>
+
+          <div *ngIf="user.invitations.length == 0 && user.team == undefined">
+            <p>You are not in a team and you have no invitations</p>
+          </div>
         </div>
 
         <div *ngIf="!this.isSelf">
