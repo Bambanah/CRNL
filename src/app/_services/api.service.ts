@@ -48,6 +48,10 @@ export class ApiService {
     return body || {};
   }
 
+  // validateData() {
+  //   return this.http.get(this.apiUrl + '/validate/');
+  // }
+
   getUsers() {
     return this.http.get<User[]>(this.apiUrl + '/users/');
   }
@@ -134,19 +138,93 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  createTeam(data): Observable<any> {
+  createTeam(studentId1: string, studentId2: string): Observable<any> {
     const url = this.apiUrl + '/teams';
+    const data = {
+      studentId1,
+      studentId2
+    };
+
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
-  addToTeam(userId: string) {
-    const url = `${this.apiUrl}/teams/add/`;
+  sendInvitation(userId: string, invitationType: string) {
+    const url = `${this.apiUrl}/invite/send`;
     const data = {
       hostId: this.auth.currentUserId,
+      guestId: userId,
+      invitationType: invitationType
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  acceptInvitation(userId: string, invitationId: string) {
+    this.getUser(userId).subscribe(data => {
+      const student = data;
+
+      const invitation = student.invitations.filter(x =>
+        x._id.toString().includes(invitationId)
+      )[0];
+
+      if (invitation) {
+        if (invitation.invitationType == 'create') {
+          this.createTeam(userId, invitation.invitedById).subscribe(
+            data => {
+              this.dismissInvitation(userId, invitation.invitedById).subscribe(
+                data => {},
+                err => {
+                  this.handleError(err);
+                }
+              );
+            },
+            err => {
+              this.handleError(err);
+            }
+          );
+        } else if (invitation.invitationType == 'add') {
+          this.addToTeam(userId, invitation.invitedById).subscribe(
+            data => {
+              this.dismissInvitation(userId, invitation.invitedById).subscribe(
+                data => {},
+                err => {
+                  this.handleError(err);
+                }
+              );
+            },
+            err => {
+              this.handleError(err);
+            }
+          );
+        }
+      }
+    });
+  }
+
+  dismissInvitation(userId: string, invitedById: string) {
+    const url = `${this.apiUrl}/invite/dismiss`;
+
+    const data = {
+      invitedId: userId,
+      invitedById: invitedById
+    };
+
+    return this.http
+      .post(url, data, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addToTeam(userId: string, hostId: string) {
+    const url = `${this.apiUrl}/teams/add/`;
+    const data = {
+      hostId,
       guestId: userId
     };
+
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));

@@ -6,6 +6,8 @@ import {
 } from '@angular/router';
 import { ApiService } from 'src/app/_services/api.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Student } from '../../_models/users/Student.js';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,21 +31,56 @@ export class UserProfileComponent implements OnInit {
 
   inTeam: boolean;
   selfInTeam: boolean;
+  invitedToTeam: boolean;
+  invitedBy: boolean;
 
   isLoaded = false;
 
   // Placeholder user object
   // Overwritten with getUserDetails()
-  user = {
-    email: '',
-    full_name: '',
-    major: '',
-    minor: '',
-    team: ''
-  };
+  user: Student;
+
+  ngOnInit() {
+    if (this.route.snapshot.data.self === true) {
+      this.userId = this.auth.currentUserId;
+    } else {
+      this.userId = this.route.snapshot.params['id'];
+      this.currentUserId = this.auth.currentUserId;
+
+      this.api.getUser(this.userId).subscribe(user => {
+        this.inTeam = user.team != undefined;
+        if (
+          user.invitations.filter(x =>
+            x.invitedById.toString().includes(this.currentUserId)
+          ).length > 0
+        ) {
+          this.invitedToTeam = true;
+        }
+      });
+
+      this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
+        if (teamId != undefined) {
+          this.currentUserTeamId = JSON.stringify(teamId);
+          this.selfInTeam = true;
+        } else {
+          this.selfInTeam = false;
+        }
+      });
+    }
+
+    this.getUserDetails();
+  }
 
   // Retrieves data of visible user
   getUserDetails() {
+    this.api.getUser(this.currentUserId).subscribe(student => {
+      const invitation = student.invitations.filter(x =>
+        x.invitedById.toString().includes(this.userId)
+      )[0];
+
+      this.invitedBy = typeof invitation !== 'undefined';
+    });
+
     this.api.getUser(this.userId).subscribe(data => {
       this.user = data;
       this.isLoaded = true;
@@ -59,69 +96,43 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  createTeam() {
-    const user_id = this.userId;
-    const logged_id = this.auth.currentUserId;
-
-    if (this.sameTeam) {
-      console.warn('Students are on the same team');
-      return;
-    } else if (this.inTeam || this.selfInTeam) {
-      console.warn('One or more students are already in a team');
-      return;
-    } else {
-      const data = [user_id, logged_id];
-      this.api.createTeam(data).subscribe(team => {
-        const teamId = team._id;
-        this.router.navigate([`/teams/${teamId}`]);
-      });
-    }
-  }
-
-  addToTeam() {
-    if (!this.selfInTeam) {
+  inviteToTeam(invitationType: string) {
+    if (!this.selfInTeam && invitationType != 'create') {
       console.warn('Current user is not in a team');
       return;
     } else if (this.sameTeam) {
       console.warn('Users already in same team');
       return;
     } else {
-      this.api.addToTeam(this.userId).subscribe(err => {
-        console.error(err);
-      });
-      window.location.reload();
+      this.api.sendInvitation(this.userId, invitationType).subscribe(
+        (data: Object) => {
+          this.invitedToTeam = true;
+        },
+        err => {
+          console.error(err);
+        }
+      );
     }
+  }
+
+  acceptInvitation(invitationId: string) {
+    this.api.acceptInvitation(this.userId, invitationId);
+  }
+
+  dismissInvitation() {
+    this.api.dismissInvitation(this.userId, this.currentUserId).subscribe(
+      data => {
+        this.invitedToTeam = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
   }
 
   removeFromTeam() {
     const teamId = '' + this.api.getTeamIdFromUser(this.userId);
     this.api.removeFromTeam(teamId, this.userId);
     window.location.reload();
-  }
-
-  editProfile() {}
-
-  ngOnInit() {
-    if (this.route.snapshot.data.self === true) {
-      this.userId = this.auth.currentUserId;
-    } else {
-      this.userId = this.route.snapshot.params['id'];
-      this.currentUserId = this.auth.currentUserId;
-
-      this.api.getUser(this.userId).subscribe(user => {
-        this.inTeam = user.team != undefined;
-      });
-
-      this.api.getTeamIdFromUser(this.currentUserId).subscribe(teamId => {
-        if (teamId != undefined) {
-          this.currentUserTeamId = JSON.stringify(teamId);
-          this.selfInTeam = true;
-        } else {
-          this.selfInTeam = false;
-        }
-      });
-    }
-
-    this.getUserDetails();
   }
 }

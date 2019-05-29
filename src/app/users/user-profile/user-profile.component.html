@@ -14,7 +14,7 @@
         <p>Only details that are in <b>bold</b> are visible to others</p>
       </div>
 
-      <div id="details-container">
+      <div id="details-container" class="col-6">
         <span class="container-header">Details</span>
         <table>
           <tr class="details-row">
@@ -26,8 +26,14 @@
             <td>{{ user.major }}</td>
           </tr>
           <tr class="details-row">
-            <td class="left-column">Minor(s)</td>
-            <td>{{ user.minor }}</td>
+            <td class="left-column">
+              Minor<span *ngIf="user.minors.second != ''">s</span>
+            </td>
+            <td>{{ user.minors.first }}</td>
+          </tr>
+          <tr *ngIf="user.minors.second != ''" class="details-row">
+            <td></td>
+            <td>{{ user.minors.second }}</td>
           </tr>
           <tr class="details-row">
             <td class="left-column">GPA</td>
@@ -36,40 +42,102 @@
         </table>
       </div>
 
-      <div id="skills-container">
+      <div id="skills-container" class="col-6">
         <span class="container-header">Skills</span>
-        <p>Skills here</p>
+        <div class="skill-list" *ngIf="user.skills.length > 0">
+          <a
+            class="skill-card type-{{ skill.type }}"
+            *ngFor="let skill of user.skills"
+          >
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+          </a>
+        </div>
       </div>
 
       <div id="team-container">
         <span class="container-header">Team</span>
         <!-- TODO: Display team details -->
-        <p *ngIf="this.inTeam">
-          This user is currently in team {{ user.team }}.
-        </p>
-        <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
-        <div class="team-actions" *ngIf="!this.isSelf">
-          <li *ngIf="!this.inTeam && !this.selfInTeam">
-            <a (click)="createTeam()" href="javascript:void(0);">
-              Create team with {{ user.full_name }}
-            </a>
-          </li>
-          <li *ngIf="!this.inTeam && this.selfInTeam">
-            <a (click)="addToTeam()" href="javascript:void(0);">
-              Invite {{ user.full_name }} to team
-            </a>
-          </li>
-          <li *ngIf="this.sameTeam">
-            <a (click)="removeFromTeam()" href="javascript:void(0);">
+        <div *ngIf="this.isSelf">
+          <div *ngIf="user.team != null || user.team != undefined">
+            {{ user.team.name }}
+          </div>
+
+          <ul>
+            <li *ngFor="let invitation of user.invitations">
+              {{ invitation.invitedById }}
+              <a
+                href="javascript:void(0)"
+                (click)="this.acceptInvitation(invitation._id)"
+                >Accept</a
+              >
+            </li>
+          </ul>
+
+          <div *ngIf="user.invitations.length == 0 && user.team == undefined">
+            <p>You are not in a team and you have no invitations</p>
+          </div>
+        </div>
+
+        <div *ngIf="!this.isSelf">
+          <p *ngIf="this.inTeam">
+            This user is currently in team {{ user.team }}.
+          </p>
+          <p *ngIf="!this.inTeam">This user is currently not in a team.</p>
+          <div class="team-actions">
+            <div
+              class="invited row"
+              *ngIf="this.invitedToTeam && !this.inTeam && !this.invitedBy"
+            >
+              <div class="col">
+                <p>
+                  <b>Invitation Sent</b>
+                </p>
+                <a
+                  href="javascript:void(0);"
+                  (click)="this.dismissInvitation()"
+                >
+                  Cancel Invitation
+                </a>
+              </div>
+            </div>
+
+            <div *ngIf="!this.inTeam && this.invitedBy">
+              This user has invited you to join their team.
+            </div>
+
+            <button
+              class="btn btn-primary"
+              (click)="inviteToTeam('create')"
+              href="javascript:void(0);"
+              *ngIf="!this.inTeam && !this.selfInTeam && !this.invitedToTeam"
+            >
+              Invite {{ user.name.first }} to Create Team
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="inviteToTeam('add')"
+              href="javascript:void(0);"
+              *ngIf="!this.inTeam && this.selfInTeam"
+            >
+              Invite {{ user.name.first }} to Join Team
+            </button>
+            <button
+              class="btn btn-primary"
+              (click)="removeFromTeam()"
+              href="javascript:void(0);"
+              *ngIf="this.sameTeam"
+            >
               Remove from team
-            </a>
-          </li>
-          <li *ngIf="this.inTeam">This user is already in a team.</li>
-          <li *ngIf="this.inTeam">
-            <a (click)="addToTeam()" href="javascript:void(0);">
-              Invite anyway
-            </a>
-          </li>
+            </button>
+            <li *ngIf="this.inTeam">This user is already in a team.</li>
+            <li *ngIf="this.inTeam">
+              <a (click)="inviteToTeam('add')" href="javascript:void(0);">
+                Invite anyway
+              </a>
+            </li>
+          </div>
         </div>
       </div>
     </div>

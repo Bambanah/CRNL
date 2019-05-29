@@ -54,7 +54,6 @@ export class CreateTeamPostComponent implements OnInit {
     tempForm.title = this.teamPostForm.get('title').value;
     tempForm.content = this.teamPostForm.get('content').value;
 
-    console.log(tempForm);
     const data = [tempForm, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
       console.error(err);
@@ -84,9 +83,7 @@ export class CreateTeamPostComponent implements OnInit {
 
   removeSkill(skill: any) {
     this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
-      data => {
-        console.log('Skill removed');
-      },
+      data => {},
       err => {
         console.error(err);
       }

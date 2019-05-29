@@ -54,7 +54,6 @@ form {
 
     .skill-list {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
       padding-bottom: 20px;
 
@@ -64,6 +63,7 @@ form {
         display: inline-block;
         padding: 0 10px;
         margin-bottom: 5px;
+        margin-right: 0.35rem;
         cursor: pointer;
 
         span {

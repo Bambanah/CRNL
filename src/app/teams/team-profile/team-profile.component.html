@@ -12,18 +12,34 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h2
-            *ngIf="this.team.name != null && this.team.name != ''"
-            class="team-name"
-          >
-            {{ this.team.name }}
-          </h2>
-          <h2
-            *ngIf="this.team.name == null || this.team.name == ''"
-            class="team-name-backup"
-          >
-            {{ this.team.name_backup }}
-          </h2>
+          <div class="title" *ngIf="!this.editMode">
+            <h2
+              *ngIf="this.team.name != null && this.team.name != ''"
+              class="team-name"
+            >
+              {{ this.team.name }}
+              <a
+                (click)="this.editMode = true"
+                class="edit-btn"
+                href="javascript:void(0);"
+              >
+                <fa-icon [icon]="faPen"> </fa-icon
+              ></a>
+            </h2>
+          </div>
+          <div class="title" *ngIf="this.editMode">
+            <form>
+              <input type="text" value="{{ this.team.name }}" required />
+              <a
+                (click)="this.updateName()"
+                class="save-btn"
+                href="javascript:void(0);"
+              >
+                <fa-icon [icon]="faCheck"> </fa-icon
+              ></a>
+            </form>
+            <p>Note: This doesn't actually save yet.</p>
+          </div>
         </div>
       </div>
       <div class="row row-members">
@@ -36,7 +52,10 @@
             <li *ngFor="let member of members">
               {{ member.full_name }}
               <a
-                *ngIf="member._id != this.auth.currentUserId"
+                *ngIf="
+                  member._id != this.auth.currentUserId &&
+                  this.currentUserInTeam
+                "
                 href="javascript:void(0);"
                 class="link"
                 (click)="removeUser(member._id)"
@@ -47,7 +66,7 @@
         </div>
       </div>
 
-      <div class="row action-buttons">
+      <div class="row action-buttons" *ngIf="this.currentUserInTeam">
         <div class="col">
           <button
             href="javascript:void(0);"

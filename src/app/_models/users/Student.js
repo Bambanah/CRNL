@@ -3,7 +3,6 @@ require('../Skill');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// eslint-disable-next-line no-unused-vars
 User.discriminator(
   'Student',
   new Schema({
@@ -13,8 +12,14 @@ User.discriminator(
       default: ''
     },
     minors: {
-      first: String,
-      second: String
+      first: {
+        type: String,
+        default: ''
+      },
+      second: {
+        type: String,
+        default: ''
+      }
     },
     skills: {
       type: [
@@ -27,6 +32,20 @@ User.discriminator(
     team: {
       type: Schema.Types.ObjectId,
       ref: 'Team'
+    },
+    invitations: {
+      type: [
+        {
+          invitedById: {
+            type: Schema.Types.ObjectId,
+            ref: 'Student'
+          },
+          invitationType: {
+            type: String,
+            enum: ['create', 'add']
+          }
+        }
+      ]
     }
   })
 );
