@@ -52,7 +52,6 @@
   #skills-container {
     .skill-list {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
       padding-bottom: 20px;
 
@@ -61,6 +60,7 @@
         border-radius: 2px;
         display: inline-block;
         padding: 0 10px;
+        margin-right: 0.35rem;
         margin-bottom: 5px;
         cursor: pointer;
 
