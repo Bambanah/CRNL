@@ -14,7 +14,7 @@
           </a>
           <span *ngIf="student.team != undefined">- </span>
           <a
-            routerLink="/users/{{ student.team }}"
+            routerLink="/users/{{ student.team._id }}"
             *ngIf="student.team != undefined"
             ><b>{{ student.team.name }}</b></a
           >
