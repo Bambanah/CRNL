@@ -234,6 +234,7 @@ export class ApiService {
       hostId,
       guestId: userId
     };
+    console.log(data);
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));

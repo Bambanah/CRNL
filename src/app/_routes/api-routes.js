@@ -330,25 +330,37 @@ router.get('/teams/:id', function(req, res, next) {
 router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
   const guestId = req.body.guestId;
-  let teamId;
 
-  User.findById(guestId, function(err, user) {
-    if (err) return next(err);
-    if (user.team != undefined) {
-      res.status(300).json('This user is already in a team');
-    } else {
-      user.team = teamId;
-    }
-  });
-
-  User.findById(hostId, function(err, user) {
+  User.findById(hostId, function(err, host) {
     if (err) return next(err);
 
-    Team.findById(user.team, function(err, team) {
+    Team.findById(host.team, function(err, team) {
       if (err) return next(err);
 
-      teamId = team._id;
-      team.addMember(guestId);
+      User.findById(guestId, function(err, guest) {
+        if (err) return next(err);
+        console.log('host; ', host);
+        console.log('team: ', team);
+        console.log('guest: ', guest);
+
+        if (guest.team != undefined) {
+          Team.countDocuments({ _id: guest.team }).exec(function(err, count) {
+            if (count > 0) {
+              res.status(300).json('This user is already in a team');
+            } else {
+              team.addMember(guestId);
+              guest.team = team._id;
+              guest.save();
+              res.status(202).json(team);
+            }
+          });
+        } else {
+          team.addMember(guestId);
+          guest.team = team._id;
+          guest.save();
+          res.status(202).json(team);
+        }
+      });
     });
   });
 
