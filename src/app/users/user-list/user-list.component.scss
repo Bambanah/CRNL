@@ -26,10 +26,6 @@
     margin-top: 25px;
   }
 
-  .col {
-    padding: 0;
-  }
-
   .card-title {
     font-style: normal;
     font-weight: bold;
@@ -41,11 +37,11 @@
     color: #000000;
   }
 
-  fa-icon {
-    font-size: 0.3rem;
+  .circle-class {
+    font-size: 0.5rem;
     vertical-align: middle;
     display: inline-block;
-    color: rgba(20, 120, 20, 0.7);
+    color: rgba(17, 121, 26, 0.7);
   }
 
   .major {

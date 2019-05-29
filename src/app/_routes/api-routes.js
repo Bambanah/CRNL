@@ -22,6 +22,7 @@ router.get('/', function(res) {
 router.get('/students/', function(req, res, next) {
   Student.find()
     .populate('skills')
+    .populate('team')
     .exec(function(err, students) {
       if (err) return next(err);
       res.json(students);

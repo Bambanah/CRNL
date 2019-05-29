@@ -1,26 +1,43 @@
 <div class="container">
   <div class="card mat-elevation-z2" *ngFor="let student of users">
     <div class="card-body">
-      <div class="col">
-        <a routerLink="/users/{{ student._id }}" class="card-title">
-          {{ student.full_name }}
-          <fa-icon
-            [icon]="['fas', 'circle']"
-            [classes]="['circle-class']"
-            size="xs"
-          ></fa-icon>
-        </a>
-        <p class="card-text major">{{ student.major }}</p>
-        <p
-          class="card-text minor"
-          *ngIf="student.minors.first != '' && student.minors.second != ''"
-        >
-          Minor<span *ngIf="student.minors.second != ''">s</span>:
-          {{ student.minors.first
-          }}<span *ngIf="student.minors.second != ''"
-            >, {{ student.minors.second }}</span
+      <div class="row">
+        <div class="col">
+          <a routerLink="/users/{{ student._id }}" class="card-title">
+            <fa-icon
+              [icon]="['fas', 'circle']"
+              class="circle-class circle-class-green"
+              size="sm"
+              *ngIf="student.team == undefined"
+            ></fa-icon>
+            {{ student.full_name }}
+          </a>
+          <span *ngIf="student.team != undefined">- </span>
+          <a
+            routerLink="/users/{{ student.team }}"
+            *ngIf="student.team != undefined"
+            ><b>{{ student.team.name }}</b></a
           >
-        </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="card-text major">{{ student.major }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p
+            class="card-text minor"
+            *ngIf="student.minors.first != '' && student.minors.second != ''"
+          >
+            Minor<span *ngIf="student.minors.second != ''">s</span>:
+            {{ student.minors.first
+            }}<span *ngIf="student.minors.second != ''"
+              >, {{ student.minors.second }}</span
+            >
+          </p>
+        </div>
       </div>
 
       <div ngbDropdown class="btn-group dropright menu-buttons">
