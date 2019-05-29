@@ -77,9 +77,7 @@ export class UserProfileEditComponent implements OnInit {
 
   removeSkill(skill: any) {
     this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
-      data => {
-        console.log('Skill removed');
-      },
+      data => {},
       err => {
         console.error(err);
       }
@@ -104,9 +102,6 @@ export class UserProfileEditComponent implements OnInit {
     };
     const data = { email, name, major, minors };
 
-    this.api.updateUser(this.studentId, data).subscribe(data => {
-      console.log(data);
-    });
-    console.log(this.profileForm.value);
+    this.api.updateUser(this.studentId, data).subscribe(data => {});
   }
 }

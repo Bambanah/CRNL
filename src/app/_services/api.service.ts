@@ -167,23 +167,16 @@ export class ApiService {
     this.getUser(userId).subscribe(data => {
       const student = data;
 
-      console.log(invitationId);
-
       const invitation = student.invitations.filter(x =>
         x._id.toString().includes(invitationId)
       )[0];
 
       if (invitation) {
-        console.log(invitation);
-
         if (invitation.invitationType == 'create') {
           this.createTeam(userId, invitation.invitedById).subscribe(
             data => {
-              console.log(data);
               this.dismissInvitation(userId, invitation.invitedById).subscribe(
-                data => {
-                  console.log(data);
-                },
+                data => {},
                 err => {
                   this.handleError(err);
                 }
@@ -196,11 +189,8 @@ export class ApiService {
         } else if (invitation.invitationType == 'add') {
           this.addToTeam(userId, invitation.invitedById).subscribe(
             data => {
-              console.log(data);
               this.dismissInvitation(userId, invitation.invitedById).subscribe(
-                data => {
-                  console.log(data);
-                },
+                data => {},
                 err => {
                   this.handleError(err);
                 }
@@ -234,7 +224,7 @@ export class ApiService {
       hostId,
       guestId: userId
     };
-    console.log(data);
+
     return this.http
       .post(url, data, httpOptions)
       .pipe(catchError(this.handleError));

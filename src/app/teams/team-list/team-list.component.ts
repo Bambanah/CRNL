@@ -20,7 +20,6 @@ export class TeamListComponent implements OnInit {
   ngOnInit() {
     this.api.getTeams().subscribe(res => {
       this.teams = res;
-      console.log(this.teams);
       this.loading = false;
     });
   }

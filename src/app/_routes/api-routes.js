@@ -9,15 +9,6 @@ const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
 const Skill = require('../_models/Skill');
 
-// router.get('/validate/', function(req, res, next) {
-//   const students = Student.find();
-//   const teams = Team.find();
-
-//   students.forEach(student => {
-//     console.log(student);
-//   });
-// });
-
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
   res.send('API Test');
@@ -181,14 +172,11 @@ router.post('/invite/dismiss', function(req, res, next) {
 
   Student.findById(invitedId, function(err, student) {
     if (err) return next(err);
-    console.log('student', student);
-    // console.log('invitations before', student.invitations);
     student.invitations = student.invitations.filter(
       x => x.invitedById != invitedById
     );
     student.save();
 
-    // console.log('invitations after', student.invitations);
     res.status(200).json('Dismissed invitation');
   });
 });
@@ -289,7 +277,6 @@ router.post('/teams/', function(req, res) {
     student.save();
 
     studentName1 = student.name.first;
-    console.log('studentName1: ', studentName1);
 
     Student.findById(studentId2, function(err, student) {
       if (err) return next(err);
@@ -297,11 +284,9 @@ router.post('/teams/', function(req, res) {
       student.save();
 
       studentName2 = student.name.first;
-      console.log('studentName2: ', studentName2);
 
       // Set default name as names of first two members
       newTeam.name = `${studentName1}, ${studentName2}`;
-      console.log('newTeam.name: ', newTeam.name);
 
       // Save team
       newTeam.save();
@@ -339,9 +324,6 @@ router.post('/teams/add/', function(req, res, next) {
 
       User.findById(guestId, function(err, guest) {
         if (err) return next(err);
-        console.log('host; ', host);
-        console.log('team: ', team);
-        console.log('guest: ', guest);
 
         if (guest.team != undefined) {
           Team.countDocuments({ _id: guest.team }).exec(function(err, count) {
@@ -464,7 +446,6 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
-  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,
