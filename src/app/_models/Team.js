@@ -7,9 +7,6 @@ const TeamSchema = new Schema(
       type: String,
       default: null
     },
-    name_backup: {
-      type: String
-    },
     bio: String,
     members: {
       type: [

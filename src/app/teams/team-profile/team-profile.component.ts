@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/_services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
-import { TeamListComponent } from '../team-list/team-list.component';
+import { faPen, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import Team from '../../_models/Team.js';
 
@@ -22,10 +21,15 @@ export class TeamProfileComponent implements OnInit {
 
   loading = true;
   error = null;
+  editMode = false;
+
+  faPen = faPen;
+  faCheck = faCheck;
 
   teamId = this.route.snapshot.params['id'];
   team: Team;
-  members: any;
+  members: any[];
+  currentUserInTeam: boolean;
 
   handleError(err) {
     if (err['status'] == 404) {
@@ -57,7 +61,11 @@ export class TeamProfileComponent implements OnInit {
   getMembers() {
     this.api.getMembersOfTeam(this.teamId).subscribe(
       res => {
-        this.members = res;
+        this.members = Object.values(res);
+
+        this.currentUserInTeam =
+          this.members.find(x => x._id == this.auth.currentUserId) != undefined;
+
         this.loading = false;
       },
       err => {
@@ -77,6 +85,10 @@ export class TeamProfileComponent implements OnInit {
       });
       window.location.reload();
     }
+  }
+
+  updateName() {
+    this.editMode = false;
   }
 
   ngOnInit() {

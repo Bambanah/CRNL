@@ -22,7 +22,7 @@ export class UserListComponent implements OnInit {
 
   inTeam: boolean;
 
-  inSameTeam(userId): boolean {
+  inSameTeam(userId: string): boolean {
     return false;
   }
 

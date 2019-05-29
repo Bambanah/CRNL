@@ -9,15 +9,6 @@ const Student = require('../_models/users/Student');
 const Team = require('../_models/Team');
 const Skill = require('../_models/Skill');
 
-// router.get('/validate/', function(req, res, next) {
-//   const students = Student.find();
-//   const teams = Team.find();
-
-//   students.forEach(student => {
-//     console.log(student);
-//   });
-// });
-
 // EXCLUSIVELY FOR TESTING
 router.get('/', function(res) {
   res.send('API Test');
@@ -29,10 +20,13 @@ router.get('/', function(res) {
 
 // Get all students
 router.get('/students/', function(req, res, next) {
-  Student.find(function(err, students) {
-    if (err) return next(err);
-    res.json(students);
-  });
+  Student.find()
+    .populate('skills')
+    .populate('team')
+    .exec(function(err, students) {
+      if (err) return next(err);
+      res.json(students);
+    });
 });
 
 //
@@ -51,6 +45,7 @@ router.get('/users/', function(req, res, next) {
 router.get('/users/:id', function(req, res, next) {
   Student.findById(req.params.id)
     .populate('skills')
+    .populate('team')
     .exec(function(err, user) {
       if (err) return next(err);
       res.json(user);
@@ -148,9 +143,8 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   });
 });
 
-router.post('/users/invite', function(req, res, next) {
+router.post('/invite/send', function(req, res, next) {
   const { hostId, guestId, invitationType } = req.body;
-  console.log(req.body);
 
   if (invitationType == 'create' || invitationType == 'add') {
     // Invite student to create a team
@@ -161,7 +155,7 @@ router.post('/users/invite', function(req, res, next) {
       if (
         student.invitations.filter(x =>
           x.invitedById.toString().includes(hostId)
-        )
+        ).length > 0
       ) {
         res.status(300).json('Student already has an identical invitation');
       } else {
@@ -172,6 +166,20 @@ router.post('/users/invite', function(req, res, next) {
   } else {
     res.status(300).json('No invitation type specified');
   }
+});
+
+router.post('/invite/dismiss', function(req, res, next) {
+  const { invitedId, invitedById } = req.body;
+
+  Student.findById(invitedId, function(err, student) {
+    if (err) return next(err);
+    student.invitations = student.invitations.filter(
+      x => x.invitedById != invitedById
+    );
+    student.save();
+
+    res.status(200).json('Dismissed invitation');
+  });
 });
 
 //
@@ -242,14 +250,9 @@ router.post('/users/', function(req, res) {
 // Get all teams
 router.get('/teams/', function(req, res, next) {
   Team.find()
-    .populate('members', 'full_name')
+    .populate('members')
     .exec(function(err, teams) {
       if (err) return next(err);
-
-      teams.forEach(team => {
-        nameBackup = team.members.map(a => a.full_name);
-        team.name_backup = nameBackup.join(', ');
-      });
 
       res.status(202).json(teams);
     });
@@ -261,27 +264,37 @@ router.post('/teams/', function(req, res) {
   const newTeam = new Team();
 
   // Add student IDs to team document
-  const studentId1 = req.body[0];
-  const studentId2 = req.body[1];
+  const { studentId1, studentId2 } = req.body;
+  let studentName1;
+  let studentName2;
+
   newTeam.members.push(studentId1);
   newTeam.members.push(studentId2);
 
   // Add team id to student documents
-  User.findById(req.body[0], function(err, user) {
+  Student.findById(studentId1, function(err, student) {
     if (err) return next(err);
-    user.team = newTeam._id;
-    user.save();
-  });
-  User.findById(req.body[1], function(err, user) {
-    if (err) return next(err);
-    user.team = newTeam._id;
-    user.save();
-  });
+    student.team = newTeam._id;
+    student.save();
 
-  // Save team
-  newTeam.save();
+    studentName1 = student.name.first;
 
-  res.status(201).json(newTeam);
+    Student.findById(studentId2, function(err, student) {
+      if (err) return next(err);
+      student.team = newTeam._id;
+      student.save();
+
+      studentName2 = student.name.first;
+
+      // Set default name as names of first two members
+      newTeam.name = `${studentName1}, ${studentName2}`;
+
+      // Save team
+      newTeam.save();
+
+      res.status(201).json(newTeam);
+    });
+  });
 });
 
 // Get Team
@@ -292,9 +305,6 @@ router.get('/teams/:id', function(req, res, next) {
       if (err) return next(err);
 
       if (team != null) {
-        nameBackup = team.members.map(a => a.full_name);
-        team.name_backup = nameBackup.join(', ');
-
         res.status(202).json(team);
       } else {
         res.status(404).json("Team doesn't exist");
@@ -306,25 +316,34 @@ router.get('/teams/:id', function(req, res, next) {
 router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
   const guestId = req.body.guestId;
-  let teamId;
 
-  User.findById(guestId, function(err, user) {
-    if (err) return next(err);
-    if (user.team != undefined) {
-      res.status(300).json('This user is already in a team');
-    } else {
-      user.team = teamId;
-    }
-  });
-
-  User.findById(hostId, function(err, user) {
+  User.findById(hostId, function(err, host) {
     if (err) return next(err);
 
-    Team.findById(user.team, function(err, team) {
+    Team.findById(host.team, function(err, team) {
       if (err) return next(err);
 
-      teamId = team._id;
-      team.addMember(guestId);
+      User.findById(guestId, function(err, guest) {
+        if (err) return next(err);
+
+        if (guest.team != undefined) {
+          Team.countDocuments({ _id: guest.team }).exec(function(err, count) {
+            if (count > 0) {
+              res.status(300).json('This user is already in a team');
+            } else {
+              team.addMember(guestId);
+              guest.team = team._id;
+              guest.save();
+              res.status(202).json(team);
+            }
+          });
+        } else {
+          team.addMember(guestId);
+          guest.team = team._id;
+          guest.save();
+          res.status(202).json(team);
+        }
+      });
     });
   });
 
@@ -336,7 +355,6 @@ router.post('/teams/:teamId/remove/:userId', function(req, res, next) {
   Team.findById(req.params.teamId, function(err, team) {
     if (err) return next(err);
     team.removeMember(req.params.userId);
-    team.save();
   });
 
   User.findById(req.params.userId, function(err, user) {
@@ -360,11 +378,11 @@ router.delete('/teams/:id', function(req, res, next) {
         }
       });
     });
-  });
 
-  Team.findOneAndDelete(req.params.id, function(err) {
-    if (err) return next(err);
-    res.status(202);
+    Team.findOneAndDelete(req.params.id, function(err) {
+      if (err) return next(err);
+      res.status(202);
+    });
   });
 });
 
@@ -429,7 +447,6 @@ router.get('/posts/:id', function(req, res, next) {
 
 // Create post
 router.post('/posts/', function(req, res, next) {
-  console.log(req.body);
   Post.create(
     {
       title: req.body[0].title,
