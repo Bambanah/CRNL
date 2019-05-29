@@ -29,10 +29,12 @@ router.get('/', function(res) {
 
 // Get all students
 router.get('/students/', function(req, res, next) {
-  Student.find(function(err, students) {
-    if (err) return next(err);
-    res.json(students);
-  });
+  Student.find()
+    .populate('skills')
+    .exec(function(err, students) {
+      if (err) return next(err);
+      res.json(students);
+    });
 });
 
 //

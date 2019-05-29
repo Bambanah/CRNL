@@ -54,17 +54,16 @@
       </div>
     </div>
     <div class="card-footer">
-      <ul class="tags">
-        <li class="tag" style="background-color:#00A981;">
-          <a style="color:white;" href="javascript:void(0);">c#</a>
-        </li>
-        <li class="tag" style="background-color:rgb(199, 199, 55);">
-          <a style="color:black;" href="javascript:void(0);">java</a>
-        </li>
-        <li class="tag" style="background-color:#DF2020;">
-          <a style="color:black;" href="javascript:void(0);">typescript</a>
-        </li>
-      </ul>
+      <div class="skill-list" *ngIf="student.skills.length > 0">
+        <a
+          class="skill-card type-{{ skill.type }}"
+          *ngFor="let skill of student.skills"
+        >
+          <span class="skill-name">
+            {{ skill.name }}
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
