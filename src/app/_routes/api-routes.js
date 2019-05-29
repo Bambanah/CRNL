@@ -263,11 +263,6 @@ router.get('/teams/', function(req, res, next) {
     .exec(function(err, teams) {
       if (err) return next(err);
 
-      teams.forEach(team => {
-        nameBackup = team.members.map(a => a.full_name);
-        team.name_backup = nameBackup.join(', ');
-      });
-
       res.status(202).json(teams);
     });
 });
@@ -322,9 +317,6 @@ router.get('/teams/:id', function(req, res, next) {
       if (err) return next(err);
 
       if (team != null) {
-        nameBackup = team.members.map(a => a.full_name);
-        team.name_backup = nameBackup.join(', ');
-
         res.status(202).json(team);
       } else {
         res.status(404).json("Team doesn't exist");
