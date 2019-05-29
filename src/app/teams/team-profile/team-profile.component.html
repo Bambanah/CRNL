@@ -30,7 +30,10 @@
             <li *ngFor="let member of members">
               {{ member.full_name }}
               <a
-                *ngIf="member._id != this.auth.currentUserId"
+                *ngIf="
+                  member._id != this.auth.currentUserId &&
+                  this.currentUserInTeam
+                "
                 href="javascript:void(0);"
                 class="link"
                 (click)="removeUser(member._id)"

@@ -25,7 +25,8 @@ export class TeamProfileComponent implements OnInit {
 
   teamId = this.route.snapshot.params['id'];
   team: Team;
-  members: any;
+  members: any[];
+  currentUserInTeam: boolean;
 
   handleError(err) {
     if (err['status'] == 404) {
@@ -57,7 +58,11 @@ export class TeamProfileComponent implements OnInit {
   getMembers() {
     this.api.getMembersOfTeam(this.teamId).subscribe(
       res => {
-        this.members = res;
+        this.members = Object.values(res);
+
+        this.currentUserInTeam =
+          this.members.find(x => x._id == this.auth.currentUserId) != undefined;
+
         this.loading = false;
       },
       err => {
