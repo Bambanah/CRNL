@@ -61,7 +61,9 @@
         <!-- TODO: Display team details -->
         <div *ngIf="this.isSelf">
           <div *ngIf="user.team != null || user.team != undefined">
-            {{ user.team.name }}
+            <a routerLink="/teams/{{ user.team._id }}">
+              {{ user.team.name }}
+            </a>
           </div>
           <div *ngIf="user.team == undefined">
             <p>You are not currently in a team.</p>
