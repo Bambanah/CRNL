@@ -87,7 +87,7 @@ UserSchema.methods.generateJwt = function() {
       exp: parseInt(expiry.getTime() / 1000)
     },
     'SECRET'
-  ); // TODO: Move to environment variables
+  );
 };
 
 UserSchema.methods.isStudent = function() {

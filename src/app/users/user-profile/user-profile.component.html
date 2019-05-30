@@ -58,7 +58,6 @@
 
       <div id="team-container">
         <span class="container-header">Team</span>
-        <!-- TODO: Display team details -->
         <div *ngIf="this.isSelf">
           <div *ngIf="user.team != null || user.team != undefined">
             <a routerLink="/teams/{{ user.team._id }}">

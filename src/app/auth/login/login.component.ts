@@ -12,13 +12,11 @@ import { AuthService } from '../../_services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false; //TODO: remove loading? Seems unnessesary
+  loading = false;
   submitted = false;
   returnUrl: string;
-  error = ''; //TODO: remove? also seems unnessesary
   email: string;
   password: string;
-  closeResult: string; //TODO: remove? also seems unnessesary
 
   constructor(
     private formBuilder: FormBuilder,

@@ -12,11 +12,6 @@ const SkillSchema = new Schema(
       enum: ['language', 'framework', 'talent', 'other'],
       required: true
     },
-    // TODO: Maybe add this in later
-    // description: {
-    //   type: String,
-    //   required: false
-    // },
     members: {
       type: [
         {

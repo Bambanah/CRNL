@@ -394,7 +394,7 @@ router.get('/users/:userId/team/', function(req, res, next) {
     if (user.team) {
       res.status(202).send(user.team);
     } else {
-      res.status(300); // TODO: Figure out which code to use
+      res.status(300);
     }
   });
 });
@@ -408,7 +408,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
     } else {
       if (team.members === undefined || team.members.length === 0) {
         console.warn('Team has no members');
-        res.status(300); // TODO: Figure out which code to use
+        res.status(300);
       } else {
         Team.findOne({ _id: req.params.teamId })
           .populate('members')
