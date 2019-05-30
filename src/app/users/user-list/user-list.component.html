@@ -4,13 +4,13 @@
       <div class="row">
         <div class="col">
           <a routerLink="/users/{{ student._id }}" class="card-title">
+            {{ student.full_name }}
             <fa-icon
               [icon]="['fas', 'circle']"
-              class="circle-class circle-class-green"
+              class="circle-class"
               size="sm"
               *ngIf="student.team == undefined"
             ></fa-icon>
-            {{ student.full_name }}
           </a>
           <span *ngIf="student.team != undefined">- </span>
           <a
