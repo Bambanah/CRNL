@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/_services/auth.service';
+import { faBars, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-list',
@@ -17,6 +18,9 @@ export class UserListComponent implements OnInit {
     config.placement = 'right-top';
     config.autoClose = true;
   }
+
+  faBars = faBars;
+  faEllipsisV = faEllipsisV;
 
   users: any;
 
