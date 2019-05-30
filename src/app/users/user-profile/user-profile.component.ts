@@ -130,12 +130,24 @@ export class UserProfileComponent implements OnInit {
 
   acceptInvitation(invitationId: string) {
     this.api.acceptInvitation(this.userId, invitationId);
+    this.getUserDetails();
   }
 
-  dismissInvitation() {
+  cancelInvitation() {
     this.api.dismissInvitation(this.userId, this.currentUserId).subscribe(
       data => {
         this.invitedToTeam = false;
+      },
+      err => {
+        console.error(err);
+      }
+    );
+  }
+
+  dismissInvitation(userId: string) {
+    this.api.dismissInvitation(this.userId, userId).subscribe(
+      data => {
+        this.getUserDetails();
       },
       err => {
         console.error(err);

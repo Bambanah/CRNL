@@ -63,20 +63,34 @@
           <div *ngIf="user.team != null || user.team != undefined">
             {{ user.team.name }}
           </div>
+          <div *ngIf="user.team == undefined">
+            <p>You are not currently in a team.</p>
+          </div>
 
-          <ul>
-            <li *ngFor="let invitation of user.invitations">
-              <span *ngIf="invitation.isLoaded">
-                {{ invitation.student_name }}
-                <a
-                  href="javascript:void(0)"
-                  (click)="this.acceptInvitation(invitation._id)"
-                >
-                  Accept
-                </a>
-              </span>
-            </li>
-          </ul>
+          <div id="invitations-container" *ngIf="user.invitations != ''">
+            <h5>Invitations</h5>
+            <ul>
+              <li *ngFor="let invitation of user.invitations">
+                <span *ngIf="invitation.isLoaded">
+                  <b>{{ invitation.student_name }}</b> has invited you to
+                  {{ invitation.invitationType }} a team with them.
+                  <br />
+                  <a
+                    href="javascript:void(0)"
+                    (click)="this.acceptInvitation(invitation._id)"
+                  >
+                    Accept
+                  </a>
+                  <a
+                    href="javascript:void(0)"
+                    (click)="this.dismissInvitation(invitation.invitedById)"
+                  >
+                    Dismiss
+                  </a>
+                </span>
+              </li>
+            </ul>
+          </div>
 
           <div *ngIf="user.invitations.length == 0 && user.team == undefined">
             <p>You are not in a team and you have no invitations</p>
@@ -97,10 +111,7 @@
                 <p>
                   <b>Invitation Sent</b>
                 </p>
-                <a
-                  href="javascript:void(0);"
-                  (click)="this.dismissInvitation()"
-                >
+                <a href="javascript:void(0);" (click)="this.cancelInvitation()">
                   Cancel Invitation
                 </a>
               </div>
