@@ -66,12 +66,15 @@
 
           <ul>
             <li *ngFor="let invitation of user.invitations">
-              {{ invitation.invitedById }}
-              <a
-                href="javascript:void(0)"
-                (click)="this.acceptInvitation(invitation._id)"
-                >Accept</a
-              >
+              <span *ngIf="invitation.isLoaded">
+                {{ invitation.student_name }}
+                <a
+                  href="javascript:void(0)"
+                  (click)="this.acceptInvitation(invitation._id)"
+                >
+                  Accept
+                </a>
+              </span>
             </li>
           </ul>
 

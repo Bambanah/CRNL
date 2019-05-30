@@ -83,6 +83,19 @@ export class UserProfileComponent implements OnInit {
 
     this.api.getUser(this.userId).subscribe(data => {
       this.user = data;
+
+      for (let i = 0; i < this.user.invitations.length; i++) {
+        let invitation = this.user.invitations[i];
+        invitation.isLoaded = false;
+
+        this.api.getUser(invitation.invitedById).subscribe(student => {
+          invitation.student_name = student.full_name;
+          invitation.isLoaded = true;
+
+          this.user.invitations[i] = invitation;
+        });
+      }
+
       this.isLoaded = true;
     });
   }
