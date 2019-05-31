@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   email: string;
+  error = '';
   password: string;
 
   constructor(
