@@ -24,7 +24,7 @@ export class PostListComponent implements OnInit {
         this.loading = false;
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }

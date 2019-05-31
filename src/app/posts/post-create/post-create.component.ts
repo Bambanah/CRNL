@@ -41,7 +41,7 @@ export class PostCreateComponent implements OnInit {
   onFormSubmit(form: NgForm) {
     const data = [form, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
-      console.error(err);
+      console.warn(err);
 
       window.location.reload();
     });

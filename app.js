@@ -45,7 +45,7 @@ mongoose
   })
   // Log when connection successful (if in dev environment)
   .then(() => console.log('MongoDB connection successful.'))
-  .catch(err => console.error(err));
+  .catch(err => console.warn(err));
 
 // Use new method to remove deprecation warning
 mongoose.set('useCreateIndex', true);

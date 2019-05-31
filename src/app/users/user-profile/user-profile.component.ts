@@ -122,7 +122,7 @@ export class UserProfileComponent implements OnInit {
           this.invitedToTeam = true;
         },
         err => {
-          console.error(err);
+          console.warn(err);
         }
       );
     }
@@ -139,7 +139,7 @@ export class UserProfileComponent implements OnInit {
         this.invitedToTeam = false;
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }
@@ -150,7 +150,7 @@ export class UserProfileComponent implements OnInit {
         this.getUserDetails();
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }

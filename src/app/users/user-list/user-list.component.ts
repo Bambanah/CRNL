@@ -40,7 +40,7 @@ export class UserListComponent implements OnInit {
         this.users = res.filter(user => user._id != this.auth.currentUserId);
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }

@@ -81,7 +81,7 @@ export class TeamProfileComponent implements OnInit {
       }
     } else {
       this.api.removeFromTeam(this.teamId, userId).subscribe(err => {
-        console.error(err);
+        console.warn(err);
       });
       window.location.reload();
     }

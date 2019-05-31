@@ -56,7 +56,7 @@ export class CreateTeamPostComponent implements OnInit {
 
     const data = [tempForm, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
-      console.error(err);
+      console.warn(err);
 
       window.location.reload();
     });
@@ -76,7 +76,7 @@ export class CreateTeamPostComponent implements OnInit {
         this.skills.push(data);
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }
@@ -85,7 +85,7 @@ export class CreateTeamPostComponent implements OnInit {
     this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
       data => {},
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
     this.skills = this.skills.filter(function(arraySkill) {
@@ -101,7 +101,7 @@ export class CreateTeamPostComponent implements OnInit {
         this.loading = false;
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
     this.teamPostForm = this.formBuilder.group({
