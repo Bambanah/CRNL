@@ -20,4 +20,7 @@ describe('UserProfileComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  afterEach(() => {
+    fixture.destroy();
+  });
 });
