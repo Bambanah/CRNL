@@ -13,8 +13,6 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./user-profile-edit.component.scss']
 })
 export class UserProfileEditComponent implements OnInit {
-  // TODO: Implement editing of fields
-
   // Font Awesome Icons
   faPlus = faPlus;
   faTimes = faTimes;
@@ -51,7 +49,7 @@ export class UserProfileEditComponent implements OnInit {
         this.loading = false;
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }
@@ -70,7 +68,7 @@ export class UserProfileEditComponent implements OnInit {
         this.skills.push(data);
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }
@@ -79,7 +77,7 @@ export class UserProfileEditComponent implements OnInit {
     this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
       data => {},
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
     this.skills = this.skills.filter(function(arraySkill) {

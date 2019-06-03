@@ -143,6 +143,33 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   });
 });
 
+router.put('/users/:id/industry/add', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+    student.industries.push(req.body.name);
+    student.save();
+
+    res.status(200).end();
+  });
+});
+
+router.put('/users/:id/industry/remove', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    console.log(req.body);
+    const industryToRemove = req.body.name;
+
+    student.industries.filter(arrIndustry => {
+      return arrIndustry != industryToRemove;
+    });
+
+    student.save();
+
+    res.status(200).end();
+  });
+});
+
 router.post('/invite/send', function(req, res, next) {
   const { hostId, guestId, invitationType } = req.body;
 
@@ -312,6 +339,17 @@ router.get('/teams/:id', function(req, res, next) {
     });
 });
 
+// Update single user
+router.put('/teams/:id', function(req, res, next) {
+  Team.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(
+    err,
+    Team
+  ) {
+    if (err) return next(err);
+    res.json(Team);
+  });
+});
+
 // Add member to team
 router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
@@ -394,7 +432,7 @@ router.get('/users/:userId/team/', function(req, res, next) {
     if (user.team) {
       res.status(202).send(user.team);
     } else {
-      res.status(300); // TODO: Figure out which code to use
+      res.status(300);
     }
   });
 });
@@ -408,7 +446,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
     } else {
       if (team.members === undefined || team.members.length === 0) {
         console.warn('Team has no members');
-        res.status(300); // TODO: Figure out which code to use
+        res.status(300);
       } else {
         Team.findOne({ _id: req.params.teamId })
           .populate('members')
@@ -429,7 +467,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
 // Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
-    .populate('author')
+    .populate({ path: 'author', populate: { path: 'skills' } })
     .sort('-updatedAt')
     .exec(function(err, posts) {
       if (err) return next(err);
@@ -455,9 +493,7 @@ router.post('/posts/', function(req, res, next) {
     },
     function(err, post) {
       if (err) return next(err);
-      post.populate('author');
-      post.save();
-      res.json(post);
+      res.status(201).end();
     }
   );
 });
@@ -466,7 +502,7 @@ router.post('/posts/', function(req, res, next) {
 router.put('/posts/:id', function(req, res, next) {
   Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).end();
   });
 });
 
@@ -474,14 +510,8 @@ router.put('/posts/:id', function(req, res, next) {
 router.delete('/posts/:id', function(req, res, next) {
   Post.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).end();
   });
 });
-
-//
-//  Helper Functions
-//
-
-// Under Construction
 
 module.exports = router;

@@ -5,7 +5,22 @@
   <ng-template #elseTemplate>
     <div class="card mat-elevation-z1" *ngFor="let post of posts">
       <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
+        <div class="row">
+          <div class="col-11">
+            <h5 class="card-title">{{ post.title }}</h5>
+          </div>
+          <div class="col-1">
+            <a
+              (click)="this.deletePost(post._id)"
+              class="close-btn"
+              href="javascript:void(0);"
+              *ngIf="post.author._id === this.auth.currentUserId"
+            >
+              <fa-icon [icon]="faTimes" size="lg"></fa-icon>
+            </a>
+          </div>
+        </div>
+
         <p class="card-text">{{ post.content }}</p>
         <p class="card-text">
           <small class="text-muted">
@@ -15,6 +30,16 @@
             </a>
           </small>
         </p>
+        <div class="skill-list">
+          <a
+            class="skill-card type-{{ skill.type }}"
+            *ngFor="let skill of post.author.skills"
+          >
+            <span class="skill-name">
+              {{ skill.name }}
+            </span>
+          </a>
+        </div>
       </div>
     </div>
   </ng-template>

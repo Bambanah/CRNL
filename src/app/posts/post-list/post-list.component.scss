@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .container {
   padding: 0;
   margin: 0;
@@ -13,4 +15,43 @@
 .card {
   width: 40rem;
   margin: 0 0 2rem 0;
+
+  .close-btn {
+    color: rgb(189, 22, 22);
+  }
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .skill-card {
+    flex: 0 0 auto;
+    border-radius: 2px;
+    display: inline-block;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    margin: 3px 5px;
+
+    span {
+      font-family: $font-family-2;
+      font-weight: 600;
+    }
+
+    &.type-language {
+      background-color: #09568d;
+      color: white;
+    }
+
+    &.type-framework {
+      background-color: #b72727;
+      color: white;
+    }
+
+    &.type-other {
+      background-color: rgb(240, 228, 61);
+      color: rgb(0, 0, 0);
+    }
+  }
 }

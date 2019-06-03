@@ -35,8 +35,7 @@ export class CreateTeamPostComponent implements OnInit {
   loading = true;
   student: any;
   skills = [];
-
-  industries = ['Design', 'Full-Stack Development', 'Finance'];
+  industries = [];
 
   // Close creation and go back to selection
   closeComponent() {
@@ -56,7 +55,7 @@ export class CreateTeamPostComponent implements OnInit {
 
     const data = [tempForm, this.auth.currentUserId];
     this.api.postPost(data).subscribe(err => {
-      console.error(err);
+      console.warn(err);
 
       window.location.reload();
     });
@@ -76,7 +75,7 @@ export class CreateTeamPostComponent implements OnInit {
         this.skills.push(data);
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
   }
@@ -85,11 +84,51 @@ export class CreateTeamPostComponent implements OnInit {
     this.api.removeSkillFromStudent(this.student.id, skill).subscribe(
       data => {},
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
     this.skills = this.skills.filter(function(arraySkill) {
       return arraySkill._id != skill._id;
+    });
+  }
+
+  addIndustry() {
+    let industryName = (<HTMLInputElement>(
+      document.getElementById('industry-input')
+    )).value;
+
+    const industryExists = this.industries.includes(industryName);
+
+    if (industryExists) {
+      console.log('Industry already added!');
+    } else if (industryName.length < 1) {
+      console.log('Name is not long enough!');
+    } else {
+      const industryData = { name: industryName };
+
+      this.api.addIndustryToStudent(this.student.id, industryData).subscribe(
+        data => {
+          this.industries.push(industryName);
+        },
+        err => {
+          console.warn(err);
+        }
+      );
+    }
+  }
+
+  removeIndustry(industry: string) {
+    console.log(industry);
+    const industryData = { name: industry };
+
+    this.api.removeIndustryFromStudent(this.student.id, industryData).subscribe(
+      data => {},
+      err => {
+        console.warn(err);
+      }
+    );
+    this.industries = this.industries.filter(arrayIndustry => {
+      return arrayIndustry != industry;
     });
   }
 
@@ -98,10 +137,11 @@ export class CreateTeamPostComponent implements OnInit {
       data => {
         this.student = data;
         this.skills = data.skills;
+        this.industries = data.industries;
         this.loading = false;
       },
       err => {
-        console.error(err);
+        console.warn(err);
       }
     );
     this.teamPostForm = this.formBuilder.group({

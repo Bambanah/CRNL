@@ -30,11 +30,11 @@ export class ApiService {
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.warn('An error occurred:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
-      console.error(
+      console.warn(
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
       return Promise.resolve(error);
@@ -72,6 +72,13 @@ export class ApiService {
     );
   }
 
+  updateTeam(teamId: string, teamData): Observable<User> {
+    const url = `${this.apiUrl}/teams/${teamId}`;
+    return this.http
+      .put(url, teamData, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   getUser(userId: string): Observable<User> {
     const url = `${this.apiUrl}/users/${userId}`;
     return this.http.get(url, httpOptions).pipe(
@@ -98,6 +105,20 @@ export class ApiService {
     const url = `${this.apiUrl}/users/${userId}/skills/remove`;
     return this.http
       .put(url, skill, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addIndustryToStudent(userId: string, industry) {
+    const url = `${this.apiUrl}/users/${userId}/industry/add`;
+    return this.http
+      .put(url, industry, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  removeIndustryFromStudent(userId: string, industry) {
+    const url = `${this.apiUrl}/users/${userId}/industry/remove`;
+    return this.http
+      .put(url, industry, httpOptions)
       .pipe(catchError(this.handleError));
   }
 
