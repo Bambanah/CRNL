@@ -143,6 +143,33 @@ router.put('/users/:id/skills/remove', function(req, res, next) {
   });
 });
 
+router.put('/users/:id/industry/add', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+    student.industries.push(req.body.name);
+    student.save();
+
+    res.status(200).end();
+  });
+});
+
+router.put('/users/:id/industry/remove', function(req, res, next) {
+  Student.findById(req.params.id, function(err, student) {
+    if (err) return next(err);
+
+    console.log(req.body);
+    const industryToRemove = req.body.name;
+
+    student.industries.filter(arrIndustry => {
+      return arrIndustry != industryToRemove;
+    });
+
+    student.save();
+
+    res.status(200).end();
+  });
+});
+
 router.post('/invite/send', function(req, res, next) {
   const { hostId, guestId, invitationType } = req.body;
 

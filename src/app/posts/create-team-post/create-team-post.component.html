@@ -80,17 +80,27 @@
       <ul class="industry-list">
         <li class="industry-item" *ngFor="let industry of industries">
           {{ industry }}
+          <a
+            (click)="this.removeIndustry(industry)"
+            class="close-btn"
+            href="javascript:void(0);"
+          >
+            <fa-icon [icon]="faTimes" size="lg"></fa-icon>
+          </a>
         </li>
       </ul>
       <div class="input-group">
         <input
           type="text"
           class="form-control"
-          id="industryInput"
+          id="industry-input"
           placeholder="Add Industry"
         />
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary">
+          <button
+            class="btn btn-outline-secondary"
+            (click)="this.addIndustry()"
+          >
             <fa-icon [icon]="faPlus" size="sm"></fa-icon>
           </button>
         </div>

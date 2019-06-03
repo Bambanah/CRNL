@@ -35,8 +35,7 @@ export class CreateTeamPostComponent implements OnInit {
   loading = true;
   student: any;
   skills = [];
-
-  industries = ['Design', 'Full-Stack Development', 'Finance'];
+  industries = [];
 
   // Close creation and go back to selection
   closeComponent() {
@@ -93,11 +92,52 @@ export class CreateTeamPostComponent implements OnInit {
     });
   }
 
+  addIndustry() {
+    let industryName = (<HTMLInputElement>(
+      document.getElementById('industry-input')
+    )).value;
+
+    const industryExists = this.industries.includes(industryName);
+
+    if (industryExists) {
+      console.log('Industry already added!');
+    } else if (industryName.length < 1) {
+      console.log('Name is not long enough!');
+    } else {
+      const industryData = { name: industryName };
+
+      this.api.addIndustryToStudent(this.student.id, industryData).subscribe(
+        data => {
+          this.industries.push(industryName);
+        },
+        err => {
+          console.warn(err);
+        }
+      );
+    }
+  }
+
+  removeIndustry(industry: string) {
+    console.log(industry);
+    const industryData = { name: industry };
+
+    this.api.removeIndustryFromStudent(this.student.id, industryData).subscribe(
+      data => {},
+      err => {
+        console.warn(err);
+      }
+    );
+    this.industries = this.industries.filter(arrayIndustry => {
+      return arrayIndustry != industry;
+    });
+  }
+
   ngOnInit() {
     this.api.getUser(this.auth.currentUserId).subscribe(
       data => {
         this.student = data;
         this.skills = data.skills;
+        this.industries = data.industries;
         this.loading = false;
       },
       err => {

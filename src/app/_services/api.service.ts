@@ -108,6 +108,20 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  addIndustryToStudent(userId: string, industry) {
+    const url = `${this.apiUrl}/users/${userId}/industry/add`;
+    return this.http
+      .put(url, industry, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  removeIndustryFromStudent(userId: string, industry) {
+    const url = `${this.apiUrl}/users/${userId}/industry/remove`;
+    return this.http
+      .put(url, industry, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   getPosts(): Observable<Post> {
     const url = `${this.apiUrl}/posts/`;
     return this.http.get(url, httpOptions).pipe(

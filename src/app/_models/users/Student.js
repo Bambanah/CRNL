@@ -29,6 +29,7 @@ User.discriminator(
         }
       ]
     },
+    industries: [String],
     team: {
       type: Schema.Types.ObjectId,
       ref: 'Team'
