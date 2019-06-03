@@ -31,6 +31,9 @@ describe('SignupComponent', () => {
         fixture.detectChanges();
       });
   }));
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('should create', async(() => {
     expect(component).toBeTruthy();
@@ -138,9 +141,8 @@ describe('SignupComponent', () => {
     el = fixture.debugElement.query(By.css('#major')).nativeElement;
     el.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(component.signupForm.get('major').value).toEqual('');
-    });
+    expect(component.signupForm.get('major').value).toEqual('');
+    fixture.whenStable().then(() => {});
   });
 
   it(`should have signupForm's minor reflect form conponent #minor`, () => {

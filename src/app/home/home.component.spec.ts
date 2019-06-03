@@ -54,6 +54,9 @@ describe('HomeComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('should create', () => {
     // console.log('');

@@ -35,10 +35,12 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
+    fixture.destroy();
   }));
   it(`should have the title as 'QUT Compass'`, async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('QUT Compass');
+    fixture.destroy();
   }));
 });

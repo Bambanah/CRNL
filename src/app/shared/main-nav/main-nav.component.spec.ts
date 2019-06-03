@@ -38,4 +38,7 @@ describe('MainNavComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+  afterEach(() => {
+    fixture.destroy();
+  });
 });

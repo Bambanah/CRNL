@@ -36,6 +36,9 @@ describe('StaffDashboardComponent', () => {
         fixture.detectChanges();
       });
   }));
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   // beforeEach(() => {
   //   fixture = TestBed.createComponent(StaffDashboardComponent);
@@ -46,6 +49,7 @@ describe('StaffDashboardComponent', () => {
   it('should create?', () => {
     component.ngOnInit();
     console.log(component['api'].getStudents());
+    expect(component).toBeTruthy();
   });
 
   // it('should see what happens', async(() => {

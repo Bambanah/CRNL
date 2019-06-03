@@ -36,17 +36,18 @@ export class UserProfileEditComponent implements OnInit {
       data => {
         this.student = data;
         this.skills = data.skills;
+        if (this.student !== undefined) {
+          this.profileForm = new FormGroup({
+            email: new FormControl(this.student.email),
+            firstName: new FormControl(this.student.name.first),
+            lastName: new FormControl(this.student.name.last),
+            major: new FormControl(this.student.major),
+            firstMinor: new FormControl(this.student.minors.first),
+            secondMinor: new FormControl(this.student.minors.second)
+          });
 
-        this.profileForm = new FormGroup({
-          email: new FormControl(this.student.email),
-          firstName: new FormControl(this.student.name.first),
-          lastName: new FormControl(this.student.name.last),
-          major: new FormControl(this.student.major),
-          firstMinor: new FormControl(this.student.minors.first),
-          secondMinor: new FormControl(this.student.minors.second)
-        });
-
-        this.loading = false;
+          this.loading = false;
+        }
       },
       err => {
         console.warn(err);
@@ -88,18 +89,20 @@ export class UserProfileEditComponent implements OnInit {
   personalSubmit() {
     const form = this.profileForm.value;
 
-    const email = form.email;
-    const name = {
-      first: form.firstName,
-      last: form.lastName
-    };
-    const major = form.major;
-    const minors = {
-      first: form.firstMinor,
-      second: form.secondMinor
-    };
-    const data = { email, name, major, minors };
+    if (form !== undefined) {
+      const email = form.email;
+      const name = {
+        first: form.firstName,
+        last: form.lastName
+      };
+      const major = form.major;
+      const minors = {
+        first: form.firstMinor,
+        second: form.secondMinor
+      };
+      const data = { email, name, major, minors };
 
-    this.api.updateUser(this.studentId, data).subscribe(data => {});
+      this.api.updateUser(this.studentId, data).subscribe(data => {});
+    }
   }
 }

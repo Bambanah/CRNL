@@ -1,5 +1,5 @@
 <ng-container *ngIf="!this.loading; else elseTemplate">
-  <div class="container">
+  <div class="container" *ngIf="student !== undefined">
     <a href="/profile">&lt; back to profile</a>
     <div id="skill-details" class="profile-section">
       <div class="section-header">
