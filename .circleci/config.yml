@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/my-project
     docker:
       - image: circleci/node:8-browsers
@@ -14,9 +14,11 @@ jobs:
           paths:
             - node_modules
       - run: yarn test -- --watch=false --no-progress --browsers ChromeHeadless
+      - store_test_results:
+          path: test-results
     parallelism: 4
 workflows:
   version: 2
   workflow:
     jobs:
-      - build
+      - test
