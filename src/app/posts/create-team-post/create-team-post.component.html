@@ -5,17 +5,21 @@
     </div>
 
     <div class="row">
-      <div class="col-11 form-group">
+      <div class="col-12 form-group">
+        <label for="titleInput" class="section-title">
+          Title Your Post<br />
+          <span class="team-description-list">Choose something catchy!</span>
+        </label>
         <input
           type="text"
           class="form-control"
           id="titleInput"
           formControlName="title"
-          placeholder="Title Your Post"
+          placeholder="Title"
           required
         />
       </div>
-      <div class="col-1">
+      <div class="col-1" *ngIf="false">
         <a
           (click)="this.closeComponent()"
           class="close-btn"
@@ -28,11 +32,14 @@
     <div class="row">
       <div class="col form-group">
         <label for="contentInput" class="section-title">
-          Describe Your Ideal Team
-          <ul id="team-description-list">
-            <li>What kind of project do you want?</li>
-            <li>What mark are you aiming for?</li>
-          </ul>
+          Describe Your Ideal Team <br />
+          <span class="team-description-list"
+            >What kind of project do you want?</span
+          >
+          <br />
+          <span class="team-description-list"
+            >What mark are you aiming for?</span
+          >
         </label>
         <textarea
           rows="3"
