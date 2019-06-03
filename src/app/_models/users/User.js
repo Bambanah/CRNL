@@ -12,8 +12,14 @@ const options = {
 const UserSchema = new Schema(
   {
     name: {
-      first: String,
-      last: String
+      first: {
+        type: String,
+        default: ''
+      },
+      last: {
+        type: String,
+        default: ''
+      }
     },
     posts: {
       type: [
