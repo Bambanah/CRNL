@@ -6,6 +6,7 @@
     "build": "ng build --prod",
     "start": "node ./bin/www",
     "dev": "ng build && concurrently \"nodemon ./bin/www\" \"ng serve --proxy-config proxy.conf.json\"",
+    "prod": "ng build --prod && node ./bin/www",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

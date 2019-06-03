@@ -37,7 +37,7 @@ If you wish to run a development version of this app to track updates to the cod
 If changes are being made to any of the angular code.
 This will start the express backend and run the angular frontend at the same time using the [concurrently](https://www.npmjs.com/package/concurrently) package
 
-### `npm start`
+### `npm run prod`
 
 For testing the complete system with no updates to the angular code.
 Angular code is built in production mode and accessed directly from the express server.
