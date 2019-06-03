@@ -493,9 +493,7 @@ router.post('/posts/', function(req, res, next) {
     },
     function(err, post) {
       if (err) return next(err);
-      post.populate('author');
-      post.save();
-      res.json(post);
+      res.status(201).end();
     }
   );
 });
@@ -504,7 +502,7 @@ router.post('/posts/', function(req, res, next) {
 router.put('/posts/:id', function(req, res, next) {
   Post.findByIdAndUpdate(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).end();
   });
 });
 
@@ -512,14 +510,8 @@ router.put('/posts/:id', function(req, res, next) {
 router.delete('/posts/:id', function(req, res, next) {
   Post.findByIdAndRemove(req.params.id, req.body, function(err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.status(201).end();
   });
 });
-
-//
-//  Helper Functions
-//
-
-// Under Construction
 
 module.exports = router;

@@ -3,6 +3,7 @@ import { ApiService } from '../../_services/api.service';
 import { DataSource } from '@angular/cdk/collections';
 
 import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-post-list',
@@ -10,7 +11,7 @@ import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService, public auth: AuthService) {}
 
   loading = true;
   posts: any;
@@ -34,9 +35,7 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(postId: string) {
-    this.api.deletePost(postId).subscribe(data => {
-      console.log(data);
-    });
+    this.api.deletePost(postId).subscribe(data => {});
     this.posts = this.posts.filter(post => {
       return post._id != postId;
     });
