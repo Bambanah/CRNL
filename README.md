@@ -1,5 +1,12 @@
 # QUT Compass
 
+## Authors
+
+- Nik Sirhan - _Project Lead_ - n10275363
+- Ranne Sanedrin ([impulsifier](https://github.com/impulsifier/)) - _SCRUM Master_ - n8817596
+- Lachlan Underhill ([Bambanah](https://github.com/Bambanah/)) - _Developer_ - n9692941
+- Cameron Short ([cshor24](https://github.com/cshor24/)) - _Developer_ - n9450106
+- 
 ## Introduction
 
 QUT Compass aims to unify the current methods of team formation within the IFB398/IFB399 units
@@ -61,10 +68,3 @@ QUT Compass is a MEAN full stack app, built with:
 - [Angular 6](https://angular.io/) - Frontend
 - [Node.js](https://nodejs.org/en/) - Backend
 - [Karma](https://karma-runner.github.io/latest/index.html) and [Jasmine](https://jasmine.github.io/) - Unit Testing
-
-## Authors
-
-- Nik Sirhan - _Project Lead_ - n10275363
-- Ranne Sanedrin ([impulsifier](https://github.com/impulsifier/)) - _SCRUM Master_ - n8817596
-- Lachlan Underhill ([Bambanah](https://github.com/Bambanah/)) - _Developer_ - n9692941
-- Cameron Short ([cshor24](https://github.com/cshor24/)) - _Developer_ - n9450106
