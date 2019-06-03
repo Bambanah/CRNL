@@ -14,6 +14,8 @@ jobs:
           paths:
             - node_modules
       - run: yarn test -- --watch=false --no-progress --browsers ChromeHeadless
+      - store_test_results:
+          path: test-results
     parallelism: 4
 workflows:
   version: 2
