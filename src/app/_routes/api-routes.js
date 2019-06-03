@@ -467,7 +467,7 @@ router.get('/teams/:teamId/members', function(req, res, next) {
 // Get all posts
 router.get('/posts/', function(req, res, next) {
   Post.find({})
-    .populate('author')
+    .populate({ path: 'author', populate: { path: 'skills' } })
     .sort('-updatedAt')
     .exec(function(err, posts) {
       if (err) return next(err);

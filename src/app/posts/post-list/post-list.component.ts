@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../_services/api.service';
 import { DataSource } from '@angular/cdk/collections';
 
+import { faTimes, faPlus } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -12,6 +14,8 @@ export class PostListComponent implements OnInit {
 
   loading = true;
   posts: any;
+
+  faTimes = faTimes;
 
   ngOnInit() {
     this.api.getPosts().subscribe(
@@ -27,6 +31,15 @@ export class PostListComponent implements OnInit {
         console.warn(err);
       }
     );
+  }
+
+  deletePost(postId: string) {
+    this.api.deletePost(postId).subscribe(data => {
+      console.log(data);
+    });
+    this.posts = this.posts.filter(post => {
+      return post._id != postId;
+    });
   }
 }
 
