@@ -22,23 +22,35 @@
                 (click)="this.editMode = true"
                 class="edit-btn"
                 href="javascript:void(0);"
+                *ngIf="this.currentUserInTeam"
               >
                 <fa-icon [icon]="faPen"> </fa-icon
               ></a>
             </h2>
           </div>
-          <div class="title" *ngIf="this.editMode">
-            <form>
-              <input type="text" value="{{ this.team.name }}" required />
-              <a
-                (click)="this.updateName()"
-                class="save-btn"
-                href="javascript:void(0);"
-              >
-                <fa-icon [icon]="faCheck"> </fa-icon
-              ></a>
+          <div class="title" *ngIf="this.editMode && this.currentUserInTeam">
+            <form (ngSubmit)="this.formSubmit()" [formGroup]="teamForm">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  value="{{ this.team.name }}"
+                  formControlName="name"
+                  id="name"
+                  required
+                />
+                <div class="input-group-append">
+                  <button
+                    for="name"
+                    type="submit"
+                    class="btn btn-outline-primary"
+                    href="javascript:void(0);"
+                  >
+                    <fa-icon [icon]="faCheck"> </fa-icon>
+                  </button>
+                </div>
+              </div>
             </form>
-            <p>Note: This doesn't actually save yet.</p>
           </div>
         </div>
       </div>

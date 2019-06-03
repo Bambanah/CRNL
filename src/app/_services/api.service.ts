@@ -72,6 +72,13 @@ export class ApiService {
     );
   }
 
+  updateTeam(teamId: string, teamData): Observable<User> {
+    const url = `${this.apiUrl}/teams/${teamId}`;
+    return this.http
+      .put(url, teamData, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   getUser(userId: string): Observable<User> {
     const url = `${this.apiUrl}/users/${userId}`;
     return this.http.get(url, httpOptions).pipe(

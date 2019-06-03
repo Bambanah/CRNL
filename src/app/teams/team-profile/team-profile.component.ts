@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { faPen, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import Team from '../../_models/Team.js';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-team-profile',
@@ -30,6 +31,7 @@ export class TeamProfileComponent implements OnInit {
   team: Team;
   members: any[];
   currentUserInTeam: boolean;
+  teamForm: FormGroup;
 
   handleError(err) {
     if (err['status'] == 404) {
@@ -87,7 +89,15 @@ export class TeamProfileComponent implements OnInit {
     }
   }
 
-  updateName() {
+  formSubmit() {
+    const name = this.teamForm.value.name;
+
+    this.api.updateTeam(this.teamId, { name }).subscribe(data => {
+      console.log(data);
+    });
+
+    this.team.name = name;
+
     this.editMode = false;
   }
 
@@ -95,6 +105,9 @@ export class TeamProfileComponent implements OnInit {
     this.getMembers();
     this.api.getTeam(this.teamId).subscribe(res => {
       this.team = res;
+      this.teamForm = new FormGroup({
+        name: new FormControl(this.team.name)
+      });
     });
   }
 }

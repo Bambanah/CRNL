@@ -312,6 +312,17 @@ router.get('/teams/:id', function(req, res, next) {
     });
 });
 
+// Update single user
+router.put('/teams/:id', function(req, res, next) {
+  Team.findByIdAndUpdate(req.params.id, req.body, { new: true }, function(
+    err,
+    Team
+  ) {
+    if (err) return next(err);
+    res.json(Team);
+  });
+});
+
 // Add member to team
 router.post('/teams/add/', function(req, res, next) {
   const hostId = req.body.hostId;
