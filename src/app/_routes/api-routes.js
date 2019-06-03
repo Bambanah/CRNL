@@ -304,14 +304,18 @@ router.post('/teams/', function(req, res) {
     student.team = newTeam._id;
     student.save();
 
-    studentName1 = student.name.first;
+    if (student.name !== undefined) {
+      studentName1 = student.name.first;
+    }
 
     Student.findById(studentId2, function(err, student) {
       if (err) return next(err);
       student.team = newTeam._id;
       student.save();
 
-      studentName2 = student.name.first;
+      if (student.name !== undefined) {
+        studentName2 = student.name.first;
+      }
 
       // Set default name as names of first two members
       newTeam.name = `${studentName1}, ${studentName2}`;

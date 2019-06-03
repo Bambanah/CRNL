@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import {
   MatFormFieldModule,
@@ -28,7 +27,6 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         HomeComponent,
-        SearchBarComponent,
         PostListComponent,
         PostCreateComponent,
         LoadingComponent,
@@ -58,6 +56,7 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
+    // console.log('');
     expect(component).toBeTruthy();
   });
 });

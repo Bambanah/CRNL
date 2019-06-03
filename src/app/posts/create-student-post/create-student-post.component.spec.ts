@@ -24,7 +24,6 @@ describe('CreateStudentPostComponent', () => {
   });
 
   // it('should create', () => {
-
   //   expect(component).toBeTruthy();
   // });
 });
