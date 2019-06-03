@@ -7,13 +7,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run: npm install
+          key: my-project-{{ .Branch }}-{{ checksum "yarn-lock.json" }}
+      - run: yarn install
       - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: my-project-{{ .Branch }}-{{ checksum "yarn-lock.json" }}
           paths:
             - node_modules
-      - run: npm run test -- --watch=false --no-progress --browsers ChromeHeadless
+      - run: yarn test -- --watch=false --no-progress --browsers ChromeHeadless
     parallelism: 4
 workflows:
   version: 2
