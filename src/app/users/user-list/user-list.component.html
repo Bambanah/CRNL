@@ -29,11 +29,15 @@
         <div class="col">
           <p
             class="card-text minor"
-            *ngIf="student.minors.first != '' && student.minors.second != ''"
+            *ngIf="
+              student.minors !== undefined &&
+              student.minors.first != '' &&
+              student.minors.second != ''
+            "
           >
             Minor<span *ngIf="student.minors.second != ''">s</span>:
-            {{ student.minors.first
-            }}<span *ngIf="student.minors.second != ''"
+            {{ student.minors.first }}
+            <span *ngIf="student.minors.second != ''"
               >, {{ student.minors.second }}</span
             >
           </p>

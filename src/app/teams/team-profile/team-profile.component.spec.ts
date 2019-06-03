@@ -4,6 +4,8 @@ import { TeamProfileComponent } from './team-profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('TeamProfileComponent', () => {
   let component: TeamProfileComponent;
@@ -12,7 +14,12 @@ describe('TeamProfileComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TeamProfileComponent, LoadingComponent],
-      imports: [RouterTestingModule, HttpClientTestingModule]
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        FontAwesomeModule,
+        ReactiveFormsModule
+      ]
     }).compileComponents();
   }));
 

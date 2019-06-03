@@ -12,8 +12,14 @@ const options = {
 const UserSchema = new Schema(
   {
     name: {
-      first: String,
-      last: String
+      first: {
+        type: String,
+        default: ''
+      },
+      last: {
+        type: String,
+        default: ''
+      }
     },
     posts: {
       type: [
@@ -48,8 +54,7 @@ UserSchema.pre('save', function(next) {
   // eslint-disable-next-line no-invalid-this
   const user = this;
   if (user.isModified('password') || user.isNew) {
-    // eslint-disable-next-line no-invalid-this
-    bcrypt.hash(this.password, saltRounds, function(err, hash) {
+    bcrypt.hash(user.password, saltRounds, function(err, hash) {
       if (err) {
         return next(err);
       }
@@ -63,7 +68,10 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.virtual('full_name').get(function() {
   // eslint-disable-next-line no-invalid-this
-  return this.name.first + ' ' + this.name.last;
+  if (this.name !== undefined) {
+    // eslint-disable-next-line no-invalid-this
+    return this.name.first + ' ' + this.name.last;
+  }
 });
 
 UserSchema.methods.comparePassword = function(password, cb) {

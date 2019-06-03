@@ -252,12 +252,6 @@ router.post('/users/authenticate/', function(req, res) {
 
 // Sign up new student
 router.post('/students/', function(req, res) {
-  const studentData = req.body;
-  studentData.name = { first: String, last: String };
-  studentData.name.first = studentData.first_name;
-  delete studentData.first_name;
-  studentData.name.last = studentData.last_name;
-  delete studentData.last_name;
   const newStudent = new Student(req.body);
   newStudent.save();
   res.status(202);
@@ -304,14 +298,18 @@ router.post('/teams/', function(req, res) {
     student.team = newTeam._id;
     student.save();
 
-    studentName1 = student.name.first;
+    if (student.name !== undefined) {
+      studentName1 = student.name.first;
+    }
 
     Student.findById(studentId2, function(err, student) {
       if (err) return next(err);
       student.team = newTeam._id;
       student.save();
 
-      studentName2 = student.name.first;
+      if (student.name !== undefined) {
+        studentName2 = student.name.first;
+      }
 
       // Set default name as names of first two members
       newTeam.name = `${studentName1}, ${studentName2}`;
