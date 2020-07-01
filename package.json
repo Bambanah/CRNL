@@ -52,7 +52,7 @@
     "http-errors": "^1.7.2",
     "json2csv": "^4.5.0",
     "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.7.5",
     "mongoose-unique-validator": "^2.0.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
